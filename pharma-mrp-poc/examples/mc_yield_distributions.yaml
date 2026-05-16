@@ -1,0 +1,55 @@
+monte_carlo:
+  name: "API-001 Cost Uncertainty — Q2 2026"
+  n_iterations: 10000
+  random_seed: 42
+  base_config:
+    batch_size_kg: 50.0
+    num_batches: 5
+
+  parameters:
+    - type: step_yield
+      target_step: step_1
+      label: "Step 1 Yield"
+      distribution: normal
+      mean: 87.0
+      std: 4.0
+      clip_low: 60.0
+      clip_high: 99.0
+      unit: "%"
+
+    - type: step_yield
+      target_step: step_3
+      label: "Step 3 Yield"
+      distribution: pert
+      min: 60.0
+      most_likely: 74.0
+      max: 88.0
+      unit: "%"
+
+    - type: step_yield
+      target_step: step_4
+      label: "Step 4 Yield"
+      distribution: pert
+      min: 70.0
+      most_likely: 82.0
+      max: 92.0
+      unit: "%"
+
+    - type: material_price
+      target_material: "Starting Material A"
+      label: "SM-A Price"
+      distribution: lognormal
+      mean: 6.71
+      std: 0.18
+      unit: "USD/kg"
+
+    - type: material_price
+      target_material: "Pd/C catalyst (5%)"
+      label: "Pd/C Price"
+      distribution: uniform
+      low: 1000.0
+      high: 1800.0
+      unit: "USD/kg"
+
+  correlations:
+    - ["SM-A Price", "Pd/C Price", 0.65]

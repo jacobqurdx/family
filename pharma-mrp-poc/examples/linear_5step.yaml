@@ -1,0 +1,228 @@
+process:
+  name: "API-001 Route A"
+  target_api:
+    name: "Compound X"
+    cas: "12345-67-8"
+  description: "Linear 5-step synthesis of API-001 via nitration-reduction-coupling route"
+
+steps:
+  - id: step_1
+    name: "Nitration"
+    reaction_type: "electrophilic_aromatic_substitution"
+    gmp: false
+    yield_pct: 87.0
+    theoretical_yield_pct: 95.0
+    output:
+      name: "2-Fluoro-4-nitrotoluene"
+      mw_g_mol: 155.13
+    materials:
+      - name: "2-Fluorotoluene"
+        cas: "95-52-3"
+        type: starting_material
+        role: limiting_reagent
+        mw_g_mol: 110.13
+        equivalents: 1.0
+        excess_pct: 0.0
+        canonical_unit: kg
+      - name: "Nitric acid (conc.)"
+        cas: "7697-37-2"
+        type: reagent
+        role: reagent
+        mw_g_mol: 63.01
+        equivalents: 1.2
+        excess_pct: 20.0
+        canonical_unit: kg
+      - name: "Sulfuric acid (conc.)"
+        cas: "7664-93-9"
+        type: reagent
+        role: reagent
+        mw_g_mol: 98.08
+        equivalents: 2.0
+        excess_pct: 0.0
+        canonical_unit: kg
+      - name: "DCM"
+        cas: "75-09-2"
+        type: solvent
+        role: solvent
+        volume_ratio_l_per_kg: 10.0
+        canonical_unit: L
+    costs:
+      equipment:
+        - name: "500L Glass-Lined Reactor"
+          cost_per_batch: 4800.0
+          currency: USD
+      labor:
+        - role: "Process Operator"
+          hours_per_batch: 12.0
+          rate_per_hour: 65.0
+          currency: USD
+      utilities:
+        - type: electricity
+          quantity_per_batch: 180.0
+          unit: kWh
+          cost_per_unit: 0.12
+          currency: USD
+
+  - id: step_2
+    name: "Reduction"
+    reaction_type: "catalytic_hydrogenation"
+    gmp: false
+    yield_pct: 91.0
+    theoretical_yield_pct: 98.0
+    output:
+      name: "2-Fluoro-4-aminotoluene"
+      mw_g_mol: 125.15
+    materials:
+      - name: "2-Fluoro-4-nitrotoluene"
+        type: starting_material
+        role: limiting_reagent
+        mw_g_mol: 155.13
+        equivalents: 1.0
+        excess_pct: 0.0
+        canonical_unit: kg
+      - name: "Pd/C catalyst (5%)"
+        cas: "7440-05-3"
+        type: catalyst
+        role: catalyst
+        mw_g_mol: 106.42
+        catalyst_mol_pct: 5.0
+        excess_pct: 0.0
+        canonical_unit: kg
+      - name: "Ethanol"
+        cas: "64-17-5"
+        type: solvent
+        role: solvent
+        volume_ratio_l_per_kg: 8.0
+        canonical_unit: L
+
+  - id: step_3
+    name: "Amide Coupling"
+    reaction_type: "amide_bond_formation"
+    gmp: true
+    yield_pct: 74.0
+    theoretical_yield_pct: 90.0
+    output:
+      name: "Intermediate C"
+      mw_g_mol: 312.36
+    materials:
+      - name: "Starting Material A"
+        cas: "98765-43-2"
+        type: starting_material
+        role: limiting_reagent
+        mw_g_mol: 187.24
+        equivalents: 1.0
+        excess_pct: 0.0
+        canonical_unit: kg
+      - name: "2-Fluoro-4-aminotoluene"
+        type: reagent
+        role: reagent
+        mw_g_mol: 125.15
+        equivalents: 1.0
+        excess_pct: 0.0
+        canonical_unit: kg
+      - name: "HATU"
+        cas: "148893-10-1"
+        type: reagent
+        role: reagent
+        mw_g_mol: 380.24
+        equivalents: 1.1
+        excess_pct: 10.0
+        canonical_unit: kg
+      - name: "DIPEA"
+        cas: "7087-68-5"
+        type: reagent
+        role: reagent
+        mw_g_mol: 129.24
+        equivalents: 2.5
+        excess_pct: 0.0
+        canonical_unit: kg
+      - name: "DMF (anhydrous)"
+        cas: "68-12-2"
+        type: solvent
+        role: solvent
+        volume_ratio_l_per_kg: 8.0
+        canonical_unit: L
+
+  - id: step_4
+    name: "Cyclisation"
+    reaction_type: "intramolecular_cyclisation"
+    gmp: true
+    yield_pct: 82.0
+    theoretical_yield_pct: 92.0
+    output:
+      name: "API Free Base"
+      mw_g_mol: 294.35
+    materials:
+      - name: "Intermediate C"
+        type: starting_material
+        role: limiting_reagent
+        mw_g_mol: 312.36
+        equivalents: 1.0
+        excess_pct: 0.0
+        canonical_unit: kg
+      - name: "Potassium carbonate"
+        cas: "584-08-7"
+        type: reagent
+        role: reagent
+        mw_g_mol: 138.21
+        equivalents: 2.0
+        excess_pct: 0.0
+        canonical_unit: kg
+      - name: "Acetonitrile"
+        cas: "75-05-8"
+        type: solvent
+        role: solvent
+        volume_ratio_l_per_kg: 6.0
+        canonical_unit: L
+
+  - id: step_5
+    name: "Salt Formation"
+    reaction_type: "acid_base"
+    gmp: true
+    yield_pct: 95.0
+    theoretical_yield_pct: 99.0
+    output:
+      name: "API · HCl (final)"
+      mw_g_mol: 330.81
+    materials:
+      - name: "API Free Base"
+        type: starting_material
+        role: limiting_reagent
+        mw_g_mol: 294.35
+        equivalents: 1.0
+        excess_pct: 0.0
+        canonical_unit: kg
+      - name: "HCl (4M in dioxane)"
+        cas: "7647-01-0"
+        type: reagent
+        role: reagent
+        mw_g_mol: 36.46
+        equivalents: 1.05
+        excess_pct: 5.0
+        canonical_unit: L
+      - name: "Isopropanol"
+        cas: "67-63-0"
+        type: solvent
+        role: solvent
+        volume_ratio_l_per_kg: 5.0
+        canonical_unit: L
+
+edges:
+  - from: null
+    to: step_1
+  - from: step_1
+    to: step_2
+    intermediate: "2-Fluoro-4-nitrotoluene"
+  - from: step_2
+    to: step_3
+    intermediate: "2-Fluoro-4-aminotoluene"
+  - from: step_3
+    to: step_4
+    intermediate: "Intermediate C"
+  - from: step_4
+    to: step_5
+    intermediate: "API Free Base"
+  - from: step_5
+    to: null
+    terminal: true
+    intermediate: "API · HCl"
