@@ -1,0 +1,151 @@
+process:
+  name: "API-002 Convergent Route"
+  target_api:
+    name: "Compound Y"
+    cas: "99999-00-0"
+
+steps:
+  - id: frag_a_step_1
+    name: "Fragment A — Synthesis"
+    gmp: false
+    yield_pct: 88.0
+    output:
+      name: "Fragment A Intermediate"
+      mw_g_mol: 210.28
+    materials:
+      - name: "SM-A1"
+        type: starting_material
+        role: limiting_reagent
+        mw_g_mol: 142.16
+        equivalents: 1.0
+        excess_pct: 0.0
+        canonical_unit: kg
+      - name: "Reagent R1"
+        type: reagent
+        role: reagent
+        mw_g_mol: 88.11
+        equivalents: 1.1
+        excess_pct: 10.0
+        canonical_unit: kg
+      - name: "THF"
+        type: solvent
+        role: solvent
+        volume_ratio_l_per_kg: 7.0
+        canonical_unit: L
+
+  - id: frag_a_step_2
+    name: "Fragment A — Deprotection"
+    gmp: false
+    yield_pct: 93.0
+    output:
+      name: "Fragment A (deprotected)"
+      mw_g_mol: 168.20
+    materials:
+      - name: "Fragment A Intermediate"
+        type: starting_material
+        role: limiting_reagent
+        mw_g_mol: 210.28
+        equivalents: 1.0
+        excess_pct: 0.0
+        canonical_unit: kg
+      - name: "TFA"
+        type: reagent
+        role: reagent
+        mw_g_mol: 114.02
+        equivalents: 5.0
+        excess_pct: 0.0
+        canonical_unit: L
+      - name: "DCM"
+        type: solvent
+        role: solvent
+        volume_ratio_l_per_kg: 10.0
+        canonical_unit: L
+
+  - id: frag_b_step_1
+    name: "Fragment B — Synthesis"
+    gmp: false
+    yield_pct: 85.0
+    output:
+      name: "Fragment B"
+      mw_g_mol: 198.22
+    materials:
+      - name: "SM-B1"
+        type: starting_material
+        role: limiting_reagent
+        mw_g_mol: 156.18
+        equivalents: 1.0
+        excess_pct: 0.0
+        canonical_unit: kg
+      - name: "Reagent R2"
+        type: reagent
+        role: reagent
+        mw_g_mol: 78.13
+        equivalents: 1.2
+        excess_pct: 20.0
+        canonical_unit: kg
+      - name: "EtOAc"
+        type: solvent
+        role: solvent
+        volume_ratio_l_per_kg: 8.0
+        canonical_unit: L
+
+  - id: coupling_step
+    name: "Fragment Coupling"
+    gmp: true
+    yield_pct: 76.0
+    output:
+      name: "Compound Y (API)"
+      mw_g_mol: 348.40
+    materials:
+      - name: "Fragment A (deprotected)"
+        type: starting_material
+        role: limiting_reagent
+        mw_g_mol: 168.20
+        equivalents: 1.0
+        excess_pct: 0.0
+        canonical_unit: kg
+      - name: "Fragment B"
+        type: starting_material
+        role: reagent
+        mw_g_mol: 198.22
+        equivalents: 1.05
+        excess_pct: 5.0
+        canonical_unit: kg
+      - name: "HATU"
+        type: reagent
+        role: reagent
+        mw_g_mol: 380.24
+        equivalents: 1.1
+        excess_pct: 10.0
+        canonical_unit: kg
+      - name: "DIPEA"
+        type: reagent
+        role: reagent
+        mw_g_mol: 129.24
+        equivalents: 2.5
+        excess_pct: 0.0
+        canonical_unit: kg
+      - name: "DMF"
+        type: solvent
+        role: solvent
+        volume_ratio_l_per_kg: 10.0
+        canonical_unit: L
+
+edges:
+  - from: null
+    to: frag_a_step_1
+  - from: null
+    to: frag_b_step_1
+  - from: frag_a_step_1
+    to: frag_a_step_2
+    intermediate: "Fragment A Intermediate"
+  - from: frag_a_step_2
+    to: coupling_step
+    intermediate: "Fragment A (deprotected)"
+  - from: frag_b_step_1
+    to: coupling_step
+    intermediate: "Fragment B"
+  - from: coupling_step
+    to: null
+    terminal: true
+    intermediate: "Compound Y (API)"

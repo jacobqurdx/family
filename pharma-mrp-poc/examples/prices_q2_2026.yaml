@@ -1,0 +1,101 @@
+price_list:
+  name: "Q2 2026 Spot Prices"
+  currency: USD
+  effective_date: "2026-04-01"
+
+materials:
+  - name: "2-Fluorotoluene"
+    cas: "95-52-3"
+    price_per_kg: 48.00
+    vendor: "Sigma-Aldrich"
+    lead_time_days: 14
+    min_order_kg: 10.0
+  - name: "2-Fluoro-4-nitrotoluene"
+    price_per_kg: 0.00
+    vendor: "In-house intermediate"
+    lead_time_days: 0
+  - name: "2-Fluoro-4-aminotoluene"
+    price_per_kg: 0.00
+    vendor: "In-house intermediate"
+    lead_time_days: 0
+  - name: "Intermediate C"
+    price_per_kg: 0.00
+    vendor: "In-house intermediate"
+    lead_time_days: 0
+  - name: "API Free Base"
+    price_per_kg: 0.00
+    vendor: "In-house intermediate"
+    lead_time_days: 0
+  - name: "Starting Material A"
+    cas: "98765-43-2"
+    price_per_kg: 820.00
+    vendor: "ChemSource Ltd"
+    lead_time_days: 126
+    min_order_kg: 5.0
+  - name: "Pd/C catalyst (5%)"
+    price_per_kg: 1380.00
+    vendor: "Johnson Matthey"
+    lead_time_days: 42
+    min_order_kg: 0.5
+  - name: "HATU"
+    price_per_kg: 680.00
+    vendor: "Combi-Blocks"
+    lead_time_days: 21
+    min_order_kg: 1.0
+  - name: "DIPEA"
+    price_per_kg: 95.00
+    vendor: "Sigma-Aldrich"
+    lead_time_days: 7
+    min_order_kg: 5.0
+  - name: "DMF (anhydrous)"
+    price_per_L: 3.20
+    vendor: "VWR"
+    lead_time_days: 7
+    min_order_L: 20.0
+  - name: "DMF"
+    price_per_L: 3.20
+    vendor: "VWR"
+    lead_time_days: 7
+  - name: "DCM"
+    price_per_L: 1.80
+    vendor: "VWR"
+    lead_time_days: 7
+    min_order_L: 20.0
+  - name: "Nitric acid (conc.)"
+    price_per_kg: 12.00
+    vendor: "Local"
+    lead_time_days: 3
+  - name: "Sulfuric acid (conc.)"
+    price_per_kg: 4.50
+    vendor: "Local"
+    lead_time_days: 3
+  - name: "Potassium carbonate"
+    price_per_kg: 8.00
+    vendor: "Local"
+    lead_time_days: 5
+  - name: "Acetonitrile"
+    price_per_L: 2.40
+    vendor: "VWR"
+    lead_time_days: 7
+  - name: "Isopropanol"
+    price_per_L: 1.20
+    vendor: "VWR"
+    lead_time_days: 7
+  - name: "HCl (4M in dioxane)"
+    price_per_L: 45.00
+    vendor: "Sigma-Aldrich"
+    lead_time_days: 14
+  - name: "Ethanol"
+    price_per_L: 1.50
+    vendor: "VWR"
+    lead_time_days: 7
+
+labor_rates:
+  "Process Operator": 65.00
+  "Process Chemist": 95.00
+  "GMP Operator": 82.00
+
+utility_rates:
+  electricity: 0.12
+  nitrogen: 0.08
+  chilled_water: 0.04
