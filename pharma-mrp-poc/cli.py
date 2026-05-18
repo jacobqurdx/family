@@ -14,6 +14,7 @@ from mrp.optimisation import (
 from mrp.reporter import (
     make_output_dir, write_bom, write_sweep_results,
     write_mc_results, write_optimisation_result,
+    write_plant_cogs, write_network_analysis,
 )
 from mrp.domain import ProcessConfig, ParameterType
 from mrp.units import ureg
@@ -267,6 +268,221 @@ def optimise(
 
     out = make_output_dir(output_dir, f"optimisation_{objective}")
     write_optimisation_result(result, out)
+    console.print(f"\n[green]Outputs written to:[/green] {out}")
+
+
+@app.command()
+def plant_cogs(
+    process:        Path  = typer.Argument(..., help="Process YAML file"),
+    prices:         Path  = typer.Argument(..., help="Price list YAML file"),
+    plant:          Path  = typer.Argument(..., help="Plant definition YAML file"),
+    year:           int   = typer.Option(2026, help="Analysis year"),
+    batches:        int   = typer.Option(5, help="Number of batches produced in the year"),
+    batch_size_kg:  float = typer.Option(50.0, help="Batch size in kg API"),
+    year_index:     int   = typer.Option(0, help="0-based year index into asset depreciation schedule"),
+    output_dir:     Path  = typer.Option(Path("outputs"), help="Output directory"),
+):
+    """
+    Calculate COGS for a single plant in a given year: variable BoM costs
+    overlaid with fixed CapEx costs (depreciation + maintenance).
+
+    Example:
+      mrp plant-cogs examples/linear_5step.yaml examples/prices_q2_2026.yaml examples/plant_site_a.yaml --year 2027 --batches 6
+    """
+    from mrp.loader import load_plant
+    from mrp.capex import overlay_capex
+
+    graph  = load_process(process)
+    pl     = load_price_list(prices)
+    plt    = load_plant(plant)
+    config = ProcessConfig(
+        batch_size=ureg.Quantity(batch_size_kg, "kg"),
+        num_batches=batches,
+    )
+
+    _warn_unpriced_materials(graph, pl)
+
+    console.print(f"[bold]Plant COGS:[/bold] {plt.name}")
+    console.print(f"  Year: {year}  |  Batches: {batches}  |  Batch size: {batch_size_kg} kg")
+    console.print(f"  Plant capacity: {plt.annual_capacity_kg_api} kg/yr nameplate")
+    console.print(f"  Total plant CapEx: ${plt.total_capex():,.0f}")
+
+    bom = calculate_bom(graph, config, pl)
+    cx  = overlay_capex(bom, plt, analysis_year=year, year_index=year_index)
+
+    total_kg = batches * batch_size_kg
+    table = Table(title=f"COGS Summary — {plt.name} — {year}")
+    table.add_column("Cost Component", style="cyan")
+    table.add_column("Amount", justify="right")
+    table.add_column("Per kg API", justify="right")
+
+    table.add_row("Materials",
+                  f"${bom.total_material_cost:,.0f}", f"${bom.total_material_cost/total_kg:,.2f}")
+    table.add_row(f"Labor ({cx.active_band_label})",
+                  f"${cx.adjusted_labor_cost:,.0f}", f"${cx.adjusted_labor_cost/total_kg:,.2f}")
+    table.add_row(f"Utilities ({cx.active_band_label})",
+                  f"${cx.adjusted_utility_cost:,.0f}", f"${cx.adjusted_utility_cost/total_kg:,.2f}")
+    table.add_row("Equipment",
+                  f"${bom.total_equipment_cost:,.0f}", f"${bom.total_equipment_cost/total_kg:,.2f}")
+    table.add_row("Total Variable",
+                  f"${cx.total_variable_cost:,.0f}", f"${cx.variable_cost_per_kg_api:,.2f}",
+                  style="bold")
+    table.add_row("Annual Depreciation",
+                  f"${cx.total_depreciation_cost:,.0f}",
+                  f"${cx.total_depreciation_cost/total_kg:,.2f}")
+    table.add_row("Annual Maintenance",
+                  f"${cx.total_maintenance_cost:,.0f}",
+                  f"${cx.total_maintenance_cost/total_kg:,.2f}")
+    table.add_row("Total Fixed",
+                  f"${cx.total_fixed_cost:,.0f}", f"${cx.fixed_cost_per_kg_api:,.2f}",
+                  style="bold")
+    table.add_row("TOTAL COGS",
+                  f"${cx.total_cogs:,.0f}", f"${cx.cogs_per_kg_api:,.2f}",
+                  style="bold green")
+    if cx.breakeven_kg_api:
+        table.add_row("Breakeven Volume", f"{cx.breakeven_kg_api:,.1f} kg", "—")
+    console.print(table)
+    console.print(f"\n  Utilisation: {cx.utilisation_pct:.1f}%  ({cx.active_band_label})")
+
+    out = make_output_dir(output_dir, f"plant_cogs_{plt.name.replace(' ', '_')[:20]}_{year}")
+    write_plant_cogs(cx, plt, out)
+    console.print(f"\n[green]Outputs written to:[/green] {out}")
+
+
+@app.command()
+def network_analyse(
+    process:       Path  = typer.Argument(..., help="Process YAML file"),
+    prices:        Path  = typer.Argument(..., help="Price list YAML file"),
+    network_file:  Path  = typer.Argument(..., help="Plant network YAML file"),
+    batch_size_kg: float = typer.Option(50.0, help="Batch size in kg API"),
+    output_dir:    Path  = typer.Option(Path("outputs"), help="Output directory"),
+):
+    """
+    Run full multi-year COGS analysis across a plant network.
+
+    Example:
+      mrp network-analyse examples/linear_5step.yaml examples/prices_q2_2026.yaml examples/network_commercial.yaml
+    """
+    from mrp.loader import load_network
+    from mrp.network import analyse_network
+
+    graph  = load_process(process)
+    pl     = load_price_list(prices)
+    net, plant_map = load_network(network_file, network_file.parent.parent)
+    config = ProcessConfig(batch_size=ureg.Quantity(batch_size_kg, "kg"), num_batches=1)
+
+    data   = __import__("yaml").safe_load(network_file.read_text())["network"]
+    start  = int(data.get("analysis_start_year", 2025))
+    end    = int(data.get("analysis_end_year", 2030))
+    default_kg = float(data.get("default_volume_kg_api_annual", 800.0))
+    years  = list(range(start, end + 1))
+
+    total_capex = sum(p.total_capex() for p in plant_map.values())
+    console.print(f"[bold]Network Analysis:[/bold] {net.name}")
+    console.print(f"  Analysis period: {start}–{end}  |  Plants: {len(plant_map)}")
+    console.print(f"  Total CapEx: ${total_capex:,.0f}")
+
+    result = analyse_network(
+        memberships=net.plants,
+        plant_map=plant_map,
+        volume_targets=net.volume_targets,
+        default_volume_kg=default_kg,
+        years=years,
+        graph=graph,
+        config=config,
+        prices=pl,
+    )
+    result.network_name = net.name
+    result.total_network_capex = total_capex
+
+    table = Table(title=f"Network COGS by Year — {net.name}")
+    table.add_column("Year")
+    table.add_column("Target kg", justify="right")
+    table.add_column("Variable $", justify="right")
+    table.add_column("Fixed $", justify="right")
+    table.add_column("Total COGS", justify="right")
+    table.add_column("COGS/kg", justify="right", style="bold")
+    table.add_column("Gap kg", justify="right")
+
+    for ys in result.year_summaries:
+        gap_str = (f"[red]{ys.volume_gap_kg:+.0f}[/red]" if ys.volume_gap_kg > 0.5
+                   else f"[green]{ys.volume_gap_kg:+.0f}[/green]")
+        table.add_row(
+            str(ys.year),
+            f"{ys.total_volume_kg:,.0f}",
+            f"${ys.total_variable_cost:,.0f}",
+            f"${ys.total_fixed_cost:,.0f}",
+            f"${ys.total_cogs:,.0f}",
+            f"${ys.network_cogs_per_kg_api:,.2f}",
+            gap_str,
+        )
+    console.print(table)
+
+    out = make_output_dir(output_dir, f"network_{net.name.replace(' ', '_')[:20]}")
+    write_network_analysis(result, out)
+    console.print(f"\n[green]Outputs written to:[/green] {out}")
+
+
+@app.command()
+def network_minimise(
+    network_file: Path  = typer.Argument(..., help="Plant network YAML file"),
+    year:         int   = typer.Option(..., help="Target year for volume requirement"),
+    max_util:     float = typer.Option(90.0, help="Maximum utilisation % allowed"),
+    output_dir:   Path  = typer.Option(Path("outputs"), help="Output directory"),
+):
+    """
+    Find the minimum-CapEx set of plants that meets the volume target for a given year.
+
+    Example:
+      mrp network-minimise examples/network_commercial.yaml --year 2028 --max-util 85
+    """
+    from mrp.loader import load_network
+    from mrp.network import (
+        minimum_network_configuration, commissioned_plants_for_year,
+        volume_target_for_year,
+    )
+    import json, dataclasses
+
+    net, plant_map = load_network(network_file, network_file.parent.parent)
+    data       = __import__("yaml").safe_load(network_file.read_text())["network"]
+    default_kg = float(data.get("default_volume_kg_api_annual", 800.0))
+
+    target_kg = volume_target_for_year(net.volume_targets, year, default_kg)
+    required_capacity = target_kg / (max_util / 100.0)
+
+    active = commissioned_plants_for_year(net.plants, plant_map, year)
+    active_plants = [p for p, _ in active]
+
+    console.print(f"[bold]Minimum Network Configuration:[/bold] {net.name}")
+    console.print(f"  Target year: {year}  |  Volume target: {target_kg:,.0f} kg"
+                  f"  |  Max utilisation: {max_util}%")
+    console.print(f"  Required capacity: {required_capacity:,.0f} kg/yr"
+                  f"  |  Commissioned plants: {len(active_plants)}")
+
+    result = minimum_network_configuration(active_plants, required_capacity)
+
+    if result.meets_target:
+        console.print(f"\n[green]✓ Target can be met[/green] with "
+                      f"{len(result.best_plant_ids)} plant(s):")
+    else:
+        console.print(f"\n[red]✗ Target CANNOT be met[/red] with available commissioned plants:")
+    for name in result.best_plant_names:
+        console.print(f"  • {name}")
+
+    table = Table(title="Minimum Configuration Result")
+    table.add_column("Metric")
+    table.add_column("Value", justify="right")
+    table.add_row("Plants selected", str(len(result.best_plant_ids)))
+    table.add_row("Total CapEx", f"${result.total_capex:,.0f}")
+    table.add_row("Total capacity", f"{result.total_capacity_kg:,.0f} kg/yr")
+    table.add_row("Volume target", f"{result.required_capacity_kg:,.0f} kg")
+    table.add_row("Meets target", "✓ Yes" if result.meets_target else "✗ No")
+    console.print(table)
+
+    out = make_output_dir(output_dir, f"min_config_{year}")
+    (out / "minimum_config.json").write_text(
+        json.dumps(dataclasses.asdict(result), indent=2)
+    )
     console.print(f"\n[green]Outputs written to:[/green] {out}")
 
 

@@ -1,0 +1,21 @@
+sweep:
+  name: "Reactor CapEx Sensitivity — Site A"
+  mode: cartesian
+  base_config:
+    batch_size_kg: 50.0
+    num_batches: 5
+
+parameters:
+  - type: step_yield
+    target_step: step_3
+    label: "Step 3 Yield (%)"
+    values: [65.0, 70.0, 74.0, 78.0, 82.0]
+    baseline: 74.0
+    unit: "%"
+
+  - type: material_price
+    target_material: "Starting Material A"
+    label: "SM-A Price (USD/kg)"
+    values: [500.0, 700.0, 820.0, 1000.0, 1250.0]
+    baseline: 820.0
+    unit: "USD/kg"

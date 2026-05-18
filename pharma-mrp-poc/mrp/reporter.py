@@ -3,7 +3,10 @@ import csv
 import numpy as np
 from pathlib import Path
 from datetime import datetime
-from mrp.domain import BoMResult, ScenarioResult, MCResult
+from mrp.domain import (
+    BoMResult, ScenarioResult, MCResult,
+    BoMResultWithCapEx, Plant, NetworkAnalysisResult, MinimumNetworkResult,
+)
 from mrp.optimisation import OptimisationResult
 from mrp.units import to_float
 
@@ -190,3 +193,113 @@ def write_optimisation_result(result: OptimisationResult, out_dir: Path) -> None
                 }
                 row.update({k: round(v, 4) for k, v in e.parameter_values.items()})
                 writer.writerow(row)
+
+
+def write_plant_cogs(cx: BoMResultWithCapEx, plant: Plant, out_dir: Path) -> None:
+    """Write cogs_summary.json and depreciation_schedule.csv for a single plant-year."""
+    from mrp.capex import depreciation_schedule
+
+    summary = {
+        "plant_name": cx.plant_name,
+        "analysis_year": cx.analysis_year,
+        "batches_produced": cx.batches_produced,
+        "utilisation_pct": round(cx.utilisation_pct, 2),
+        "active_band_label": cx.active_band_label,
+        "total_material_cost_usd": round(cx.bom.total_material_cost, 2),
+        "total_equipment_cost_usd": round(cx.bom.total_equipment_cost, 2),
+        "adjusted_labor_cost_usd": round(cx.adjusted_labor_cost, 2),
+        "adjusted_utility_cost_usd": round(cx.adjusted_utility_cost, 2),
+        "total_variable_cost_usd": round(cx.total_variable_cost, 2),
+        "total_depreciation_cost_usd": round(cx.total_depreciation_cost, 2),
+        "total_maintenance_cost_usd": round(cx.total_maintenance_cost, 2),
+        "total_fixed_cost_usd": round(cx.total_fixed_cost, 2),
+        "total_cogs_usd": round(cx.total_cogs, 2),
+        "cogs_per_kg_api_usd": round(cx.cogs_per_kg_api, 2),
+        "variable_cost_per_kg_api_usd": round(cx.variable_cost_per_kg_api, 2),
+        "fixed_cost_per_kg_api_usd": round(cx.fixed_cost_per_kg_api, 2),
+        "breakeven_kg_api": round(cx.breakeven_kg_api, 2) if cx.breakeven_kg_api else None,
+        "total_plant_capex_usd": round(plant.total_capex(), 2),
+        "currency": cx.currency,
+    }
+    (out_dir / "cogs_summary.json").write_text(json.dumps(summary, indent=2))
+
+    with (out_dir / "depreciation_schedule.csv").open("w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=[
+            "asset_id", "asset_name", "year_index",
+            "opening_book_value", "annual_charge", "closing_book_value", "method",
+        ])
+        writer.writeheader()
+        for asset in plant.assets:
+            for yr in depreciation_schedule(asset):
+                writer.writerow({
+                    "asset_id": asset.id,
+                    "asset_name": asset.name,
+                    "year_index": yr.year_index,
+                    "opening_book_value": round(yr.opening_book_value, 2),
+                    "annual_charge": round(yr.annual_charge, 2),
+                    "closing_book_value": round(yr.closing_book_value, 2),
+                    "method": yr.method,
+                })
+
+
+def write_network_analysis(result: NetworkAnalysisResult, out_dir: Path) -> None:
+    """Write network_analysis.json, network_by_year.csv, network_by_plant_year.csv."""
+    summary = {
+        "network_name": result.network_name,
+        "currency": result.currency,
+        "total_network_capex_usd": round(result.total_network_capex, 2),
+        "years": [ys.year for ys in result.year_summaries],
+        "year_summaries": [
+            {
+                "year": ys.year,
+                "total_volume_kg": ys.total_volume_kg,
+                "total_cogs_usd": round(ys.total_cogs, 2),
+                "network_cogs_per_kg_api_usd": round(ys.network_cogs_per_kg_api, 2),
+                "total_variable_cost_usd": round(ys.total_variable_cost, 2),
+                "total_fixed_cost_usd": round(ys.total_fixed_cost, 2),
+                "volume_gap_kg": round(ys.volume_gap_kg, 2),
+            }
+            for ys in result.year_summaries
+        ],
+    }
+    (out_dir / "network_analysis.json").write_text(json.dumps(summary, indent=2))
+
+    with (out_dir / "network_by_year.csv").open("w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=[
+            "year", "total_volume_kg", "total_variable_cost", "total_fixed_cost",
+            "total_cogs", "network_cogs_per_kg_api", "volume_gap_kg",
+        ])
+        writer.writeheader()
+        for ys in result.year_summaries:
+            writer.writerow({
+                "year": ys.year,
+                "total_volume_kg": ys.total_volume_kg,
+                "total_variable_cost": round(ys.total_variable_cost, 2),
+                "total_fixed_cost": round(ys.total_fixed_cost, 2),
+                "total_cogs": round(ys.total_cogs, 2),
+                "network_cogs_per_kg_api": round(ys.network_cogs_per_kg_api, 2),
+                "volume_gap_kg": round(ys.volume_gap_kg, 2),
+            })
+
+    with (out_dir / "network_by_plant_year.csv").open("w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=[
+            "year", "plant_id", "plant_name", "allocated_volume_kg",
+            "utilisation_pct", "total_variable_cost", "total_fixed_cost",
+            "total_cogs", "cogs_per_kg_api", "total_depreciation", "total_maintenance",
+        ])
+        writer.writeheader()
+        for ys in result.year_summaries:
+            for pr in ys.plant_results:
+                writer.writerow({
+                    "year": ys.year,
+                    "plant_id": pr.plant_id,
+                    "plant_name": pr.plant_name,
+                    "allocated_volume_kg": pr.allocated_volume_kg,
+                    "utilisation_pct": pr.utilisation_pct,
+                    "total_variable_cost": round(pr.total_variable_cost, 2),
+                    "total_fixed_cost": round(pr.total_fixed_cost, 2),
+                    "total_cogs": round(pr.total_cogs, 2),
+                    "cogs_per_kg_api": round(pr.cogs_per_kg_api, 2),
+                    "total_depreciation": round(pr.total_depreciation, 2),
+                    "total_maintenance": round(pr.total_maintenance, 2),
+                })
