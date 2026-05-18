@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
+from datetime import date
 from enum import Enum
 from pint import Quantity
 
@@ -353,3 +354,200 @@ class MCResult:
     overall_route_yield_pct: float
     status: str
     error: str | None = None
+
+
+# ---------------------------------------------------------------------------
+# CapEx & Plant Network domain objects (v1.2)
+# ---------------------------------------------------------------------------
+
+class DepreciationMethod(str, Enum):
+    STRAIGHT_LINE = "straight_line"
+    DECLINING_BALANCE = "declining_balance"
+    DOUBLE_DECLINING = "double_declining"
+    UNITS_OF_PRODUCTION = "units_of_production"
+
+class MaintenanceType(str, Enum):
+    FIXED_ANNUAL = "fixed_annual"
+    PCT_OF_CAPEX = "pct_of_capex"
+    PER_BATCH = "per_batch"
+
+
+@dataclass
+class MaintenanceSchedule:
+    maintenance_type: MaintenanceType
+    value: float
+    currency: str = "USD"
+    description: str = ""
+
+
+@dataclass
+class StepAssetAssignment:
+    step_id: str
+    allocation_pct: float = 100.0
+
+
+@dataclass
+class PlantAsset:
+    id: str
+    plant_id: str
+    name: str
+    asset_class: str
+    capex_cost: float
+    useful_life_years: float
+    salvage_value: float
+    depreciation_method: DepreciationMethod
+    gmp_qualified: bool = False
+    purchase_date: date | None = None
+    declining_balance_rate: float | None = None
+    total_expected_batches: int | None = None
+    step_assignments: list[StepAssetAssignment] = field(default_factory=list)
+    maintenance_schedules: list[MaintenanceSchedule] = field(default_factory=list)
+
+
+@dataclass
+class CapacityUtilisationBand:
+    label: str
+    utilisation_lower_pct: float
+    utilisation_upper_pct: float
+    labor_cost_multiplier: float = 1.0
+    utility_cost_multiplier: float = 1.0
+
+
+@dataclass
+class Plant:
+    id: str
+    name: str
+    currency: str
+    annual_capacity_kg_api: float
+    gmp_facility: bool = False
+    location: str | None = None
+    commissioned_date: date | None = None
+    decommission_date: date | None = None
+    assets: list[PlantAsset] = field(default_factory=list)
+    utilisation_bands: list[CapacityUtilisationBand] = field(default_factory=list)
+
+    def total_capex(self) -> float:
+        return sum(a.capex_cost for a in self.assets)
+
+    def effective_annual_capacity_kg(self) -> float:
+        return self.annual_capacity_kg_api
+
+    def variable_cost_multipliers(self, utilisation_pct: float) -> tuple[float, float]:
+        bands = sorted(self.utilisation_bands, key=lambda b: b.utilisation_lower_pct)
+        for band in bands:
+            if band.utilisation_lower_pct <= utilisation_pct < band.utilisation_upper_pct:
+                return band.labor_cost_multiplier, band.utility_cost_multiplier
+        if bands:
+            return bands[-1].labor_cost_multiplier, bands[-1].utility_cost_multiplier
+        return 1.0, 1.0
+
+
+@dataclass
+class NetworkPlantMembership:
+    plant_id: str
+    volume_allocation_kg: float
+    start_year: int | None = None
+    end_year: int | None = None
+
+
+@dataclass
+class VolumeTarget:
+    year: int
+    volume_kg_api: float
+
+
+@dataclass
+class PlantNetwork:
+    id: str
+    name: str
+    currency: str
+    plants: list[NetworkPlantMembership] = field(default_factory=list)
+    volume_targets: list[VolumeTarget] = field(default_factory=list)
+    description: str = ""
+
+
+@dataclass
+class DepreciationYear:
+    year_index: int
+    opening_book_value: float
+    annual_charge: float
+    closing_book_value: float
+    method: str
+
+
+@dataclass
+class BoMResultWithCapEx:
+    bom: BoMResult
+    plant_name: str
+    analysis_year: int
+    batches_produced: int
+    utilisation_pct: float
+    active_band_label: str
+    adjusted_labor_cost: float
+    adjusted_utility_cost: float
+    total_depreciation_cost: float
+    total_maintenance_cost: float
+    total_variable_cost: float
+    total_fixed_cost: float
+    total_cogs: float
+    cogs_per_kg_api: float
+    fixed_cost_per_kg_api: float
+    variable_cost_per_kg_api: float
+    breakeven_kg_api: float | None
+    currency: str
+
+
+@dataclass
+class PlantYearResult:
+    plant_id: str
+    plant_name: str
+    year: int
+    allocated_volume_kg: float
+    utilisation_pct: float
+    total_depreciation: float
+    total_maintenance: float
+    total_variable_cost: float
+    total_fixed_cost: float
+    total_cogs: float
+    cogs_per_kg_api: float
+
+
+@dataclass
+class NetworkYearSummary:
+    year: int
+    total_volume_kg: float
+    total_cogs: float
+    network_cogs_per_kg_api: float
+    total_variable_cost: float = 0.0
+    total_fixed_cost: float = 0.0
+    volume_gap_kg: float = 0.0
+    plant_results: list[PlantYearResult] = field(default_factory=list)
+
+
+@dataclass
+class NetworkAnalysisResult:
+    network_name: str
+    currency: str
+    year_summaries: list[NetworkYearSummary] = field(default_factory=list)
+    total_network_capex: float = 0.0
+
+
+@dataclass
+class MinimumNetworkResult:
+    required_capacity_kg: float
+    best_plant_ids: list[str]
+    best_plant_names: list[str]
+    total_capex: float
+    total_capacity_kg: float
+    n_evaluated: int
+    meets_target: bool = True
+
+
+@dataclass
+class NetworkBreakevenResult:
+    plant_id: str
+    plant_name: str
+    fixed_cost_annual: float
+    variable_cost_per_kg: float
+    breakeven_kg_api: float | None
+    currency: str

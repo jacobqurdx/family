@@ -1,5 +1,6 @@
 import yaml
 import sys
+from datetime import date
 from pathlib import Path
 from mrp.domain import (
     Material, MaterialType, CanonicalUnit, StepMaterial, StepMaterialRole,
@@ -7,6 +8,9 @@ from mrp.domain import (
     PriceEntry, PriceList, ProcessConfig, SweepParameter, SweepDefinition,
     SweepMode, ParameterType, DistributionSpec, DistributionType,
     CorrelationPair, MCDefinition,
+    Plant, PlantAsset, DepreciationMethod, MaintenanceSchedule, MaintenanceType,
+    StepAssetAssignment, CapacityUtilisationBand,
+    PlantNetwork, NetworkPlantMembership, VolumeTarget,
 )
 from mrp.units import parse_molar_mass, parse_volume_ratio, ureg
 
@@ -203,3 +207,137 @@ def load_mc_definition(path: Path) -> MCDefinition:
         correlations=corrs,
         random_seed=mc.get("random_seed"),
     )
+
+
+def _parse_date(s: str | None) -> date | None:
+    if s is None:
+        return None
+    return date.fromisoformat(str(s))
+
+
+def load_plant(path: Path) -> Plant:
+    """
+    Load a plant YAML file → Plant domain object.
+
+    YAML maintenance frequency strings map to MaintenanceType:
+      "annual"    → FIXED_ANNUAL
+      "per_batch" → PER_BATCH
+      "pct_capex" → PCT_OF_CAPEX (value field = percentage)
+    """
+    data = yaml.safe_load(path.read_text())
+    p = data["plant"]
+
+    bands = []
+    for b in data.get("utilisation_bands", []):
+        bands.append(CapacityUtilisationBand(
+            label=b["label"],
+            utilisation_lower_pct=float(b["utilisation_lower_pct"]),
+            utilisation_upper_pct=float(b["utilisation_upper_pct"]),
+            labor_cost_multiplier=float(b.get("labor_cost_multiplier", 1.0)),
+            utility_cost_multiplier=float(b.get("utility_cost_multiplier", 1.0)),
+        ))
+
+    plant_id = p.get("id", path.stem)
+    assets = []
+    for a in data.get("assets", []):
+        step_assignments = []
+        for sid, pct in (a.get("step_assignments") or {}).items():
+            step_assignments.append(StepAssetAssignment(
+                step_id=str(sid),
+                allocation_pct=float(pct) * 100.0,
+            ))
+
+        maintenance_schedules = []
+        for m in a.get("maintenance", []):
+            freq = m.get("frequency", "annual")
+            if freq == "annual":
+                mtype = MaintenanceType.FIXED_ANNUAL
+                value = float(m.get("estimated_cost", 0.0))
+            elif freq == "per_batch":
+                mtype = MaintenanceType.PER_BATCH
+                value = float(m.get("estimated_cost", 0.0))
+            elif freq == "pct_capex":
+                mtype = MaintenanceType.PCT_OF_CAPEX
+                value = float(m.get("value", 0.0))
+            else:
+                mtype = MaintenanceType.FIXED_ANNUAL
+                value = float(m.get("estimated_cost", 0.0))
+            maintenance_schedules.append(MaintenanceSchedule(
+                maintenance_type=mtype,
+                value=value,
+                description=m.get("description", ""),
+            ))
+
+        raw_method = a["depreciation_method"]
+        method = DepreciationMethod(raw_method)
+
+        assets.append(PlantAsset(
+            id=a["id"],
+            plant_id=plant_id,
+            name=a["name"],
+            asset_class=a.get("asset_class", ""),
+            capex_cost=float(a["capex_cost"]),
+            useful_life_years=float(a["useful_life_years"]),
+            salvage_value=float(a.get("salvage_value", 0.0)),
+            depreciation_method=method,
+            gmp_qualified=bool(a.get("gmp_qualified", False)),
+            purchase_date=_parse_date(a.get("purchase_date")),
+            declining_balance_rate=float(a["declining_balance_rate"])
+            if "declining_balance_rate" in a else None,
+            total_expected_batches=int(a["total_expected_batches"])
+            if "total_expected_batches" in a else None,
+            step_assignments=step_assignments,
+            maintenance_schedules=maintenance_schedules,
+        ))
+
+    return Plant(
+        id=plant_id,
+        name=p["name"],
+        currency=p.get("currency", "USD"),
+        annual_capacity_kg_api=float(p["annual_capacity_kg_api"]),
+        gmp_facility=bool(p.get("gmp_facility", False)),
+        location=p.get("location"),
+        commissioned_date=_parse_date(p.get("commissioned_date")),
+        decommission_date=_parse_date(p.get("decommission_date")),
+        assets=assets,
+        utilisation_bands=bands,
+    )
+
+
+def load_network(path: Path, plant_base_dir: Path | None = None) -> tuple[PlantNetwork, dict]:
+    """
+    Load a network YAML → (PlantNetwork, plant_map).
+
+    plant_map: dict[plant_id → Plant] for all plants in the network.
+    Plant files are resolved relative to plant_base_dir (defaults to path.parent).
+    """
+    base = plant_base_dir or path.parent
+    data = yaml.safe_load(path.read_text())
+    n = data["network"]
+
+    volume_targets = [
+        VolumeTarget(year=int(vt["year"]), volume_kg_api=float(vt["target_kg"]))
+        for vt in data.get("volume_targets", [])
+    ]
+
+    memberships = []
+    plant_map: dict[str, Plant] = {}
+    for pm in data.get("plants", []):
+        plant_file = base / pm["plant_file"]
+        plant = load_plant(plant_file)
+        plant_map[plant.id] = plant
+        commissioned = _parse_date(pm.get("commissioned_date"))
+        memberships.append(NetworkPlantMembership(
+            plant_id=plant.id,
+            volume_allocation_kg=float(pm.get("volume_allocation_kg", 0.0)),
+            start_year=commissioned.year if commissioned else None,
+        ))
+
+    network = PlantNetwork(
+        id=n.get("id", path.stem),
+        name=n["name"],
+        currency=n.get("currency", "USD"),
+        plants=memberships,
+        volume_targets=volume_targets,
+    )
+    return network, plant_map

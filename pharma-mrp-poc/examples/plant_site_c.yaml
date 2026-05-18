@@ -1,0 +1,54 @@
+plant:
+  id: site_c
+  name: "Site C — Flex Manufacturing Suite"
+  location: "Sligo, Ireland"
+  currency: USD
+  annual_capacity_kg_api: 200.0
+  commissioned_date: "2028-01-01"
+  gmp_facility: true
+
+utilisation_bands:
+  - label: "Normal Operations"
+    utilisation_lower_pct: 0.0
+    utilisation_upper_pct: 85.0
+    labor_cost_multiplier: 1.0
+    utility_cost_multiplier: 1.0
+  - label: "High Demand"
+    utilisation_lower_pct: 85.0
+    utilisation_upper_pct: 101.0
+    labor_cost_multiplier: 1.25
+    utility_cost_multiplier: 1.12
+
+assets:
+  - id: site_c_reactor_1
+    name: "300L Jacketed Reactor"
+    asset_class: reactor
+    capex_cost: 900000.0
+    purchase_date: "2027-06-01"
+    useful_life_years: 15.0
+    salvage_value: 45000.0
+    depreciation_method: straight_line
+    gmp_qualified: true
+    step_assignments: {}
+    maintenance:
+      - type: preventive
+        estimated_cost: 14000.0
+        frequency: annual
+        downtime_days: 2.5
+
+  - id: site_c_filter_dryer
+    name: "Small-Scale Filter-Dryer"
+    asset_class: filter
+    capex_cost: 600000.0
+    purchase_date: "2027-06-01"
+    useful_life_years: 12.0
+    salvage_value: 30000.0
+    depreciation_method: declining_balance
+    declining_balance_rate: 0.18
+    gmp_qualified: true
+    step_assignments: {}
+    maintenance:
+      - type: preventive
+        estimated_cost: 15000.0
+        frequency: annual
+        downtime_days: 2.0
