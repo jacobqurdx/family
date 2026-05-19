@@ -551,3 +551,127 @@ class NetworkBreakevenResult:
     variable_cost_per_kg: float
     breakeven_kg_api: float | None
     currency: str
+
+
+# ─── Supply chain risk domain objects (NEW — v1.3) ────────────────────────────
+
+class RiskVectorType(str, Enum):
+    TARIFF_ESCALATION = "tariff_escalation"
+    CDMO_REMOVAL = "cdmo_removal"
+    YIELD_DISRUPTION = "yield_disruption"
+    LEAD_TIME_EXTENSION = "lead_time_extension"
+
+class StepCriticality(str, Enum):
+    STANDARD = "standard"
+    CRITICAL = "critical"
+    SOLE_SOURCE_STEP = "sole_source_step"
+
+@dataclass
+class CDMONode:
+    id: str
+    name: str
+    country: str
+    city: str | None = None
+    biosecure_act_listed: bool = False
+    pentagon_1260h_listed: bool = False
+    regulatory_watch_flags: list[str] = field(default_factory=list)
+    notes: str | None = None
+
+@dataclass
+class RiskVector:
+    id: str
+    name: str
+    risk_vector_type: RiskVectorType
+    tariff_rate_pct: float | None = None
+    geography: str | None = None
+    include_indirect: bool = False
+    cdmo_node_id: str | None = None
+    emergency_premium_pct: float = 50.0
+    target_step_name: str | None = None
+    target_material_name: str | None = None
+    yield_reduction_pct: float | None = None
+    lead_time_extension_weeks: float | None = None
+
+@dataclass
+class MaterialRiskMetadata:
+    material_name: str
+    country_of_origin: str | None = None
+    cdmo_node_id: str | None = None
+    single_source: bool = False
+    alternative_supplier_lead_time_weeks: int | None = None
+    indirect_china_exposure: bool = False
+    indirect_china_exposure_notes: str | None = None
+    tariff_hs_code: str | None = None
+
+@dataclass
+class StepRiskMetadata:
+    step_name: str
+    cdmo_node_id: str | None = None
+    step_criticality: StepCriticality = StepCriticality.STANDARD
+
+@dataclass
+class RiskProfile:
+    name: str
+    cdmo_nodes: dict[str, CDMONode]
+    material_risk: dict[str, MaterialRiskMetadata]
+    step_risk: dict[str, StepRiskMetadata]
+    risk_vectors: list[RiskVector]
+    tariff_sweep_rates: list[float] = field(default_factory=list)
+    tariff_sweep_geography: str | None = None
+    tariff_sweep_include_indirect: bool = False
+
+@dataclass
+class SensitivityLine:
+    rank: int
+    parameter_name: str
+    parameter_type: str
+    sensitivity_cost_per_unit: float
+    sensitivity_unit: str
+    country_of_origin: str | None
+    cdmo_node_name: str | None
+    is_single_source: bool
+    is_indirect_china: bool
+    timeline_impact_weeks: float | None
+    tariff_impact_at_rate: float | None
+    risk_flags: list[str]
+    notes: str | None = None
+
+@dataclass
+class TariffOverlayResult:
+    tariff_rate_pct: float
+    geography: str
+    include_indirect: bool
+    base_cost_per_kg_api: float
+    tariff_cost_total: float
+    adjusted_cost_per_kg_api: float
+    cost_per_kg_delta: float
+    exposed_material_lines: list[dict]
+
+@dataclass
+class CDMORemovalResult:
+    cdmo_node_name: str
+    biosecure_act_listed: bool
+    affected_step_names: list[str]
+    affected_material_names: list[str]
+    base_cost_per_kg_api: float
+    emergency_cost_per_kg_api: float
+    cost_per_kg_delta: float
+    timeline_critical_path_weeks: float | None
+    timeline_unknown_materials: list[str]
+    requalification_notes: str | None
+
+@dataclass
+class SensitivityReport:
+    scenario_name: str
+    process_name: str
+    generated_at: str
+    base_cost_per_kg_api: float
+    currency: str
+    china_origin_cost_pct: float
+    indirect_china_cost_pct: float
+    single_source_cost_pct: float
+    cdmo_exposed_cost_pct: float
+    sensitivity_lines: list[SensitivityLine]
+    tariff_sweep_results: list[TariffOverlayResult]
+    cdmo_removal_results: list[CDMORemovalResult]
+    generation_time_sec: float

@@ -1,11 +1,13 @@
 import json
 import csv
+import dataclasses
 import numpy as np
 from pathlib import Path
 from datetime import datetime
 from mrp.domain import (
     BoMResult, ScenarioResult, MCResult,
     BoMResultWithCapEx, Plant, NetworkAnalysisResult, MinimumNetworkResult,
+    SensitivityReport,
 )
 from mrp.optimisation import OptimisationResult
 from mrp.units import to_float
@@ -240,6 +242,92 @@ def write_plant_cogs(cx: BoMResultWithCapEx, plant: Plant, out_dir: Path) -> Non
                     "closing_book_value": round(yr.closing_book_value, 2),
                     "method": yr.method,
                 })
+
+
+def write_sensitivity_report(report: SensitivityReport, out_dir: Path) -> None:
+    """Write sensitivity report outputs: JSON + CSVs."""
+    # sensitivity_report.json — full report
+    report_dict = dataclasses.asdict(report)
+    (out_dir / "sensitivity_report.json").write_text(json.dumps(report_dict, indent=2))
+
+    # sensitivity_lines.csv
+    with (out_dir / "sensitivity_lines.csv").open("w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=[
+            "rank", "parameter_name", "parameter_type",
+            "sensitivity_cost_per_unit", "sensitivity_unit",
+            "country_of_origin", "cdmo_node_name",
+            "is_single_source", "is_indirect_china",
+            "timeline_impact_weeks", "tariff_impact_at_rate",
+            "risk_flags", "notes",
+        ])
+        writer.writeheader()
+        for line in report.sensitivity_lines:
+            writer.writerow({
+                "rank": line.rank,
+                "parameter_name": line.parameter_name,
+                "parameter_type": line.parameter_type,
+                "sensitivity_cost_per_unit": round(line.sensitivity_cost_per_unit, 6),
+                "sensitivity_unit": line.sensitivity_unit,
+                "country_of_origin": line.country_of_origin or "",
+                "cdmo_node_name": line.cdmo_node_name or "",
+                "is_single_source": line.is_single_source,
+                "is_indirect_china": line.is_indirect_china,
+                "timeline_impact_weeks": line.timeline_impact_weeks if line.timeline_impact_weeks is not None else "",
+                "tariff_impact_at_rate": line.tariff_impact_at_rate if line.tariff_impact_at_rate is not None else "",
+                "risk_flags": ";".join(line.risk_flags),
+                "notes": line.notes or "",
+            })
+
+    # tariff_sweep.csv
+    with (out_dir / "tariff_sweep.csv").open("w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=[
+            "tariff_rate_pct", "geography", "include_indirect",
+            "base_cost_per_kg_api", "tariff_cost_total",
+            "adjusted_cost_per_kg_api", "cost_per_kg_delta",
+        ])
+        writer.writeheader()
+        for r in report.tariff_sweep_results:
+            writer.writerow({
+                "tariff_rate_pct": r.tariff_rate_pct,
+                "geography": r.geography,
+                "include_indirect": r.include_indirect,
+                "base_cost_per_kg_api": round(r.base_cost_per_kg_api, 4),
+                "tariff_cost_total": round(r.tariff_cost_total, 2),
+                "adjusted_cost_per_kg_api": round(r.adjusted_cost_per_kg_api, 4),
+                "cost_per_kg_delta": round(r.cost_per_kg_delta, 4),
+            })
+
+    # cdmo_removal.csv
+    with (out_dir / "cdmo_removal.csv").open("w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=[
+            "cdmo_node_name", "biosecure_act_listed",
+            "affected_step_names", "affected_material_names",
+            "base_cost_per_kg_api", "emergency_cost_per_kg_api",
+            "cost_per_kg_delta", "timeline_critical_path_weeks",
+        ])
+        writer.writeheader()
+        for r in report.cdmo_removal_results:
+            writer.writerow({
+                "cdmo_node_name": r.cdmo_node_name,
+                "biosecure_act_listed": r.biosecure_act_listed,
+                "affected_step_names": ";".join(r.affected_step_names),
+                "affected_material_names": ";".join(r.affected_material_names),
+                "base_cost_per_kg_api": round(r.base_cost_per_kg_api, 4),
+                "emergency_cost_per_kg_api": round(r.emergency_cost_per_kg_api, 4),
+                "cost_per_kg_delta": round(r.cost_per_kg_delta, 4),
+                "timeline_critical_path_weeks": r.timeline_critical_path_weeks
+                if r.timeline_critical_path_weeks is not None else "",
+            })
+
+    # exposure_summary.json
+    exposure = {
+        "base_cost_per_kg_api": report.base_cost_per_kg_api,
+        "china_origin_cost_pct": report.china_origin_cost_pct,
+        "indirect_china_cost_pct": report.indirect_china_cost_pct,
+        "single_source_cost_pct": report.single_source_cost_pct,
+        "cdmo_exposed_cost_pct": report.cdmo_exposed_cost_pct,
+    }
+    (out_dir / "exposure_summary.json").write_text(json.dumps(exposure, indent=2))
 
 
 def write_network_analysis(result: NetworkAnalysisResult, out_dir: Path) -> None:
