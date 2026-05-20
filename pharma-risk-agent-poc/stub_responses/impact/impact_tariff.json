@@ -1,0 +1,11 @@
+{
+  "estimated_cost_impact_per_kg": 115.84,
+  "estimated_cost_impact_reasoning": "At 55% tariff on CN-origin materials (SM-A, HATU, DMF, DCM, 2-Fluorotoluene), total tariff cost per kg API. Source: MRP sensitivity report tariff_sweep at 55%.",
+  "estimated_timeline_impact_weeks": null,
+  "estimated_timeline_reasoning": "Tariff escalation does not affect lead times directly.",
+  "confidence": "high",
+  "caveats": [
+    "Assumes all CN-origin materials subject to the full consolidated rate.",
+    "Indirect China exposure (DIPEA) not included in this estimate."
+  ]
+}

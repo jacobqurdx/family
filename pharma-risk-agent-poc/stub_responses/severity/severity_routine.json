@@ -1,0 +1,7 @@
+{
+  "severity": "ROUTINE",
+  "severity_reasoning": "The signal provides general market context without reporting a confirmed change to price, availability, or regulatory status for any monitored parameter.",
+  "risk_vector_type": "unknown",
+  "affected_geography": null,
+  "affected_cdmo_node_name": null
+}

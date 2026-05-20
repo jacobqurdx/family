@@ -551,3 +551,119 @@ class NetworkBreakevenResult:
     variable_cost_per_kg: float
     breakeven_kg_api: float | None
     currency: str
+
+
+# ---------------------------------------------------------------------------
+# Risk / Sensitivity domain objects (v1.3)
+# ---------------------------------------------------------------------------
+
+@dataclass
+class CDMONode:
+    id: str
+    name: str
+    country: str
+    biosecure_act_listed: bool = False
+    city: str | None = None
+
+
+@dataclass
+class MaterialRiskInfo:
+    material_name: str
+    country_of_origin: str | None = None
+    cdmo_node_id: str | None = None
+    is_single_source: bool = False
+    is_indirect_china: bool = False
+    lead_time_weeks: float | None = None
+    risk_flags: list[str] = field(default_factory=list)
+
+
+@dataclass
+class RiskProfile:
+    name: str
+    cdmo_nodes: list[CDMONode] = field(default_factory=list)
+    material_risk: list[MaterialRiskInfo] = field(default_factory=list)
+    tariff_sweep_rates: list[float] = field(default_factory=lambda: [20.0, 35.0, 55.0, 100.0])
+
+    def get_material_risk(self, name: str) -> "MaterialRiskInfo | None":
+        return next(
+            (m for m in self.material_risk if m.material_name.lower() == name.lower()),
+            None,
+        )
+
+    def get_cdmo_node(self, node_id: str) -> "CDMONode | None":
+        return next((c for c in self.cdmo_nodes if c.id == node_id), None)
+
+
+@dataclass
+class SensitivityWeightEntry:
+    rank: int
+    parameter: str
+    parameter_type: str
+    target_id: str
+    sensitivity_cost_per_unit: float
+    country_of_origin: str | None
+    cdmo_node: str | None
+    cdmo_node_id: str | None
+    is_single_source: bool
+    is_indirect_china: bool
+    timeline_impact_weeks: float | None
+    risk_flags: list[str]
+    tariff_impact_at_55pct: float | None
+
+
+@dataclass
+class TariffOverlayResult:
+    tariff_rate_pct: float
+    adjusted_cost_per_kg_api: float
+    cost_per_kg_delta: float
+    tariff_cost_total: float
+    exposed_material_lines: list[str]
+
+
+@dataclass
+class CDMORemovalResult:
+    cdmo_node_name: str
+    cdmo_node_id: str
+    biosecure_act_listed: bool
+    affected_step_names: list[str]
+    affected_material_names: list[str]
+    base_cost_per_kg_api: float
+    emergency_cost_per_kg_api: float
+    cost_per_kg_delta: float
+    timeline_critical_path_weeks: float | None
+    timeline_unknown_materials: list[str]
+
+
+@dataclass
+class ExposureSummary:
+    china_origin_cost_pct: float
+    indirect_china_cost_pct: float
+    single_source_cost_pct: float
+    cdmo_exposed_cost_pct: float
+
+
+@dataclass
+class SensitivityReport:
+    report_id: str
+    scenario_id: str
+    process_name: str
+    base_cost_per_kg_api: float
+    currency: str
+    exposure_summary: ExposureSummary
+    signal_priority_weights: list[SensitivityWeightEntry]
+    tariff_sweep: list[TariffOverlayResult]
+    cdmo_removal_scenarios: list[CDMORemovalResult]
+
+    def to_dict(self) -> dict:
+        import dataclasses
+        def _conv(obj):
+            if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
+                return {k: _conv(v) for k, v in dataclasses.asdict(obj).items()}
+            if isinstance(obj, list):
+                return [_conv(i) for i in obj]
+            return obj
+        d = _conv(self)
+        # Rename fields to match agent-expected JSON schema
+        for w in d.get("signal_priority_weights", []):
+            w["parameter_type"] = w.pop("parameter_type", w.get("parameter_type"))
+        return d

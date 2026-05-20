@@ -1,0 +1,7 @@
+{
+  "severity": "CRITICAL",
+  "severity_reasoning": "A discontinuous, confirmed restriction affecting our primary CDMO or supplier bankruptcy has been reported. Requires immediate senior leadership notification.",
+  "risk_vector_type": "cdmo_removal",
+  "affected_geography": "CN",
+  "affected_cdmo_node_name": "Wuxi AppTec \u2014 WuXi STA"
+}

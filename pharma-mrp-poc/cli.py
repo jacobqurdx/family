@@ -486,6 +486,60 @@ def network_minimise(
     console.print(f"\n[green]Outputs written to:[/green] {out}")
 
 
+@app.command()
+def risk_sensitivity(
+    process:       Path  = typer.Argument(..., help="Process YAML file"),
+    prices:        Path  = typer.Argument(..., help="Price list YAML file"),
+    risk_profile:  Path  = typer.Argument(..., help="Risk profile YAML file"),
+    batch_size_kg: float = typer.Option(50.0, help="Batch size in kg API"),
+    num_batches:   int   = typer.Option(1,    help="Number of batches"),
+    output_dir:    Path  = typer.Option(Path("outputs"), help="Output directory"),
+):
+    """
+    Generate a supply chain risk sensitivity report.
+
+    Runs one-at-a-time sensitivity for all material prices and step yields,
+    computes exposure metrics, tariff sweep, and CDMO removal scenarios.
+    Writes sensitivity_report.json for use by the risk agent POC.
+
+    Example:
+      mrp risk-sensitivity examples/linear_5step.yaml examples/prices_q2_2026.yaml \\
+        examples/risk_profile_wuxi.yaml
+    """
+    from mrp.loader import load_risk_profile as _load_risk_profile
+    from mrp.risk import generate_sensitivity_report
+    import json, dataclasses
+
+    graph   = load_process(process)
+    pl      = load_price_list(prices)
+    profile = _load_risk_profile(risk_profile)
+    config  = ProcessConfig(
+        batch_size=ureg.Quantity(batch_size_kg, "kg"),
+        num_batches=num_batches,
+    )
+
+    _warn_unpriced_materials(graph, pl)
+    console.print(f"[bold]Risk Sensitivity Analysis:[/bold] {graph.name}")
+    console.print(f"  Batch: {batch_size_kg} kg × {num_batches}  |  CDMO nodes: {len(profile.cdmo_nodes)}")
+    console.print(f"  Tariff sweep rates: {profile.tariff_sweep_rates}")
+
+    bom    = calculate_bom(graph, config, pl)
+    report = generate_sensitivity_report(graph, config, pl, bom, profile)
+
+    console.print(f"\n  Base cost/kg API: ${report.base_cost_per_kg_api:,.2f}")
+    console.print(f"  CN origin: {report.exposure_summary.china_origin_cost_pct:.1f}%  |  "
+                  f"Single-source: {report.exposure_summary.single_source_cost_pct:.1f}%  |  "
+                  f"CDMO exposed: {report.exposure_summary.cdmo_exposed_cost_pct:.1f}%")
+    console.print(f"\n  Top 5 sensitivity weights:")
+    for w in report.signal_priority_weights[:5]:
+        console.print(f"    #{w.rank} {w.parameter}: {w.sensitivity_cost_per_unit:+.3f} $/kg per 1%")
+
+    out = make_output_dir(output_dir, f"risk_sensitivity_{graph.name.replace(' ','_')[:20]}")
+    report_dict = report.to_dict()
+    (out / "sensitivity_report.json").write_text(json.dumps(report_dict, indent=2))
+    console.print(f"\n[green]Sensitivity report written to:[/green] {out / 'sensitivity_report.json'}")
+
+
 def _warn_unpriced_materials(graph, pl) -> None:
     for step in graph.steps.values():
         for sm in step.materials:

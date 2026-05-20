@@ -11,6 +11,7 @@ from mrp.domain import (
     Plant, PlantAsset, DepreciationMethod, MaintenanceSchedule, MaintenanceType,
     StepAssetAssignment, CapacityUtilisationBand,
     PlantNetwork, NetworkPlantMembership, VolumeTarget,
+    RiskProfile, CDMONode, MaterialRiskInfo,
 )
 from mrp.units import parse_molar_mass, parse_volume_ratio, ureg
 
@@ -301,6 +302,52 @@ def load_plant(path: Path) -> Plant:
         decommission_date=_parse_date(p.get("decommission_date")),
         assets=assets,
         utilisation_bands=bands,
+    )
+
+
+def load_risk_profile(
+    path: Path,
+    graph=None,
+    prices=None,
+) -> RiskProfile:
+    """
+    Load a risk_profile.yaml → RiskProfile.
+
+    The graph and prices arguments are accepted for API compatibility
+    but are not required — all data comes from the YAML.
+    """
+    data = yaml.safe_load(path.read_text())
+    rp = data.get("risk_profile", {})
+
+    cdmo_nodes = []
+    for c in data.get("cdmo_nodes", []):
+        cdmo_nodes.append(CDMONode(
+            id=c["id"],
+            name=c["name"],
+            country=c.get("country", ""),
+            biosecure_act_listed=bool(c.get("biosecure_act_listed", False)),
+            city=c.get("city"),
+        ))
+
+    material_risk = []
+    for m in data.get("material_risk", []):
+        material_risk.append(MaterialRiskInfo(
+            material_name=m["material_name"],
+            country_of_origin=m.get("country_of_origin"),
+            cdmo_node_id=m.get("cdmo_node_id"),
+            is_single_source=bool(m.get("is_single_source", False)),
+            is_indirect_china=bool(m.get("is_indirect_china", False)),
+            lead_time_weeks=float(m["lead_time_weeks"]) if m.get("lead_time_weeks") else None,
+            risk_flags=list(m.get("risk_flags", [])),
+        ))
+
+    tariff_rates = [float(r) for r in data.get("tariff_sweep_rates", [20.0, 35.0, 55.0, 100.0])]
+
+    return RiskProfile(
+        name=rp.get("name", path.stem),
+        cdmo_nodes=cdmo_nodes,
+        material_risk=material_risk,
+        tariff_sweep_rates=tariff_rates,
     )
 
 

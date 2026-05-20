@@ -1,0 +1,55 @@
+You are a supply chain risk analyst. A signal has been assessed as relevant AND novel. Your task is to assign a severity tier.
+
+## Affected Parameters and Their Sensitivity Weights
+
+{affected_parameters_with_weights_json}
+
+## What Is New (from novelty assessment)
+
+{novelty_reasoning}
+Affected parameters: {relevant_parameters}
+
+## Signal Details
+
+Source: {source_name}
+Date: {collected_date}
+
+Content:
+{raw_content}
+
+## Severity Tiers
+
+ROUTINE: General market context, unconfirmed rumours, or positive news. No immediate action required.
+
+ELEVATED: A precursor event has occurred (inspection scheduled, hearing announced, analyst forecast, Form 483 without OAI outcome). Not yet confirmed but warrants active monitoring.
+
+HIGH: A confirmed, material change has occurred that will directly affect cost or supply continuity:
+  - Confirmed tariff rate change with effective date
+  - OAI (Official Action Indicated) outcome or FDA Warning Letter at a monitored CDMO
+  - Confirmed price increase from a supplier (≥10%) for a top-10 sensitivity parameter
+  - Confirmed lead time extension (≥50%) for a single-source, top-5 ranked parameter
+  - Legislative action (passed/enacted, not just proposed) affecting monitored CDMOs
+
+CRITICAL: A discontinuous, confirmed event requiring same-day leadership action:
+  - Law enacted naming monitored CDMOs (BioSecure Act signed, entity list addition)
+  - Supplier bankruptcy (Chapter 11 or equivalent) for a single-source top-5 material
+  - Force majeure at a sole-source CDMO
+  - Concurrent HIGH events across multiple risk vectors (tariff + CDMO disruption simultaneously)
+
+## Instructions
+
+Assign the appropriate severity tier. Consider:
+1. Is this confirmed or just announced/proposed?
+2. Which parameters are affected and what are their sensitivity weights?
+3. Is the affected supplier/CDMO single-source?
+4. Are multiple risk vectors active simultaneously?
+
+Return ONLY a valid JSON object:
+
+{{
+  "severity": "ROUTINE" or "ELEVATED" or "HIGH" or "CRITICAL",
+  "severity_reasoning": "Two to four sentences citing the specific confirmed facts and sensitivity data that justify this tier.",
+  "risk_vector_type": "tariff_escalation" or "cdmo_removal" or "yield_disruption" or "lead_time_extension" or "unknown",
+  "affected_geography": "CN" or "IN" or null,
+  "affected_cdmo_node_name": "exact CDMO name" or null
+}}

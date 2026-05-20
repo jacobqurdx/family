@@ -1,0 +1,7 @@
+{
+  "severity": "HIGH",
+  "severity_reasoning": "An OAI outcome has been reported at Wuxi AppTec WuXi STA. This CDMO performs the Amide Coupling (sole-source) and Cyclisation steps.",
+  "risk_vector_type": "cdmo_removal",
+  "affected_geography": "CN",
+  "affected_cdmo_node_name": "Wuxi AppTec \u2014 WuXi STA"
+}

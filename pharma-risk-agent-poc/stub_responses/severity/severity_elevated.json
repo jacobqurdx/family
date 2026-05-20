@@ -1,0 +1,7 @@
+{
+  "severity": "ELEVATED",
+  "severity_reasoning": "The signal reports a precursor event that could escalate to a confirmed disruption. The event is not yet confirmed but warrants active monitoring.",
+  "risk_vector_type": "cdmo_removal",
+  "affected_geography": "CN",
+  "affected_cdmo_node_name": "Wuxi AppTec \u2014 WuXi STA"
+}

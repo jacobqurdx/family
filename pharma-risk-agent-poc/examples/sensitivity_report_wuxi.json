@@ -1,0 +1,209 @@
+{
+  "report_id": "sr-20260515-001",
+  "scenario_id": "api-001_route_a",
+  "process_name": "API-001 Route A",
+  "base_cost_per_kg_api": 5208.0,
+  "currency": "USD",
+  "exposure_summary": {
+    "china_origin_cost_pct": 86.4,
+    "indirect_china_cost_pct": 5.6,
+    "single_source_cost_pct": 27.3,
+    "cdmo_exposed_cost_pct": 27.3
+  },
+  "signal_priority_weights": [
+    {
+      "rank": 1,
+      "parameter": "Amide Coupling step yield",
+      "parameter_type": "step_yield",
+      "target_id": "amide_coupling_gmp",
+      "sensitivity_cost_per_unit": 52.08,
+      "country_of_origin": null,
+      "cdmo_node": "WuXi STA",
+      "cdmo_node_id": "wuxi_sta",
+      "is_single_source": false,
+      "is_indirect_china": false,
+      "timeline_impact_weeks": null,
+      "risk_flags": ["gmp_step", "cdmo_dependent"],
+      "tariff_impact_at_55pct": null
+    },
+    {
+      "rank": 2,
+      "parameter": "Cyclisation step yield",
+      "parameter_type": "step_yield",
+      "target_id": "cyclisation_gmp",
+      "sensitivity_cost_per_unit": 41.66,
+      "country_of_origin": null,
+      "cdmo_node": "WuXi STA",
+      "cdmo_node_id": "wuxi_sta",
+      "is_single_source": false,
+      "is_indirect_china": false,
+      "timeline_impact_weeks": null,
+      "risk_flags": ["gmp_step", "cdmo_dependent"],
+      "tariff_impact_at_55pct": null
+    },
+    {
+      "rank": 3,
+      "parameter": "Nitration step yield",
+      "parameter_type": "step_yield",
+      "target_id": "nitration",
+      "sensitivity_cost_per_unit": 20.83,
+      "country_of_origin": null,
+      "cdmo_node": null,
+      "cdmo_node_id": null,
+      "is_single_source": false,
+      "is_indirect_china": false,
+      "timeline_impact_weeks": null,
+      "risk_flags": [],
+      "tariff_impact_at_55pct": null
+    },
+    {
+      "rank": 4,
+      "parameter": "Starting Material A",
+      "parameter_type": "material_price",
+      "target_id": "starting_material_a",
+      "sensitivity_cost_per_unit": 16.40,
+      "country_of_origin": "CN",
+      "cdmo_node": "WuXi STA",
+      "cdmo_node_id": "wuxi_sta",
+      "is_single_source": true,
+      "is_indirect_china": false,
+      "timeline_impact_weeks": 18.0,
+      "risk_flags": ["biosecure_act_cdmo", "single_source", "sole_source_cdmo_gmp", "china_origin"],
+      "tariff_impact_at_55pct": 902.0
+    },
+    {
+      "rank": 5,
+      "parameter": "Reduction step yield",
+      "parameter_type": "step_yield",
+      "target_id": "reduction",
+      "sensitivity_cost_per_unit": 15.62,
+      "country_of_origin": null,
+      "cdmo_node": null,
+      "cdmo_node_id": null,
+      "is_single_source": false,
+      "is_indirect_china": false,
+      "timeline_impact_weeks": null,
+      "risk_flags": [],
+      "tariff_impact_at_55pct": null
+    },
+    {
+      "rank": 6,
+      "parameter": "HATU",
+      "parameter_type": "material_price",
+      "target_id": "hatu",
+      "sensitivity_cost_per_unit": 10.88,
+      "country_of_origin": "CN",
+      "cdmo_node": null,
+      "cdmo_node_id": null,
+      "is_single_source": false,
+      "is_indirect_china": false,
+      "timeline_impact_weeks": 3.0,
+      "risk_flags": ["china_origin"],
+      "tariff_impact_at_55pct": 598.4
+    },
+    {
+      "rank": 7,
+      "parameter": "Salt Formation step yield",
+      "parameter_type": "step_yield",
+      "target_id": "salt_formation_gmp",
+      "sensitivity_cost_per_unit": 10.42,
+      "country_of_origin": null,
+      "cdmo_node": "WuXi STA",
+      "cdmo_node_id": "wuxi_sta",
+      "is_single_source": false,
+      "is_indirect_china": false,
+      "timeline_impact_weeks": null,
+      "risk_flags": ["gmp_step", "cdmo_dependent"],
+      "tariff_impact_at_55pct": null
+    },
+    {
+      "rank": 8,
+      "parameter": "Palladium catalyst (Pd/C 5%)",
+      "parameter_type": "material_price",
+      "target_id": "pd_c_catalyst",
+      "sensitivity_cost_per_unit": 0.83,
+      "country_of_origin": "GB",
+      "cdmo_node": null,
+      "cdmo_node_id": null,
+      "is_single_source": false,
+      "is_indirect_china": false,
+      "timeline_impact_weeks": 2.0,
+      "risk_flags": [],
+      "tariff_impact_at_55pct": null
+    },
+    {
+      "rank": 9,
+      "parameter": "DIPEA (N,N-Diisopropylethylamine)",
+      "parameter_type": "material_price",
+      "target_id": "dipea",
+      "sensitivity_cost_per_unit": 0.42,
+      "country_of_origin": "IN",
+      "cdmo_node": null,
+      "cdmo_node_id": null,
+      "is_single_source": false,
+      "is_indirect_china": true,
+      "timeline_impact_weeks": 1.0,
+      "risk_flags": ["india_origin", "indirect_china"],
+      "tariff_impact_at_55pct": null
+    },
+    {
+      "rank": 10,
+      "parameter": "DCM (Dichloromethane) solvent",
+      "parameter_type": "material_price",
+      "target_id": "dcm",
+      "sensitivity_cost_per_unit": 0.28,
+      "country_of_origin": "CN",
+      "cdmo_node": null,
+      "cdmo_node_id": null,
+      "is_single_source": false,
+      "is_indirect_china": false,
+      "timeline_impact_weeks": 0.5,
+      "risk_flags": ["china_origin"],
+      "tariff_impact_at_55pct": 77.0
+    }
+  ],
+  "tariff_sweep": [
+    {
+      "tariff_rate_pct": 20.0,
+      "adjusted_cost_per_kg": 5726.0,
+      "cost_per_kg_delta": 518.0,
+      "tariff_cost_total": 25900.0,
+      "exposed_materials": ["Starting Material A", "HATU", "DCM (Dichloromethane) solvent", "DMF (Anhydrous)", "2-Fluorotoluene"]
+    },
+    {
+      "tariff_rate_pct": 35.0,
+      "adjusted_cost_per_kg": 6115.0,
+      "cost_per_kg_delta": 907.0,
+      "tariff_cost_total": 45350.0,
+      "exposed_materials": ["Starting Material A", "HATU", "DCM (Dichloromethane) solvent", "DMF (Anhydrous)", "2-Fluorotoluene"]
+    },
+    {
+      "tariff_rate_pct": 55.0,
+      "adjusted_cost_per_kg": 6634.0,
+      "cost_per_kg_delta": 1426.0,
+      "tariff_cost_total": 71300.0,
+      "exposed_materials": ["Starting Material A", "HATU", "DCM (Dichloromethane) solvent", "DMF (Anhydrous)", "2-Fluorotoluene"]
+    },
+    {
+      "tariff_rate_pct": 100.0,
+      "adjusted_cost_per_kg": 7800.0,
+      "cost_per_kg_delta": 2592.0,
+      "tariff_cost_total": 129600.0,
+      "exposed_materials": ["Starting Material A", "HATU", "DCM (Dichloromethane) solvent", "DMF (Anhydrous)", "2-Fluorotoluene"]
+    }
+  ],
+  "cdmo_removal_scenarios": [
+    {
+      "cdmo_node_name": "WuXi STA",
+      "cdmo_node_id": "wuxi_sta",
+      "biosecure_act_listed": true,
+      "affected_step_names": ["Amide Coupling [GMP]", "Cyclisation [GMP]", "Salt Formation [GMP]"],
+      "affected_material_names": ["Starting Material A"],
+      "base_cost_per_kg_api": 5208.0,
+      "emergency_cost_per_kg_api": 6028.0,
+      "cost_per_kg_delta": 820.0,
+      "timeline_critical_path_weeks": 18.0,
+      "timeline_unknown_materials": []
+    }
+  ]
+}
