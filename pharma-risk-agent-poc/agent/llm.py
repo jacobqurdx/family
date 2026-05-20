@@ -215,6 +215,21 @@ class StubLLMBackend(_Backend):
             if any(kw in p for kw in ["wuxi", "cdmo", "removal"]):
                 return "impact_cdmo"
             return "impact_tariff"
+        elif step == "metacognition":
+            # Extract only the signal content block to avoid matching template text.
+            content_marker = "content:\n"
+            content_start = p.find(content_marker)
+            mc = p[content_start + len(content_marker):] if content_start != -1 else p
+            end_pos = mc.find("\n## ")
+            if end_pos != -1:
+                mc = mc[:end_pos]
+            if any(kw in mc for kw in [
+                "reportedly", "sources say", "alleged", "unconfirmed",
+                "not yet confirmed", "has not been confirmed", "proposed amendment",
+                "amendment would", "bipartisan support but has not",
+            ]):
+                return "metacognition_uncertain"
+            return "metacognition_certain"
         elif step == "briefing":
             return "investigation_report_template"
         variants = list(self._responses.get(step, {}).keys())
@@ -247,6 +262,12 @@ def _safe_fallback_json(step: str, error_message: str) -> str:
             "estimated_timeline_reasoning": "",
             "confidence": "low",
             "caveats": ["Impact estimation failed; manual assessment required."],
+        }),
+        "metacognition": json.dumps({
+            "grade": "CERTAIN",
+            "confidence": 0.5,
+            "uncertainty_flags": [f"Metacognition failed: {error_message}"],
+            "reasoning": "Metacognition assessment failed; defaulting to CERTAIN.",
         }),
     }
     return fallbacks.get(step, json.dumps({"error": error_message}))
@@ -417,6 +438,29 @@ def _stub_file_contents() -> dict[str, str]:
             "## 5. Sources\n\n"
             "1. [MRP sensitivity report] scenario_id: api-001_route_a\n"
         ),
+        "metacognition/metacognition_certain.json": json.dumps({
+            "grade": "CERTAIN",
+            "confidence": 0.92,
+            "uncertainty_flags": [],
+            "reasoning": (
+                "The signal provides direct, unambiguous factual evidence consistent with "
+                "the assessed tier. The reasoning traces clearly to the signal content and "
+                "no borderline interpretation is required."
+            ),
+        }, indent=2),
+        "metacognition/metacognition_uncertain.json": json.dumps({
+            "grade": "UNCERTAIN",
+            "confidence": 0.78,
+            "uncertainty_flags": [
+                "hedged language: signal uses 'reportedly' or 'sources say'",
+                "borderline tier: event may be precursor rather than confirmed",
+            ],
+            "reasoning": (
+                "The signal contains hedged language that introduces ambiguity about whether "
+                "the reported event is confirmed or merely rumoured. The assessed tier could "
+                "reasonably be one level lower if the event is not yet confirmed."
+            ),
+        }, indent=2),
         "collection/web_search_results.json": json.dumps([
             {
                 "title": "USTR Confirms 55% Consolidated Tariff on Chinese Pharmaceutical Imports",

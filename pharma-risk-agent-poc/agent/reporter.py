@@ -55,6 +55,26 @@ def write_assessed_signals(signals: list[AssessedSignal], out_dir: Path) -> Path
             "estimated_cost_delta": (
                 a.impact.estimated_cost_impact_per_kg if a.impact else None
             ),
+            "severity_metacognition": (
+                {
+                    "grade": a.severity_metacognition.grade,
+                    "confidence": a.severity_metacognition.confidence,
+                    "uncertainty_flags": a.severity_metacognition.uncertainty_flags,
+                    "adjudicated": a.severity_metacognition.adjudicated,
+                    "adjudicated_by": a.severity_metacognition.adjudicated_by,
+                }
+                if a.severity_metacognition else None
+            ),
+            "impact_metacognition": (
+                {
+                    "grade": a.impact_metacognition.grade,
+                    "confidence": a.impact_metacognition.confidence,
+                    "uncertainty_flags": a.impact_metacognition.uncertainty_flags,
+                    "adjudicated": a.impact_metacognition.adjudicated,
+                    "adjudicated_by": a.impact_metacognition.adjudicated_by,
+                }
+                if a.impact_metacognition else None
+            ),
         })
     path = out_dir / "assessed_signals.json"
     path.write_text(json.dumps(data, indent=2))

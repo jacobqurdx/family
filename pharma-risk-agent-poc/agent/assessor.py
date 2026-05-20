@@ -6,7 +6,7 @@ from pathlib import Path
 from agent.domain import (
     Signal, SensitivityContext, SignalState,
     RelevanceResult, NoveltyResult, SeverityResult, ImpactResult,
-    AssessedSignal, SeverityTier, RiskVectorType, ActionType,
+    MetacognitionResult, AssessedSignal, SeverityTier, RiskVectorType, ActionType,
 )
 
 PROMPT_DIR = Path(__file__).parent.parent / "prompts"
@@ -29,11 +29,17 @@ def assess_signal(
     client: "LLMClient",
     cache_dir: Path | None = None,
     skip_impact: bool = False,
+    interactive: bool | None = None,
 ) -> AssessedSignal:
     """
     Run the 4-step assessment pipeline for one signal.
     Short-circuits at the first negative gate (irrelevant or not novel).
+    After severity and impact, runs a metacognition grader; if the grade is
+    UNCERTAIN and we are in an interactive terminal, prompts a human adjudicator.
     """
+    from agent.adjudicator import is_interactive as _is_tty, adjudicate_severity, adjudicate_impact
+    _interactive = interactive if interactive is not None else _is_tty()
+
     try:
         relevance = _step_relevance(signal, context, client, cache_dir)
         if not relevance.is_relevant:
@@ -61,15 +67,56 @@ def assess_signal(
         ]
         severity = _step_severity(signal, novelty, relevant_weights, client, cache_dir)
 
+        context_summary = (
+            f"Process: {context.process_name}. "
+            f"Base cost: ${context.base_cost_per_kg_api:,.2f}/kg. "
+            f"CN exposure: {context.china_origin_cost_pct:.1f}%. "
+            f"CDMO exposed: {context.cdmo_exposed_cost_pct:.1f}%."
+        )
+        severity_meta = _step_metacognition(
+            step="severity",
+            signal=signal,
+            assessment_dict={
+                "severity": severity.severity.value,
+                "severity_reasoning": severity.severity_reasoning,
+                "risk_vector_type": severity.risk_vector_type.value,
+                "affected_geography": severity.affected_geography,
+                "affected_cdmo_node_name": severity.affected_cdmo_node_name,
+            },
+            context_summary=context_summary,
+            client=client,
+            cache_dir=cache_dir,
+        )
+        if severity_meta.grade == "UNCERTAIN" and _interactive:
+            severity, severity_meta = adjudicate_severity(severity, severity_meta, signal)
+
         impact = None
+        impact_meta = None
         if not skip_impact and severity.severity in (SeverityTier.HIGH, SeverityTier.CRITICAL):
             impact = _step_impact(signal, severity, novelty, context, client, cache_dir)
+            impact_meta = _step_metacognition(
+                step="impact",
+                signal=signal,
+                assessment_dict={
+                    "estimated_cost_impact_per_kg": impact.estimated_cost_impact_per_kg,
+                    "estimated_cost_impact_reasoning": impact.estimated_cost_impact_reasoning,
+                    "estimated_timeline_impact_weeks": impact.estimated_timeline_impact_weeks,
+                    "confidence": impact.confidence,
+                },
+                context_summary=context_summary,
+                client=client,
+                cache_dir=cache_dir,
+            )
+            if impact_meta.grade == "UNCERTAIN" and _interactive:
+                impact, impact_meta = adjudicate_impact(impact, impact_meta, signal)
 
         actions = _select_actions(severity, relevance, novelty)
         return AssessedSignal(
             signal=signal, relevance=relevance, novelty=novelty,
             severity=severity, impact=impact,
             recommended_actions=actions,
+            severity_metacognition=severity_meta,
+            impact_metacognition=impact_meta,
         )
     except Exception as e:
         return AssessedSignal(
@@ -245,6 +292,48 @@ def _step_impact(
         estimated_timeline_reasoning=data.get("estimated_timeline_reasoning", ""),
         confidence=data.get("confidence", "low"),
         caveats=data.get("caveats", []),
+        prompt_version=version,
+    )
+
+
+def _step_metacognition(
+    step: str,
+    signal: Signal,
+    assessment_dict: dict,
+    context_summary: str,
+    client: "LLMClient",
+    cache_dir: Path | None,
+) -> MetacognitionResult:
+    template, version = load_prompt("metacognition")
+    prompt = template.format(
+        step=step,
+        assessment_json=json.dumps(assessment_dict, indent=2),
+        source_name=signal.source_name,
+        collected_date=signal.collected_at[:10],
+        raw_content=signal.raw_content[:2000],
+        context_summary=context_summary,
+    )
+    response = _call_claude(prompt, client, cache_dir, step="metacognition")
+    try:
+        data = _parse_llm_json(response, required_fields=["grade", "reasoning"])
+    except LLMResponseParseError:
+        return MetacognitionResult(
+            grade="CERTAIN",
+            confidence=0.5,
+            uncertainty_flags=["metacognition parse failed — defaulting to CERTAIN"],
+            reasoning="Metacognition response could not be parsed.",
+            step=step,
+            prompt_version=version,
+        )
+    grade = str(data.get("grade", "CERTAIN")).upper()
+    if grade not in ("CERTAIN", "UNCERTAIN"):
+        grade = "CERTAIN"
+    return MetacognitionResult(
+        grade=grade,
+        confidence=float(data.get("confidence", 0.8)),
+        uncertainty_flags=data.get("uncertainty_flags", []),
+        reasoning=data["reasoning"],
+        step=step,
         prompt_version=version,
     )
 

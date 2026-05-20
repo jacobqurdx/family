@@ -1,0 +1,9 @@
+{
+  "grade": "UNCERTAIN",
+  "confidence": 0.78,
+  "uncertainty_flags": [
+    "hedged language: signal uses 'reportedly' or 'sources say'",
+    "borderline tier: event may be precursor rather than confirmed"
+  ],
+  "reasoning": "The signal contains hedged language that introduces ambiguity about whether the reported event is confirmed or merely rumoured. The assessed tier could reasonably be one level lower if the event is not yet confirmed."
+}

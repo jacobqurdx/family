@@ -117,6 +117,18 @@ class ImpactResult:
 
 
 @dataclass
+class MetacognitionResult:
+    grade: str  # "CERTAIN" or "UNCERTAIN"
+    confidence: float  # 0.0 - 1.0
+    uncertainty_flags: list[str]
+    reasoning: str
+    step: str  # "severity" or "impact"
+    adjudicated: bool = False
+    adjudicated_by: str | None = None
+    prompt_version: str = "unknown"
+
+
+@dataclass
 class AssessedSignal:
     signal: Signal
     relevance: RelevanceResult
@@ -126,6 +138,8 @@ class AssessedSignal:
     recommended_actions: list[ActionType]
     assessment_failed: bool = False
     failure_reason: str | None = None
+    severity_metacognition: MetacognitionResult | None = None
+    impact_metacognition: MetacognitionResult | None = None
 
 
 @dataclass
