@@ -43,6 +43,8 @@ def write_assessed_signals(signals: list[AssessedSignal], out_dir: Path) -> Path
             "signal_id": a.signal.id,
             "source": a.signal.source_name,
             "url": a.signal.source_url,
+            "collected_at": a.signal.collected_at,
+            "raw_content": a.signal.raw_content,
             "is_relevant": a.relevance.is_relevant,
             "relevant_parameters": a.relevance.relevant_parameters,
             "process_step": getattr(a, "process_step", None),
