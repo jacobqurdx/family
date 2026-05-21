@@ -140,6 +140,115 @@ class AssessedSignal:
     failure_reason: str | None = None
     severity_metacognition: MetacognitionResult | None = None
     impact_metacognition: MetacognitionResult | None = None
+    assessment_engine: str = "llm"  # "llm" | "rule_engine"
+
+
+# ─── Risk Profile domain objects (v1.2) ──────────────────────────────────────
+
+@dataclass
+class InternalThresholds:
+    planned_value: float
+    unit: str
+    elevated_threshold: float
+    high_threshold: float
+    critical_threshold: float
+    threshold_type: str = "ratio"  # "ratio" | "absolute"
+
+
+@dataclass
+class RiskProfileParameter:
+    id: str
+    name: str
+    category: str  # "tariff_escalation"|"cdmo_removal"|"operational"|"material_price"|"capacity_constraint"
+    risk_tier: str  # "HIGH" | "MEDIUM" | "LOW"
+    applies_to_scenarios: list[str]
+    description: str | None = None
+    internal_thresholds: InternalThresholds | None = None
+    sources_to_monitor: list[str] = field(default_factory=list)
+    notes: str | None = None
+
+
+@dataclass
+class RiskProfileScenario:
+    id: str
+    name: str
+    is_primary: bool = False
+    mrp_scenario_id: str | None = None
+    notes: str | None = None
+
+
+@dataclass
+class DefaultThresholds:
+    yield_parameters: dict[str, float]
+    rate_parameters: dict[str, float]
+    price_parameters: dict[str, float] = field(default_factory=dict)
+
+
+@dataclass
+class RiskProfile:
+    name: str
+    version: str
+    scenarios: list[RiskProfileScenario]
+    parameters: list[RiskProfileParameter]
+    default_thresholds: DefaultThresholds | None = None
+
+    def get_parameter(self, param_id: str) -> RiskProfileParameter | None:
+        return next((p for p in self.parameters if p.id == param_id), None)
+
+    def primary_scenario(self) -> RiskProfileScenario | None:
+        return next((s for s in self.scenarios if s.is_primary), None)
+
+    def thresholds_for(self, parameter: RiskProfileParameter) -> InternalThresholds | None:
+        if parameter.internal_thresholds:
+            return parameter.internal_thresholds
+        if self.default_thresholds and parameter.category == "operational":
+            dt = self.default_thresholds.yield_parameters
+            return InternalThresholds(
+                planned_value=0.0,
+                unit="ratio",
+                elevated_threshold=dt.get("elevated_threshold", 0.85),
+                high_threshold=dt.get("high_threshold", 0.75),
+                critical_threshold=dt.get("critical_threshold", 0.65),
+                threshold_type=dt.get("threshold_type", "ratio"),
+            )
+        return None
+
+
+# ─── Internal signal domain objects (v1.2) ───────────────────────────────────
+
+@dataclass
+class InternalSignal:
+    """Structured signal from MES, QMS, ERP, or capacity tracker. Rule-engine assessed."""
+    id: str
+    signal_type: str
+    # Supported signal_type values:
+    #   "step_yield"           — actual/planned yield ratio for a process step
+    #   "batch_failure_rate"   — % of batches failing quality release
+    #   "po_delivery_exception"— PO delivery delay in weeks
+    #   "sdd_global_fraction"  — our % of global SDD capacity
+    #   "sdd_facility_util"    — our % of a named SDD facility capacity
+    source_system: str  # "mes" | "qms" | "erp" | "capacity_tracker"
+    parameter_id: str
+    scenario_id: str
+    actual_value: float
+    planned_value: float
+    unit: str
+    measurement_timestamp: str
+    context: dict = field(default_factory=dict)
+
+
+# ─── Multi-scenario comparator (v1.2) ────────────────────────────────────────
+
+@dataclass
+class ScenarioImpact:
+    scenario_id: str
+    scenario_name: str
+    is_primary: bool
+    qualitative_impact: str  # "HIGH" | "MEDIUM" | "LOW" | "UNKNOWN"
+    cost_delta_per_kg: float | None
+    timeline_impact_weeks: float | None
+    data_source: str  # "mrp" | "rule_engine" | "estimated"
+    notes: str | None = None
 
 
 @dataclass

@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
-from agent.domain import Signal, SignalSourceType, SignalPriorityWeight
+from agent.domain import Signal, SignalSourceType, SignalPriorityWeight, InternalSignal
 
 
 def collect_from_files(signal_dir: Path) -> list[Signal]:
@@ -140,6 +140,26 @@ def _deduplicate(signals: list[Signal]) -> list[Signal]:
             seen.add(s.raw_content_hash)
             result.append(s)
     return result
+
+
+def collect_internal_signals(signal_dir: Path) -> list[InternalSignal]:
+    """Load InternalSignal objects from corpus/internal_signals/ JSON files."""
+    signals = []
+    for path in sorted(signal_dir.glob("*.json")):
+        data = json.loads(path.read_text())
+        signals.append(InternalSignal(
+            id=data.get("id", path.stem),
+            signal_type=data["signal_type"],
+            source_system=data["source_system"],
+            parameter_id=data["parameter_id"],
+            scenario_id=data.get("scenario_id", "our_current"),
+            actual_value=float(data["actual_value"]),
+            planned_value=float(data["planned_value"]),
+            unit=data.get("unit", ""),
+            measurement_timestamp=data.get("measurement_timestamp", _utcnow()),
+            context=data.get("context", {}),
+        ))
+    return signals
 
 
 def _utcnow() -> str:

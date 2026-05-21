@@ -1,0 +1,16 @@
+{
+  "id": "step_3_yield_normal",
+  "signal_type": "step_yield",
+  "source_system": "mes",
+  "parameter_id": "step_3_yield",
+  "scenario_id": "our_current",
+  "actual_value": 73.1,
+  "planned_value": 74.0,
+  "unit": "%",
+  "measurement_timestamp": "2026-05-14T06:00:00Z",
+  "context": {
+    "batch_id": "B-2026-0512",
+    "step_name": "Amide Coupling",
+    "operator_notes": "Normal run, no deviations recorded"
+  }
+}

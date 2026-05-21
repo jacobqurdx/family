@@ -184,3 +184,52 @@ labels:
     expected_is_novel: false
     expected_severity: null
     notes: "R&D productivity analysis — no supply chain or sourcing content"
+
+  # --- Internal signals (rule-engine assessed, v1.2/v1.3) ---
+  - signal_id: step_3_yield_normal
+    expected_is_relevant: true
+    expected_is_novel: false
+    expected_severity: null
+    notes: "73.1/74.0 = 98.8% of planned — within 5% of planned, not novel; ROUTINE if novel"
+
+  - signal_id: step_3_yield_elevated
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: elevated
+    notes: "61.0/74.0 = 82.4% of planned — below elevated threshold (85%), above high (75%)"
+
+  - signal_id: step_3_yield_high
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: high
+    notes: "52.2/74.0 = 70.5% of planned — below high threshold (75%), above critical (65%)"
+
+  - signal_id: step_4_yield_normal
+    expected_is_relevant: true
+    expected_is_novel: false
+    expected_severity: null
+    notes: "80.5/81.0 = 99.4% of planned — within 5% of planned, not novel"
+
+  - signal_id: batch_failure_elevated
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: elevated
+    notes: "3.5% failure rate — planned=0, actual>0 → novel; 3.5 > elevated_threshold(2.0)"
+
+  - signal_id: po_delay_sm_a
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: elevated
+    notes: "4 week delay — planned=0, actual>0 → novel; 4.0 > elevated_threshold(2.0), < high_threshold(6.0)"
+
+  - signal_id: sdd_fraction_low
+    expected_is_relevant: true
+    expected_is_novel: false
+    expected_severity: null
+    notes: "4.1% actual == 4.1% planned — 0% change, not novel; would be ROUTINE"
+
+  - signal_id: sdd_fraction_high
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: high
+    notes: "38.0% actual — 827% change from planned 4.1% → novel; 38.0 > high_threshold(35.0)"

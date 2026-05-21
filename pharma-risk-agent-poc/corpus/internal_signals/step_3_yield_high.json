@@ -1,0 +1,16 @@
+{
+  "id": "step_3_yield_high",
+  "signal_type": "step_yield",
+  "source_system": "mes",
+  "parameter_id": "step_3_yield",
+  "scenario_id": "our_current",
+  "actual_value": 52.2,
+  "planned_value": 74.0,
+  "unit": "%",
+  "measurement_timestamp": "2026-05-15T06:00:00Z",
+  "context": {
+    "batch_id": "B-2026-0514",
+    "step_name": "Amide Coupling",
+    "operator_notes": "Significantly below target. Three consecutive batches trending down. QMS deviation report raised."
+  }
+}

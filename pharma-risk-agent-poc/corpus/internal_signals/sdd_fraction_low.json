@@ -1,0 +1,16 @@
+{
+  "id": "sdd_fraction_low",
+  "signal_type": "sdd_global_fraction",
+  "source_system": "capacity_tracker",
+  "parameter_id": "sdd_global_fraction",
+  "scenario_id": "our_current",
+  "actual_value": 4.1,
+  "planned_value": 4.1,
+  "unit": "% of global capacity",
+  "measurement_timestamp": "2026-05-14T06:00:00Z",
+  "context": {
+    "global_capacity_kg": 8500,
+    "our_demand_kg": 350,
+    "snapshot_source": "Q1 2026 industry capacity assessment"
+  }
+}
