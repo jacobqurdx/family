@@ -231,9 +231,18 @@ class StubLLMBackend(_Backend):
             if end_pos != -1:
                 mc = mc[:end_pos]
             if any(kw in mc for kw in [
+                # hedged language
                 "reportedly", "sources say", "alleged", "unconfirmed",
-                "not yet confirmed", "has not been confirmed", "proposed amendment",
-                "amendment would", "bipartisan support but has not",
+                "not yet confirmed", "has not been confirmed",
+                # proposed / pending — not yet law or confirmed
+                "proposed rulemaking", "notice of proposed", "comment period",
+                "if finalized", "proposed amendment", "amendment would",
+                "bipartisan support but has not",
+                # pending actions / awaiting confirmation
+                "pending review", "proceeds to the president",
+                "will communicate", "pending compliance",
+                # capacity/outlook uncertainty
+                "bookings frozen", "working with legal counsel",
             ]):
                 return "metacognition_uncertain"
             return "metacognition_certain"
