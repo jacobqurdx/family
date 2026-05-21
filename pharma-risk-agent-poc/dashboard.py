@@ -218,7 +218,16 @@ def _render_signal_card(sig: dict, run_dir: str) -> None:
         if raw:
             st.markdown("---")
             with st.expander("📄 Full signal text", expanded=False):
-                st.code(raw, language=None)
+                st.markdown(
+                    f"<div style='"
+                    f"white-space: pre-wrap; word-wrap: break-word; "
+                    f"font-family: monospace; font-size: 0.85rem; "
+                    f"background: #1e1e1e; color: #d4d4d4; "
+                    f"padding: 1rem; border-radius: 0.375rem; "
+                    f"line-height: 1.5; overflow-x: hidden;"
+                    f"'>{raw}</div>",
+                    unsafe_allow_html=True,
+                )
 
         # ── Adjudication panel ─────────────────────────────────────────────
         if is_uncertain or adj:
