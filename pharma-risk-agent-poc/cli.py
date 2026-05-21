@@ -18,6 +18,7 @@ from agent.actions import execute_actions
 from agent.eval import run_evaluation
 from agent.reporter import make_output_dir, write_run_summary, write_assessed_signals, write_eval_report
 from agent.llm import LLMClient
+from agent.rule_engine import load_risk_profile_yaml, enrich_process_step
 
 app = typer.Typer(
     name="agent",
@@ -174,6 +175,10 @@ def run(
     t0 = time.perf_counter()
 
     context = load_sensitivity_context(sensitivity)
+
+    # Load agent risk profile for process-step enrichment (optional)
+    _agent_profile_path = Path("examples/risk_profile.yaml")
+    _agent_profile = load_risk_profile_yaml(_agent_profile_path) if _agent_profile_path.exists() else None
     console.print(f"[bold]Risk Agent Run[/bold]")
     console.print(f"  Scenario: {context.process_name}  |  Base cost: ${context.base_cost_per_kg_api:,.2f}/kg")
     console.print(f"  Priority weights: {len(context.signal_priority_weights)} parameters")
@@ -214,6 +219,8 @@ def run(
             assessed = assess_signal(
                 signal, context, state_store.all(), client, cache_dir,
             )
+            if _agent_profile:
+                enrich_process_step(assessed, _agent_profile)
             assessed_signals.append(assessed)
 
             if assessed.novelty and assessed.novelty.is_novel:

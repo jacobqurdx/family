@@ -30,6 +30,7 @@ parameters:
   - id: step_3_yield
     name: "Amide Coupling Step Yield"
     category: operational
+    process_step: regulated_starting_material
     risk_tier: HIGH
     applies_to_scenarios: [our_current, competitor_x]
     description: "GMP batch yield for Amide Coupling (Step 3) — sole-source step at WuXi STA"
@@ -48,6 +49,7 @@ parameters:
   - id: step_4_yield
     name: "Cyclisation Step Yield"
     category: operational
+    process_step: regulated_starting_material
     risk_tier: MEDIUM
     applies_to_scenarios: [our_current]
     description: "GMP batch yield for Cyclisation (Step 4)"
@@ -64,6 +66,7 @@ parameters:
   - id: batch_failure_rate
     name: "Batch Failure Rate"
     category: operational
+    process_step: regulated_starting_material
     risk_tier: HIGH
     applies_to_scenarios: [our_current]
     description: "% of GMP batches failing quality release over trailing 90 days"
@@ -81,6 +84,7 @@ parameters:
   - id: po_delay_sm_a
     name: "SM-A Purchase Order Delivery Delay"
     category: material_price
+    process_step: raw_materials
     risk_tier: HIGH
     applies_to_scenarios: [our_current]
     description: "SM-A delivery delay in weeks vs confirmed PO date"
@@ -99,6 +103,7 @@ parameters:
   - id: sdd_global_fraction
     name: "SDD Global Capacity Fraction"
     category: capacity_constraint
+    process_step: spray_dry_dispersion
     risk_tier: HIGH
     applies_to_scenarios: [our_current]
     description: >
@@ -119,6 +124,7 @@ parameters:
   - id: sdd_facility_util
     name: "SDD Facility Utilisation"
     category: capacity_constraint
+    process_step: spray_dry_dispersion
     risk_tier: MEDIUM
     applies_to_scenarios: [our_current]
     description: >
@@ -137,6 +143,7 @@ parameters:
   - id: wuxi_cdmo_risk
     name: "WuXi STA CDMO Risk"
     category: cdmo_removal
+    process_step: regulated_starting_material
     risk_tier: HIGH
     applies_to_scenarios: [our_current]
     description: "BioSecure Act / FDA enforcement risk at Wuxi AppTec WuXi STA"
@@ -149,6 +156,7 @@ parameters:
   - id: cn_tariff_api
     name: "CN Section 301 Tariff — API Starting Materials"
     category: tariff_escalation
+    process_step: raw_materials
     risk_tier: HIGH
     applies_to_scenarios: [our_current, competitor_x]
     description: "Section 301 consolidated tariff rate on CN-origin API intermediates"

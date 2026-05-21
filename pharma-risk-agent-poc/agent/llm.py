@@ -157,11 +157,18 @@ class StubLLMBackend(_Backend):
                     "mckinsey", "generic medicine", "ema quarterly",
                     "series d", "adc therapy", "venture", "biotech fund"]):
                 return "relevant_false"
+            # Route to parameter-specific stub so process_step populates correctly
+            if any(kw in signal_content for kw in ["sdd", "spray dry", "spray-dry"]):
+                return "relevant_true_sdd"
+            if any(kw in signal_content for kw in ["wuxi", "biosecure", "1260h", "import alert", "form 483"]):
+                return "relevant_true_cdmo"
+            if any(kw in signal_content for kw in ["tariff", "section 301", "ustr", "federal register", "hatu", "dipea"]):
+                return "relevant_true_tariff"
+            if any(kw in signal_content for kw in ["sm-a", "starting material", "force majeure", "factory fire", "shortage"]):
+                return "relevant_true_raw_materials"
             if any(kw in signal_content for kw in
-                   ["wuxi", "starting material", "sm-a", "tariff", "biosecure",
-                    "1260h", "fda", "dipea", "hatu", "ustr", "import alert",
-                    "force majeure", "section 301"]):
-                return "relevant_true"
+                   ["fda", "import"]):
+                return "relevant_true_cdmo"
             return "relevant_false"
         elif step == "novelty":
             if any(kw in p for kw in

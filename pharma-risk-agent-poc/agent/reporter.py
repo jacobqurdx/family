@@ -45,6 +45,7 @@ def write_assessed_signals(signals: list[AssessedSignal], out_dir: Path) -> Path
             "url": a.signal.source_url,
             "is_relevant": a.relevance.is_relevant,
             "relevant_parameters": a.relevance.relevant_parameters,
+            "process_step": getattr(a, "process_step", None),
             "is_novel": a.novelty.is_novel if a.novelty else None,
             "severity": a.severity.severity.value if a.severity else None,
             "risk_vector": a.severity.risk_vector_type.value if a.severity else None,

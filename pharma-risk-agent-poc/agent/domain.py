@@ -141,6 +141,7 @@ class AssessedSignal:
     severity_metacognition: MetacognitionResult | None = None
     impact_metacognition: MetacognitionResult | None = None
     assessment_engine: str = "llm"  # "llm" | "rule_engine"
+    process_step: str | None = None  # set from matched RiskProfileParameter.process_step
 
 
 # ─── Risk Profile domain objects (v1.2) ──────────────────────────────────────
@@ -163,6 +164,7 @@ class RiskProfileParameter:
     risk_tier: str  # "HIGH" | "MEDIUM" | "LOW"
     applies_to_scenarios: list[str]
     description: str | None = None
+    process_step: str | None = None  # "raw_materials"|"regulated_starting_material"|"spray_dry_dispersion"|"package_and_label"|"distribution"
     internal_thresholds: InternalThresholds | None = None
     sources_to_monitor: list[str] = field(default_factory=list)
     notes: str | None = None

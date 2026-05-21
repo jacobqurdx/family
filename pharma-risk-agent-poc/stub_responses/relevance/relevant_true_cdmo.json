@@ -1,0 +1,8 @@
+{
+  "is_relevant": true,
+  "relevant_parameters": [
+    "WuXi STA CDMO Risk",
+    "Amide Coupling Step Yield"
+  ],
+  "relevance_reasoning": "Signal concerns WuXi STA CDMO regulatory/capacity status, directly affecting our regulated starting material manufacturing steps."
+}

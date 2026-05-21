@@ -63,6 +63,7 @@ def load_risk_profile_yaml(path: Path) -> RiskProfile:
             risk_tier=p["risk_tier"],
             applies_to_scenarios=list(p.get("applies_to_scenarios", [])),
             description=p.get("description"),
+            process_step=p.get("process_step"),
             internal_thresholds=thresholds,
             sources_to_monitor=list(p.get("sources_to_monitor", [])),
             notes=p.get("notes"),
@@ -170,6 +171,7 @@ def assess_internal_signal(
             severity=None, impact=None,
             recommended_actions=[ActionType.ADD_TO_DIGEST],
             assessment_engine="rule_engine",
+            process_step=param.process_step,
         )
 
     # Step 3: Severity — apply threshold rules
@@ -191,6 +193,7 @@ def assess_internal_signal(
             impact=None,
             recommended_actions=[ActionType.SEND_ALERT],
             assessment_engine="rule_engine",
+            process_step=param.process_step,
         )
 
     severity_tier, severity_reasoning = _compute_severity(
@@ -211,6 +214,7 @@ def assess_internal_signal(
         severity=severity, impact=None,
         recommended_actions=actions,
         assessment_engine="rule_engine",
+        process_step=param.process_step,
     )
 
 
@@ -395,6 +399,32 @@ def compare_across_scenarios(
         ))
 
     return results
+
+
+# ─── Process step enrichment ──────────────────────────────────────────────────
+
+def enrich_process_step(assessed: AssessedSignal, profile: RiskProfile) -> None:
+    """
+    Set assessed.process_step from the profile for LLM-assessed signals.
+    Matches on exact name first, then case-insensitive substring.
+    Mutates assessed in place — returns None.
+    """
+    if assessed.process_step is not None:
+        return  # already set (rule engine path)
+    relevant = assessed.relevance.relevant_parameters or []
+    for param_name in relevant:
+        # exact match
+        param = next((p for p in profile.parameters if p.name == param_name), None)
+        if param is None:
+            # substring match — "Amide Coupling" in "Amide Coupling Step Yield"
+            lower = param_name.lower()
+            param = next(
+                (p for p in profile.parameters if lower in p.name.lower() or p.name.lower() in lower),
+                None,
+            )
+        if param and param.process_step:
+            assessed.process_step = param.process_step
+            return
 
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────

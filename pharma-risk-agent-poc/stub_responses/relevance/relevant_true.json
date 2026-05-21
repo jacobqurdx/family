@@ -1,8 +1,8 @@
 {
   "is_relevant": true,
   "relevant_parameters": [
-    "Starting Material A price",
-    "Amide Coupling"
+    "SM-A Purchase Order Delivery Delay",
+    "Amide Coupling Step Yield"
   ],
   "relevance_reasoning": "The signal directly concerns Wuxi AppTec WuXi STA, which is the assigned CDMO for Starting Material A and the Amide Coupling step \u2014 both in the top 3 of our sensitivity-weighted parameter list."
 }
