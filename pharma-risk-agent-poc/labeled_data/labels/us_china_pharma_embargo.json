@@ -1,0 +1,51 @@
+{
+  "signal_id": "us_china_pharma_embargo",
+  "signal": {
+    "id": "us_china_pharma_embargo",
+    "source_name": "Federal Register",
+    "source_url": "https://www.federalregister.gov/documents/2026/05/10/2026-10521/pharmaceutical-materials-export-controls",
+    "collected_at": "2026-05-10T09:00:00+00:00",
+    "raw_content": "DEPARTMENT OF COMMERCE \u2014 Bureau of Industry and Security\n\nDocket No. BIS-2026-0018\n\nINTERIM FINAL RULE: Pharmaceutical Materials Export Controls \u2014 Entity List Additions and Section 742.6 Controls\n\nThe Department of Commerce is amending the Export Administration Regulations (EAR) to add controls on 47 pharmaceutical API intermediates and protected amine compounds sourced from the People's Republic of China. This action is taken pursuant to Executive Order 14017 (America's Supply Chains) and in coordination with the Department of Health and Human Services.\n\nEffective Date: May 10, 2026.\n\nSUMMARY: This interim final rule restricts imports of specific pharmaceutical starting materials classified under HTSUS subheadings 2921.49, 2924.29, and 2935.90 originating from China. Affected compounds include aromatic amine intermediates, protected amino acid derivatives, and benzotriazole-based coupling reagents. License requirements are imposed for continued importation; no license exceptions are available for the first 180 days.\n\nAFFECTED MATERIALS: The 47 controlled compounds include SM-A class protected amine intermediates (CAS range 284462-xx-xx) and HATU (1-[Bis(dimethylamino)methylene]-1H-1,2,3-triazolo[4,5-b]pyridinium 3-oxid hexafluorophosphate, CAS 148893-10-1), among others.\n\nIMPACT ASSESSMENT: BIS estimates that approximately 73% of US pharmaceutical manufacturer consumption of the controlled compounds currently derives from Chinese sources. Domestic alternatives are not available for 31 of the 47 compounds.\n\nCOMMENT PERIOD: Submit comments by June 10, 2026 to regulations.gov, docket BIS-2026-0018."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:16:49.795613+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed label for eval pipeline bootstrap.",
+  "labels": {
+    "relevance": {
+      "is_relevant": true,
+      "relevant_parameters": [
+        "CN Section 301 Tariff \u2014 API Starting Materials",
+        "WuXi STA CDMO Risk",
+        "SM-A Purchase Order Delivery Delay"
+      ],
+      "relevance_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "novelty": {
+      "is_novel": true,
+      "novelty_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "severity": {
+      "severity": "critical",
+      "risk_vector_type": "tariff_escalation",
+      "affected_geography": "China",
+      "severity_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "impact": {
+      "qualitative_only": false,
+      "estimated_cost_impact_per_kg": 1840.0,
+      "estimated_timeline_impact_weeks": 26,
+      "confidence": "low",
+      "estimated_cost_impact_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "metacognition": {
+      "severity_grade": "CERTAIN",
+      "severity_uncertainty_flags": [],
+      "impact_grade": "UNCERTAIN",
+      "impact_uncertainty_flags": [
+        "Embargo scenario \u2014 severe but confidence low; no comparable historical event"
+      ],
+      "reasoning": ""
+    }
+  }
+}

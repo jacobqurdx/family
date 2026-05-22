@@ -1,0 +1,21 @@
+{
+  "signal_id": "semiconductor_tariffs",
+  "signal": {
+    "id": "semiconductor_tariffs",
+    "source_name": "Reuters Technology",
+    "source_url": "https://www.reuters.com/technology/semiconductor-tariffs-tsmc-intel-response-2026",
+    "collected_at": "2026-01-28T14:00:00+00:00",
+    "raw_content": "TSMC, Intel Respond to New Semiconductor Equipment Tariffs\n\nTaipei/Santa Clara \u2014 The world's two largest chip manufacturers issued statements Monday responding to the Commerce Department's announcement of new tariff controls on advanced semiconductor manufacturing equipment.\n\nThe new tariffs, which range from 25% to 45% on equipment classified under HTS 8486 (machines for the manufacture of semiconductor devices), will take effect March 1, 2026.\n\nTSMC said in a statement that the tariffs 'do not affect our existing equipment orders, which are excluded under the grandfather provision for equipment ordered before December 31, 2025.' The company said it is evaluating the impact on future capital expenditure plans.\n\nIntel CEO Pat Gelsinger said the tariffs 'add uncertainty to the capital investment environment' but that Intel's roadmap remains intact for its 18A and 14A process nodes, which are manufactured domestically in Oregon and Arizona.\n\nSemiconductor industry association SEMI estimated that the new tariffs could add $2-4 billion annually to chip manufacturing costs industry-wide if applied to typical annual equipment procurement volumes.\n\nThe semiconductor supply chain is distinct from pharmaceutical manufacturing supply chains. Semiconductor equipment involves lithography systems, ion implanters, and etch tools manufactured primarily by ASML (Netherlands), Applied Materials (US), Lam Research (US), and Tokyo Electron (Japan). No overlap exists with pharmaceutical API intermediate or starting material supply chains."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:17:19.405794+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed.",
+  "labels": {
+    "relevance": {
+      "is_relevant": false,
+      "relevant_parameters": [],
+      "relevance_reasoning": "Synthetic seed label."
+    }
+  }
+}

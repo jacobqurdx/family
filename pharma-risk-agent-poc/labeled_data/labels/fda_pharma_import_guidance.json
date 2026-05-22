@@ -1,0 +1,42 @@
+{
+  "signal_id": "fda_pharma_import_guidance",
+  "signal": {
+    "id": "fda_pharma_import_guidance",
+    "source_name": "FDA Guidance Documents",
+    "source_url": "https://www.fda.gov/media/pharmaceutical-supply-chain-diversification-guidance",
+    "collected_at": "2026-01-15T10:00:00+00:00",
+    "raw_content": "FDA Draft Guidance: Pharmaceutical Supply Chain Diversification \u2014 Strategies for Manufacturers\n\nDRAFT GUIDANCE \u2014 For Comment Purposes Only\nDocket No. FDA-2026-D-0072\n\nThis draft guidance is intended to help pharmaceutical manufacturers assess and address supply chain concentration risks, particularly for active pharmaceutical ingredients (APIs) and starting materials with geographic concentration in a single country or with single-source supply.\n\nI. PURPOSE\nThis guidance describes FDA's current thinking on supply chain diversification strategies and the regulatory pathways available to manufacturers wishing to qualify alternative suppliers, manufacturing sites, and starting materials.\n\nII. BACKGROUND\nFDA has observed increased supply chain concentration risks in pharmaceutical manufacturing over the past decade. Approximately 87% of API starting materials used by US manufacturers are imported, with significant concentration in a small number of countries.\n\nIII. SUPPLY CHAIN ASSESSMENT\nFDA recommends manufacturers conduct regular supply chain risk assessments covering: geographic concentration by material, single-source dependencies, CDMO concentration, and geopolitical risk factors.\n\nIV. REGULATORY PATHWAYS FOR DIVERSIFICATION\n\nA. Alternative Supplier Qualification: Manufacturers may qualify alternative API suppliers via comparability testing without a prior approval supplement for starting materials that are not themselves registered as drug substances.\n\nB. CDMO Site Changes: Manufacturing site changes for GMP API synthesis steps generally require a Prior Approval Supplement (PAS). FDA is evaluating whether expedited review pathways are appropriate for diversification-driven site changes.\n\nV. COMMENT PERIOD\nSubmit comments by March 15, 2026 to regulations.gov, Docket FDA-2026-D-0072."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:16:49.795613+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed label for eval pipeline bootstrap.",
+  "labels": {
+    "relevance": {
+      "is_relevant": true,
+      "relevant_parameters": [
+        "WuXi STA CDMO Risk"
+      ],
+      "relevance_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "novelty": {
+      "is_novel": true,
+      "novelty_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "severity": {
+      "severity": "elevated",
+      "risk_vector_type": "cdmo_removal",
+      "affected_geography": "United States",
+      "severity_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "metacognition": {
+      "severity_grade": "UNCERTAIN",
+      "severity_uncertainty_flags": [
+        "Guidance document \u2014 not enforcement action; impact depends on implementation"
+      ],
+      "impact_grade": null,
+      "impact_uncertainty_flags": [],
+      "reasoning": ""
+    }
+  }
+}

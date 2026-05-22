@@ -1,0 +1,40 @@
+{
+  "signal_id": "hatu_eu_supplier_identified",
+  "signal": {
+    "id": "hatu_eu_supplier_identified",
+    "source_name": "Pharma Technology Focus",
+    "source_url": "https://www.pharmatechnologyfocus.com/hatu-alternative-supply-eu-2026",
+    "collected_at": "2026-04-10T14:00:00+00:00",
+    "raw_content": "EU and UK HATU Suppliers Expand Capacity to Address China Supply Disruption\n\nIn response to the Chinese benzotriazole precursor export restrictions that have disrupted HATU supply from Chinese manufacturers, European and UK specialty chemical producers have announced capacity expansions that could partially offset the shortfall.\n\nFluorochem Limited (Hadfield, UK) has announced a 200 kg/month HATU production capacity from its UK facility, with availability from July 2026. The company has received GMP-grade synthesis capability assessment from two European pharmaceutical companies and has initiated DMF filing with the FDA for the UK-manufactured product.\n\nSigma-Aldrich (part of Merck KGaA, manufactured at Steinheim, Germany) has confirmed HATU availability from European stock at lead times of 8-10 weeks for quantities up to 50 kg per order. The company is evaluating capacity expansion to meet increased demand.\n\nHowever, industry analysts note that combined European capacity is estimated at 600-800 kg/month, compared to estimated global pharmaceutical demand of 3,500-4,000 kg/month. The EU sources will cover approximately 20% of demand, leaving a significant gap.\n\nPharmaceutical companies with HATU-dependent synthesis routes are advised to:\n1. Qualify EU-manufactured HATU through accelerated analytical comparability testing\n2. Contact Fluorochem and Sigma-Aldrich for supply agreements\n3. Evaluate process alternatives (HBTU, EDC/HOBt, T3P) for non-GMP steps to conserve GMP-grade HATU\n\nThe situation is expected to normalize within 12-18 months if Chinese producers resolve precursor supply constraints."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:16:49.795613+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed label for eval pipeline bootstrap.",
+  "labels": {
+    "relevance": {
+      "is_relevant": true,
+      "relevant_parameters": [
+        "Amide Coupling Step Yield"
+      ],
+      "relevance_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "novelty": {
+      "is_novel": true,
+      "novelty_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "severity": {
+      "severity": "elevated",
+      "risk_vector_type": "lead_time_extension",
+      "affected_geography": "EU",
+      "severity_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "metacognition": {
+      "severity_grade": "CERTAIN",
+      "severity_uncertainty_flags": [],
+      "impact_grade": null,
+      "impact_uncertainty_flags": [],
+      "reasoning": ""
+    }
+  }
+}

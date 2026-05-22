@@ -1,0 +1,48 @@
+{
+  "signal_id": "india_dipea_shortage",
+  "signal": {
+    "id": "india_dipea_shortage",
+    "source_name": "Indian Chemical News",
+    "source_url": "https://www.indianchemicalnews.com/dipea-diisopropylamine-export-quota-2026",
+    "collected_at": "2026-02-15T11:00:00+00:00",
+    "raw_content": "Indian DIPEA Producers Report 20% Output Cut; DIPP Quota Restrictions Impact Pharmaceutical Supply\n\nNew Delhi \u2014 Indian manufacturers of DIPEA (N,N-Diisopropylethylamine, CAS 7087-68-5), a widely used base in pharmaceutical synthesis, have announced production cuts of approximately 20% following the Department for Promotion of Industry and Internal Trade (DIPP) implementation of export quota restrictions on diisopropylamine (DIPA, CAS 108-18-9).\n\nDIPA is the key precursor for DIPEA synthesis and is classified as a Schedule 1 precursor chemical under the Precursor Chemical Rules 2021 due to its potential use in chemical weapon synthesis. The DIPP has reduced quarterly export quotas for DIPA by 25% effective Q1 2026, citing concerns about diversion.\n\nMajor Indian DIPEA producers including Balaji Amines Limited (Solapur), Alkyl Amines Chemicals (Thane), and Fine Organics (Mumbai) have issued force majeure or allocation notices to international customers.\n\nDIPEA is used as a hindered base (H\u00fcnig's base) in amide coupling reactions and deprotection steps in pharmaceutical GMP synthesis. While not a high-value material (typical price $25-45/kg), supply disruption can halt synthesis campaigns.\n\nSome Indian DIPEA production is downstream of Chinese diisopropylamine (indirect China exposure). Buyers in the EU and US are seeking alternative supply from Lanxess (Germany) and BASF, though both report 4-6 week extended lead times.\n\nThe restriction is expected to remain in place for at least two quarters pending DIPP review."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:16:49.795613+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed label for eval pipeline bootstrap.",
+  "labels": {
+    "relevance": {
+      "is_relevant": true,
+      "relevant_parameters": [
+        "Amide Coupling Step Yield",
+        "Cyclisation Step Yield"
+      ],
+      "relevance_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "novelty": {
+      "is_novel": true,
+      "novelty_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "severity": {
+      "severity": "critical",
+      "risk_vector_type": "lead_time_extension",
+      "affected_geography": "India",
+      "severity_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "impact": {
+      "qualitative_only": false,
+      "estimated_cost_impact_per_kg": 21.0,
+      "estimated_timeline_impact_weeks": 3,
+      "confidence": "medium",
+      "estimated_cost_impact_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "metacognition": {
+      "severity_grade": "CERTAIN",
+      "severity_uncertainty_flags": [],
+      "impact_grade": "CERTAIN",
+      "impact_uncertainty_flags": [],
+      "reasoning": ""
+    }
+  }
+}

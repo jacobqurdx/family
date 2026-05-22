@@ -13,13 +13,19 @@ class LLMClient:
     run without an API key using deterministic pre-written responses.
     """
 
-    def __init__(self, stub: bool = False, cache_dir: Path | None = None):
+    def __init__(
+        self,
+        stub: bool = False,
+        cache_dir: Path | None = None,
+        model: str | None = None,
+    ):
         self.stub = stub
         self.cache_dir = cache_dir
+        self.model = model
         if stub:
             self._backend: _Backend = StubLLMBackend(STUB_RESPONSES_DIR)
         else:
-            self._backend = RealLLMBackend(cache_dir=cache_dir)
+            self._backend = RealLLMBackend(cache_dir=cache_dir, model=model)
 
     @classmethod
     def from_env(cls, cache_dir: Path | None = None) -> "LLMClient":
@@ -41,8 +47,11 @@ class _Backend:
         raise NotImplementedError
 
 
+DEFAULT_MODEL = "claude-sonnet-4-6-20250514"
+
+
 class RealLLMBackend(_Backend):
-    def __init__(self, cache_dir: Path | None = None):
+    def __init__(self, cache_dir: Path | None = None, model: str | None = None):
         import anthropic as _anthropic
         api_key = os.environ.get("ANTHROPIC_API_KEY")
         if not api_key:
@@ -54,17 +63,18 @@ class RealLLMBackend(_Backend):
             )
         self._client = _anthropic.Anthropic(api_key=api_key)
         self.cache_dir = cache_dir
+        self.model = model or DEFAULT_MODEL
 
     def complete(self, prompt: str, step: str) -> str:
         import hashlib
-        cache_key = hashlib.sha256(f"{step}:{prompt}".encode()).hexdigest()
+        cache_key = hashlib.sha256(f"{self.model}:{step}:{prompt}".encode()).hexdigest()
         if self.cache_dir:
             cache_file = self.cache_dir / f"{cache_key}.json"
             if cache_file.exists():
                 return json.loads(cache_file.read_text())["response"]
         try:
             response = self._client.messages.create(
-                model="claude-sonnet-4-6-20250514",
+                model=self.model,
                 max_tokens=1000,
                 messages=[{"role": "user", "content": prompt}],
             )

@@ -1,0 +1,48 @@
+{
+  "signal_id": "cn_tariff_100pct_enacted",
+  "signal": {
+    "id": "cn_tariff_100pct_enacted",
+    "source_name": "Reuters",
+    "source_url": "https://www.reuters.com/business/healthcare/us-executive-order-100-percent-tariff-chinese-pharma-starting-materials-2026/",
+    "collected_at": "2026-05-02T09:15:00+00:00",
+    "raw_content": "President Trump signed Executive Order 14312 on May 1, 2026, imposing a 100% ad valorem tariff on pharmaceutical starting materials and key starting materials (KSMs) imported from the People's Republic of China, effective June 1, 2026. The order directs U.S. Customs and Border Protection to apply the duty to HTS subheadings 2942.00, 2934.99, 2933.99, and related codes covering heterocyclic compounds, amino acid derivatives, and protected peptide building blocks widely used in small molecule API synthesis.\n\nThe White House framed the action as a national security measure under the International Emergency Economic Powers Act (IEEPA), citing a finding that pharmaceutical supply chain dependence on China constitutes an unusual and extraordinary threat to U.S. national security. The action builds on prior Section 301 tariffs and extends the rate structure dramatically beyond the 25% and 55% tiers imposed in 2023 and early 2026.\n\nIndustry groups were swift to condemn the measure. The Generic Pharmaceutical Association (GPhA) estimated that the 100% tariff would increase the cost of goods for affected API programs by 30 to 50% where Chinese KSMs represent 60-90% of bill-of-materials. The Pharmaceutical Supply Chain Initiative warned of potential drug shortages within 90 days if manufacturers cannot qualify alternative suppliers or secure duty exemptions.\n\nThe order includes a 120-day exemption process administered through the Office of the U.S. Trade Representative (USTR), but industry analysts noted that the process lacks precedent for pharmaceutical applications and may not provide timely relief. No blanket exemption for finished dosage forms currently FDA-approved with China-origin KSMs was granted in the order text.\n\nCBP published a preliminary list of affected HTS subheadings in the Federal Register on May 2, 2026, with a 30-day public comment period for scope clarifications. For programs relying on Chinese-sourced starting materials representing more than 50% of API cost, the tariff effectively doubles the raw material cost contribution from the affected components."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:16:49.795613+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed label for eval pipeline bootstrap.",
+  "labels": {
+    "relevance": {
+      "is_relevant": true,
+      "relevant_parameters": [
+        "CN Section 301 Tariff \u2014 API Starting Materials",
+        "SM-A Purchase Order Delivery Delay"
+      ],
+      "relevance_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "novelty": {
+      "is_novel": true,
+      "novelty_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "severity": {
+      "severity": "critical",
+      "risk_vector_type": "tariff_escalation",
+      "affected_geography": "China",
+      "severity_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "impact": {
+      "qualitative_only": false,
+      "estimated_cost_impact_per_kg": 2592.0,
+      "estimated_timeline_impact_weeks": null,
+      "confidence": "high",
+      "estimated_cost_impact_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "metacognition": {
+      "severity_grade": "CERTAIN",
+      "severity_uncertainty_flags": [],
+      "impact_grade": "CERTAIN",
+      "impact_uncertainty_flags": [],
+      "reasoning": ""
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "signal_id": "hatu_price_spike",
+  "signal": {
+    "id": "hatu_price_spike",
+    "source_name": "Pharma Materials Weekly",
+    "source_url": "https://www.pharmamaterialsweekly.com/hatu-benzotriazole-precursor-export-restrictions",
+    "collected_at": "2026-03-28T09:00:00+00:00",
+    "raw_content": "HATU Spot Price Surges 38% on Chinese Benzotriazole Precursor Restrictions\n\nThe spot price of HATU (O-(Benzotriazol-1-yl)-N,N,N',N'-tetramethyluronium hexafluorophosphate, CAS 94790-37-1) has increased 38% over the past two weeks following the Chinese Ministry of Commerce announcement of export quota restrictions on benzotriazole and hydroxybenzotriazole precursors.\n\nHATU, widely used as a peptide coupling and amide bond-forming reagent in pharmaceutical GMP synthesis, is manufactured almost exclusively in China. The major suppliers \u2014 Suzhou Chemsy Pharmaceutical Technology, GL Biochem (Shanghai), and Nanjing Novatech \u2014 have all issued price adjustment notices effective April 1, 2026.\n\nSuzhou Chemsy, the largest global HATU producer with an estimated 55% market share, extended delivery lead times from the standard 3 weeks to 11 weeks for new orders. Existing contracts with fixed pricing are being renegotiated, with Chemsy seeking 35-40% price increases citing raw material cost inflation.\n\nThe restriction targets 1-hydroxybenzotriazole (HOBt) and 1-hydroxy-7-azabenzotriazole (HOAt), key precursors in HATU and HBTU synthesis, which are also precursors to energetic materials and therefore subject to dual-use export controls under Chinese regulations.\n\nPharmaceutical purchasers are reporting that spot inventory of HATU from non-Chinese sources (TCI America, Sigma-Aldrich) is sold out with 12-16 week lead times quoted.\n\nCMC consultants estimate that a 38% sustained HATU price increase translates to approximately $415/kg API increase for processes with high amide coupling step stoichiometry."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:16:49.795613+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed label for eval pipeline bootstrap.",
+  "labels": {
+    "relevance": {
+      "is_relevant": true,
+      "relevant_parameters": [
+        "Amide Coupling Step Yield"
+      ],
+      "relevance_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "novelty": {
+      "is_novel": true,
+      "novelty_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "severity": {
+      "severity": "high",
+      "risk_vector_type": "lead_time_extension",
+      "affected_geography": "China",
+      "severity_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "impact": {
+      "qualitative_only": false,
+      "estimated_cost_impact_per_kg": 413.0,
+      "estimated_timeline_impact_weeks": 11,
+      "confidence": "high",
+      "estimated_cost_impact_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "metacognition": {
+      "severity_grade": "CERTAIN",
+      "severity_uncertainty_flags": [],
+      "impact_grade": "CERTAIN",
+      "impact_uncertainty_flags": [],
+      "reasoning": ""
+    }
+  }
+}

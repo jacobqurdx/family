@@ -1,0 +1,27 @@
+{
+  "signal_id": "fr_tariff_55_repeat",
+  "signal": {
+    "id": "fr_tariff_55_repeat",
+    "source_name": "Pharma Supply Chain Digest",
+    "source_url": "https://www.pharmasupplychaindigest.com/55-pct-tariff-china-pharma-materials",
+    "collected_at": "2026-06-18T11:00:00+00:00",
+    "raw_content": "55% Tariff on Chinese Pharmaceutical Starting Materials Now Final \u2014 What Manufacturers Need to Know\n\nPharma Supply Chain Digest \u2014 June 18, 2026\n\nThe USTR has finalized a 55% tariff on Chinese pharmaceutical starting materials and API intermediates, effective August 1, 2026, as published in the Federal Register on June 15, 2026 (Federal Register Vol. 91, No. 127).\n\nThe tariff covers pharmaceutical starting materials under HTSUS chapters 28 and 29, including aromatic amines, amide coupling reagents such as HATU, polar aprotic solvents, and protected amine intermediates used in pharmaceutical synthesis.\n\nThe rate of 55% is final \u2014 the USTR reviewed 847 comments and maintained the proposed rate without modification. No exclusion process is currently available; manufacturers may petition for exclusions no sooner than 90 days after August 1, 2026.\n\nFor manufacturers with significant China-origin starting material exposure, the cost impact at 55% tariff is material. Based on publicly available sensitivity data for representative small-molecule APIs with 80-90% China-origin starting material exposure, manufacturers can expect cost increases of $1,200-1,500 per kg of finished API.\n\nKey action items:\n1. Update cost models and pricing forecasts before August 1\n2. File for exclusion after October 30 if applicable\n3. Accelerate supplier diversification discussions\n4. Evaluate in-country Chinese processing as a potential tariff mitigation strategy\n\nThis article summarizes the rule published June 15, 2026. No new information beyond the final rule is provided."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:16:49.795613+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed label for eval pipeline bootstrap.",
+  "labels": {
+    "relevance": {
+      "is_relevant": true,
+      "relevant_parameters": [
+        "CN Section 301 Tariff \u2014 API Starting Materials"
+      ],
+      "relevance_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "novelty": {
+      "is_novel": false,
+      "novelty_reasoning": "Synthetic label for eval seed dataset."
+    }
+  }
+}

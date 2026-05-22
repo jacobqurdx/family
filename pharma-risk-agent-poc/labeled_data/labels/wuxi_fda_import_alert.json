@@ -1,0 +1,47 @@
+{
+  "signal_id": "wuxi_fda_import_alert",
+  "signal": {
+    "id": "wuxi_fda_import_alert",
+    "source_name": "FDA Enforcement Actions",
+    "source_url": "https://www.fda.gov/safety/import-alerts/import-alert-99-32",
+    "collected_at": "2026-04-22T14:30:00+00:00",
+    "raw_content": "FDA Import Alert 99-32 \u2014 WuXi AppTec (Shanghai) Co., Ltd.\n\nThe U.S. Food and Drug Administration has placed WuXi AppTec STA manufacturing facility at Jinshan District, Shanghai, China (FEI: 3004862311) on Import Alert 99-32, effective April 22, 2026.\n\nThe alert is based on findings from a February 2026 GMP inspection that identified significant data integrity violations. Inspectors documented:\n\n1. Systematic deletion and re-creation of raw HPLC data files to achieve passing specifications on API intermediate batches\n2. Undocumented reprocessing of three batches of a protected amine intermediate without change control\n3. Failure to investigate out-of-specification results for water content on SM-class coupling intermediates\n4. Inadequate environmental monitoring controls in ISO Class 7 synthesis suites\n\nUnder Import Alert 99-32 (Detention Without Physical Examination), all drug products and active pharmaceutical ingredients manufactured at this facility are subject to automatic detention upon entry into the United States. Firms wishing to remove a product from the import alert must provide data demonstrating compliance.\n\nFDA has notified affected US clients. The agency estimates resolution timelines of 12-24 months based on comparable data integrity enforcement actions (see Ranbaxy, 2013; Zhejiang Huahai, 2018).\n\nThe Jinshan facility currently provides GMP synthesis services for three GMP steps in the API-001 Route A process. Alternative GMP-qualified manufacturing sites are not immediately available. Emergency technology transfer typically requires 18-24 months for GMP steps.\n\nFDA press contact: press@fda.hhs.gov. Import alert database: fda.gov/safety/import-alerts."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:16:49.795613+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed label for eval pipeline bootstrap.",
+  "labels": {
+    "relevance": {
+      "is_relevant": true,
+      "relevant_parameters": [
+        "WuXi STA CDMO Risk"
+      ],
+      "relevance_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "novelty": {
+      "is_novel": true,
+      "novelty_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "severity": {
+      "severity": "critical",
+      "risk_vector_type": "cdmo_removal",
+      "affected_geography": "China",
+      "severity_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "impact": {
+      "qualitative_only": false,
+      "estimated_cost_impact_per_kg": 820.0,
+      "estimated_timeline_impact_weeks": 18,
+      "confidence": "medium",
+      "estimated_cost_impact_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "metacognition": {
+      "severity_grade": "CERTAIN",
+      "severity_uncertainty_flags": [],
+      "impact_grade": "CERTAIN",
+      "impact_uncertainty_flags": [],
+      "reasoning": ""
+    }
+  }
+}

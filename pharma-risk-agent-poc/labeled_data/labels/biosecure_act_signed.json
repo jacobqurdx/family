@@ -1,0 +1,47 @@
+{
+  "signal_id": "biosecure_act_signed",
+  "signal": {
+    "id": "biosecure_act_signed",
+    "source_name": "BioPharma Dive",
+    "source_url": "https://www.biopharmadive.com/news/biosecure-act-signed-law-wuxi-apptec-2025/",
+    "collected_at": "2025-12-18T14:30:00+00:00",
+    "raw_content": "President Biden signed the BIOSECURE Act into law on December 17, 2025, imposing a landmark prohibition on federal contractors and their subcontractors from utilizing the services of designated Chinese biotechnology companies. The legislation, embedded as Section 1531 of the National Defense Authorization Act (NDAA) FY2026, names WuXi AppTec, WuXi Biologics, BGI Genomics, MGI Tech, and Complete Genomics as prohibited entities.\n\nUnder the enacted statute, any company receiving federal contracts \u2014 including pharmaceutical manufacturers under Medicare and Medicaid reimbursement frameworks \u2014 must cease contracting with named entities by January 1, 2027. The prohibition extends to equipment, services, and biological materials sourced from or processed by the named CDMOs and genomics firms.\n\nFor drug sponsors currently manufacturing API intermediates at WuXi AppTec's STA (Small Molecule API) division in Shanghai and Jinshan, the practical deadline is considerably earlier. Industry attorneys estimate that technology transfer and site qualification at alternative CDMOs requires 18 to 24 months, placing the effective action deadline in mid-2025 \u2014 already elapsed for many programs. Companies that have not yet initiated transfer activities face acute regulatory and supply continuity risk.\n\nWuXi AppTec issued a statement asserting that the legislation is 'misguided and will harm patients' and announced plans to challenge the designation through litigation. Legal experts assess that such challenges face significant procedural hurdles given the national security rationale underpinning the statute.\n\nThe Pharmaceutical Research and Manufacturers of America (PhRMA) had previously lobbied for an extended grandfather clause covering approved drug products. The final legislation includes a limited waiver process for the Department of Defense Secretary, but no broad commercial pharmaceutical exemption. The FDA has indicated it will issue guidance on technology transfer timelines for affected sponsors within 90 days of enactment.\n\nEstimates from contract research organizations suggest that between 80 and 120 IND-stage and commercially approved small molecule programs currently rely on WuXi STA for API synthesis or key intermediate manufacturing, representing a multi-billion dollar annual revenue exposure for the affected CDMO."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:16:49.795613+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed label for eval pipeline bootstrap.",
+  "labels": {
+    "relevance": {
+      "is_relevant": true,
+      "relevant_parameters": [
+        "WuXi STA CDMO Risk"
+      ],
+      "relevance_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "novelty": {
+      "is_novel": true,
+      "novelty_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "severity": {
+      "severity": "critical",
+      "risk_vector_type": "cdmo_removal",
+      "affected_geography": "United States",
+      "severity_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "impact": {
+      "qualitative_only": false,
+      "estimated_cost_impact_per_kg": 820.0,
+      "estimated_timeline_impact_weeks": 18,
+      "confidence": "medium",
+      "estimated_cost_impact_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "metacognition": {
+      "severity_grade": "CERTAIN",
+      "severity_uncertainty_flags": [],
+      "impact_grade": "CERTAIN",
+      "impact_uncertainty_flags": [],
+      "reasoning": ""
+    }
+  }
+}
