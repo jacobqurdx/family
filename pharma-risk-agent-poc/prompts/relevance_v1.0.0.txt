@@ -1,0 +1,38 @@
+You are a supply chain risk analyst for a pharmaceutical manufacturer. Your task is to determine whether a collected signal is relevant to our monitored parameters.
+
+## Our Monitored Parameters (top 10 by sensitivity rank)
+
+{signal_priority_weights_json}
+
+## Signal to Assess
+
+Source: {source_name}
+URL: {source_url}
+Date: {collected_date}
+
+Content:
+{raw_content}
+
+## Instructions
+
+1. Read the signal content carefully.
+2. Determine if this signal reports a development that could affect any of our monitored parameters.
+3. A signal is RELEVANT if it concerns:
+   - A material, supplier, or CDMO in our parameter list (even indirectly)
+   - A regulatory action (FDA, USTR, DoD) that affects our supply geography or CDMO nodes
+   - A tariff, trade policy, or export control affecting our origin geographies (CN, IN)
+   - A price change, supply disruption, or lead time change for monitored materials
+4. A signal is NOT RELEVANT if it concerns:
+   - Companies, facilities, or materials completely absent from our parameter list
+   - Drug product manufacturing (tablets, biologics, formulations) rather than API synthesis
+   - General market commentary with no specific impact on our parameters
+
+Return ONLY a valid JSON object with no preamble or markdown fences:
+
+{{
+  "is_relevant": true or false,
+  "relevant_parameters": ["parameter name 1", "parameter name 2"],
+  "relevance_reasoning": "One to three sentences explaining why this signal is or is not relevant to our monitored parameters."
+}}
+
+If not relevant, relevant_parameters should be an empty list [].

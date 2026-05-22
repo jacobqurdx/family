@@ -1,0 +1,11 @@
+{
+  "estimated_cost_impact_per_kg": 342.0,
+  "estimated_cost_impact_reasoning": "SM-A 40% allocation cut requires spot market sourcing for deficit volume at ~30% premium over contract price. Sensitivity $16.40/kg API per $1/kg SM-A movement. Estimated spot premium: +$342/kg API on affected batches.",
+  "estimated_timeline_impact_weeks": 12.0,
+  "estimated_timeline_reasoning": "Spot market procurement and inbound QC: 10–12 weeks. Risk of batch sequencing delays if spot lot fails release testing.",
+  "confidence": "medium",
+  "caveats": [
+    "Spot premium estimate based on 2025 market data — current tightness may be higher.",
+    "Allocation cut duration unknown; force majeure could extend beyond initial notice period."
+  ]
+}

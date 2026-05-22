@@ -1,0 +1,7 @@
+{
+  "is_relevant": true,
+  "relevant_parameters": [
+    "SM-A Purchase Order Delivery Delay"
+  ],
+  "relevance_reasoning": "Signal concerns SM-A (Starting Material A) supply availability or lead time, our rank-1 sensitivity parameter."
+}

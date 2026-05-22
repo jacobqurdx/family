@@ -1,0 +1,47 @@
+{
+  "signal_id": "hatu_lead_time_extended",
+  "signal": {
+    "id": "hatu_lead_time_extended",
+    "source_name": "Suzhou Chemsy Supplier Notice",
+    "source_url": "https://www.chemsy.com/notices/hatu-lead-time-update-2026",
+    "collected_at": "2026-03-20T08:00:00+00:00",
+    "raw_content": "SUPPLIER NOTICE \u2014 HATU Lead Time and Allocation Update\nIssued by: Suzhou Chemsy Pharmaceutical Technology Co., Ltd.\nDate: March 20, 2026\n\nDear Valued Customer,\n\nWe write to inform you of significant changes to lead times and availability for HATU (CAS 94790-37-1, also supplied as HBTU CAS 94790-37-1 variants).\n\nEffective for all orders placed after March 25, 2026, the standard delivery lead time for HATU is extended from 3 weeks to 11 weeks. This change is driven by PRC Ministry of Commerce export allocation restrictions on 1-hydroxybenzotriazole (HOBt, CAS 2592-95-2), which is a required precursor in HATU manufacturing.\n\nAdditionally, we are implementing a per-customer allocation cap of 500 kg per quarter effective Q2 2026. Customers requiring quantities exceeding this cap should contact their account manager immediately to discuss priority allocation arrangements.\n\nWe understand this creates challenges for your supply chain planning. We recommend:\n1. Placing Q3 and Q4 2026 orders immediately to secure allocation\n2. Evaluating alternative coupling reagents (HBTU, TBTU, PyBOP) where your process allows\n3. Considering safety stock build using our current available inventory (available for immediate delivery, subject to prior allocation)\n\nWe do not have visibility into when export restrictions on HOBt precursors will be lifted. We will provide updates as the regulatory situation evolves.\n\nChemsy remains committed to supplying the pharmaceutical industry. We regret any inconvenience.\n\nFor orders and inquiries: sales@chemsy.com | +86-512-6818-xxxx"
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:16:49.795613+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed label for eval pipeline bootstrap.",
+  "labels": {
+    "relevance": {
+      "is_relevant": true,
+      "relevant_parameters": [
+        "Amide Coupling Step Yield"
+      ],
+      "relevance_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "novelty": {
+      "is_novel": true,
+      "novelty_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "severity": {
+      "severity": "high",
+      "risk_vector_type": "lead_time_extension",
+      "affected_geography": "China",
+      "severity_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "impact": {
+      "qualitative_only": false,
+      "estimated_cost_impact_per_kg": 413.0,
+      "estimated_timeline_impact_weeks": 11,
+      "confidence": "high",
+      "estimated_cost_impact_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "metacognition": {
+      "severity_grade": "CERTAIN",
+      "severity_uncertainty_flags": [],
+      "impact_grade": "CERTAIN",
+      "impact_uncertainty_flags": [],
+      "reasoning": ""
+    }
+  }
+}

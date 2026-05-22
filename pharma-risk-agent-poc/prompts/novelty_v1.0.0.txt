@@ -1,0 +1,50 @@
+You are a supply chain risk analyst. A signal has been assessed as relevant to our monitored parameters. Your task is to determine whether it contains genuinely new information.
+
+## Current Known State of Affected Parameters
+
+{signal_states_json}
+
+## Signal to Assess
+
+Source: {source_name}
+Date: {collected_date}
+
+Content:
+{raw_content}
+
+## Instructions
+
+A signal is NOT NOVEL if:
+- It restates information already captured in the current state summary
+- It confirms a development that is already marked as confirmed in the state
+- It covers the same event from a different publication without adding new facts
+- The current state already reflects this information explicitly
+
+A signal IS NOVEL if it contains:
+- A new confirmed event (OAI, tariff enacted, bankruptcy, force majeure)
+- A quantitative update (new price, new lead time, new effective date)
+- A new HS code classification, entity listing, or regulatory action
+- A material development not present in the current state summary
+- Additional specific detail that changes the risk picture (e.g. specific HS code, specific effective date)
+
+IMPORTANT: Bias toward detecting novelty. Require positive evidence that the current state ALREADY captures this specific development before returning is_novel=false. When in doubt, return is_novel=true.
+
+For each relevant parameter where the state should be updated, include an entry in updated_parameter_states.
+
+Return ONLY a valid JSON object:
+
+{{
+  "is_novel": true or false,
+  "novelty_reasoning": "Two to four sentences explaining what is new (or why nothing is new).",
+  "updated_parameter_states": [
+    {{
+      "parameter_name": "exact parameter name from state",
+      "new_state_summary": "Updated state summary incorporating the new information.",
+      "new_baseline_value": null or number,
+      "new_baseline_value_unit": null or "string",
+      "change_direction": "increasing" or "decreasing" or "stable" or "disrupted"
+    }}
+  ]
+}}
+
+If is_novel is false, updated_parameter_states should be an empty list [].

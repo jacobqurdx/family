@@ -1,0 +1,40 @@
+{
+  "signal_id": "fr_tariff_20pct_implemented",
+  "signal": {
+    "id": "fr_tariff_20pct_implemented",
+    "source_name": "Federal Register",
+    "source_url": "https://www.federalregister.gov/documents/2026/02/20/2026-03241/section-301-tariffs-phase-4b",
+    "collected_at": "2026-02-20T09:00:00+00:00",
+    "raw_content": "OFFICE OF THE UNITED STATES TRADE REPRESENTATIVE\n\nFederal Register Vol. 91, No. 42 \u2014 Section 301 Phase 4B Final Rule\n\nFINAL RULE: 20% Tariff on Pharmaceutical Starting Materials from China, Effective March 15, 2026\n\nPursuant to Section 301 of the Trade Act of 1974, USTR has finalized a 20% ad valorem tariff on pharmaceutical starting materials and intermediates under HTSUS Chapters 28 and 29 from the People's Republic of China.\n\nThis final rule implements the Phase 4B tariff action following the 2025 four-year statutory review. The tariff rate of 20% applies to covered goods entering the US on or after March 15, 2026.\n\nCOVERED PRODUCTS: Aromatic amine compounds (HTS 2921.49), amide coupling reagents (HTS 2934.99), pharmaceutical-grade solvents DMF and NMP (HTS 2921.59), and protected amine intermediates for pharmaceutical synthesis (HTS 2924.29).\n\nEXCLUSIONS: No product exclusions are available under this action.\n\nCOMPLIANCE: Importers of covered goods must declare the country of origin and applicable HTS classification at the time of entry. CBP will conduct enhanced verification of country-of-origin claims.\n\nEstimated annual cost to US pharmaceutical manufacturers: $520 million at the 20% rate.\n\nFor further information contact USTR at frnotices@ustr.eop.gov or 202-395-3150."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:16:49.795613+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed label for eval pipeline bootstrap.",
+  "labels": {
+    "relevance": {
+      "is_relevant": true,
+      "relevant_parameters": [
+        "CN Section 301 Tariff \u2014 API Starting Materials"
+      ],
+      "relevance_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "novelty": {
+      "is_novel": true,
+      "novelty_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "severity": {
+      "severity": "elevated",
+      "risk_vector_type": "tariff_escalation",
+      "affected_geography": "China",
+      "severity_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "metacognition": {
+      "severity_grade": "CERTAIN",
+      "severity_uncertainty_flags": [],
+      "impact_grade": null,
+      "impact_uncertainty_flags": [],
+      "reasoning": ""
+    }
+  }
+}

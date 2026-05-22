@@ -1,0 +1,52 @@
+{
+  "signal_id": "wuxi_483_followup",
+  "signal": {
+    "id": "wuxi_483_followup",
+    "source_name": "RAPS Regulatory Focus",
+    "source_url": "https://www.raps.org/news-and-articles/wuxi-sta-483-analysis",
+    "collected_at": "2026-03-10T09:00:00+00:00",
+    "raw_content": "Analysis: WuXi STA Form 483 Observations \u2014 Regulatory Impact Assessment\n\nRAPS Regulatory Focus \u2014 March 10, 2026\n\nIn February 2026, FDA issued a Form 483 to WuXi AppTec's STA division facility in Shanghai's Jinshan District following a routine GMP inspection. This article summarizes the observations and their regulatory significance. All information is drawn from the publicly released Form 483 (obtained via FOIA).\n\nOBSERVATION SUMMARY\n\nThe 483 contained 12 observations. The most significant observations, which FDA has publicly indicated are the basis for further regulatory consideration, include:\n\n1. Data integrity: 47 instances of deleted and recreated HPLC data files identified in LIMS over 14 months\n2. OOS investigations: 12 out-of-specification results for SM-A class intermediate water content not investigated\n3. Undocumented reprocessing of three batches of protected amine intermediate\n4. Environmental monitoring exceedances not escalated in ISO Class 7 synthesis suites\n\nREGULATORY CONTEXT\n\nForm 483 observations do not themselves constitute regulatory enforcement action. However, data integrity findings of this severity frequently precede Warning Letters or Import Alerts. FDA typically issues a Warning Letter within 6-12 months if a firm's corrective action response is deemed inadequate.\n\nWuXi STA has 15 business days to submit a corrective action plan. The company is expected to respond, though the adequacy of that response will determine future regulatory action.\n\nNote: This RAPS article provides no new information beyond the Form 483 observations already on public record from the February 28, 2026 FDA release."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:16:49.795613+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed label for eval pipeline bootstrap.",
+  "labels": {
+    "relevance": {
+      "is_relevant": true,
+      "relevant_parameters": [
+        "WuXi STA CDMO Risk",
+        "Amide Coupling Step Yield"
+      ],
+      "relevance_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "novelty": {
+      "is_novel": true,
+      "novelty_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "severity": {
+      "severity": "high",
+      "risk_vector_type": "cdmo_removal",
+      "affected_geography": "China",
+      "severity_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "impact": {
+      "qualitative_only": false,
+      "estimated_cost_impact_per_kg": 245.0,
+      "estimated_timeline_impact_weeks": 6,
+      "confidence": "low",
+      "estimated_cost_impact_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "metacognition": {
+      "severity_grade": "UNCERTAIN",
+      "severity_uncertainty_flags": [
+        "Follow-up letter; unclear if observations have been addressed"
+      ],
+      "impact_grade": "UNCERTAIN",
+      "impact_uncertainty_flags": [
+        "Partial capacity reduction assumed; no confirmed batch impact"
+      ],
+      "reasoning": ""
+    }
+  }
+}

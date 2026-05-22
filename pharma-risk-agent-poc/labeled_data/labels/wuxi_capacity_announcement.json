@@ -1,0 +1,42 @@
+{
+  "signal_id": "wuxi_capacity_announcement",
+  "signal": {
+    "id": "wuxi_capacity_announcement",
+    "source_name": "WuXi AppTec Investor Relations",
+    "source_url": "https://ir.wuxiapptec.com/news-releases/q1-2026-earnings",
+    "collected_at": "2026-04-28T10:30:00+00:00",
+    "raw_content": "WuXi AppTec Q1 2026 Earnings \u2014 STA Division Capacity Update\n\nWuXi AppTec reported Q1 2026 results today with STA (Small Molecule CDMO) division revenue of RMB 2.1B, down 18% year-over-year. Management provided the following update on STA capacity and business outlook:\n\nCAPACITY REDUCTION: Following the March 2026 Building 7 fire at the Jinshan facility and subsequent regulatory review, STA division manufacturing capacity has been reduced by approximately 15% from Q4 2025 levels. The reduction primarily affects GMP synthesis suites for API intermediates in the C3-C8 step range.\n\nUS CLIENT BOOKINGS FROZEN: Management confirmed that new booking acceptance from US-based pharmaceutical clients has been suspended pending review of BIOSECURE Act compliance obligations. 'We are working with legal counsel to understand our obligations under the legislation and will communicate our commercial policy to US clients by Q2 2026,' said CEO Dr. Ge Li.\n\nBACKLOG: The company's STA backlog declined to $1.8B from $2.4B at year-end 2025, with management attributing the reduction to client supply chain diversification efforts.\n\nOUTLOOK: STA division revenue for full-year 2026 is guided at RMB 7.5-8.0B, down from prior guidance of RMB 9.5B, reflecting the capacity reduction and US client headwinds.\n\nA full slide deck and replay of the earnings call is available on the WuXi AppTec investor relations website."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:17:19.405794+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed.",
+  "labels": {
+    "relevance": {
+      "is_relevant": true,
+      "relevant_parameters": [
+        "WuXi STA CDMO Risk"
+      ],
+      "relevance_reasoning": "Synthetic seed label."
+    },
+    "novelty": {
+      "is_novel": true,
+      "novelty_reasoning": "Synthetic seed label."
+    },
+    "severity": {
+      "severity": "elevated",
+      "risk_vector_type": "cdmo_removal",
+      "affected_geography": "China",
+      "severity_reasoning": "Synthetic seed."
+    },
+    "metacognition": {
+      "severity_grade": "UNCERTAIN",
+      "severity_uncertainty_flags": [
+        "Announcement not yet confirmed by regulatory action"
+      ],
+      "impact_grade": null,
+      "impact_uncertainty_flags": [],
+      "reasoning": ""
+    }
+  }
+}

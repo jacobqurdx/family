@@ -1,0 +1,235 @@
+labels:
+  # --- CRITICAL severity, relevant + novel ---
+  - signal_id: biosecure_act_signed
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: critical
+    notes: "BIOSECURE Act signing triggers mandatory CDMO removal planning for WuXi STA"
+
+  - signal_id: cn_tariff_100pct_enacted
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: critical
+    notes: "100% tariff Executive Order directly hits SM-A and HATU CN sourcing"
+
+  - signal_id: wuxi_fda_import_alert
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: critical
+    notes: "Import Alert 99-32 blocks all WuXi STA product entry — GMP steps halted"
+
+  - signal_id: sm_a_factory_fire
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: critical
+    notes: "Building 7 fire destroys sole SM-A synthesis site — immediate supply halt"
+
+  - signal_id: us_china_pharma_embargo
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: critical
+    notes: "BIS embargo covers SM-A class compounds and HATU — license required for import"
+
+  # --- HIGH severity, relevant + novel ---
+  - signal_id: fr_tariff_55_confirmed
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: high
+    notes: "55% tariff final rule — 27% cost increase expected at current CN exposure"
+
+  - signal_id: wuxi_483_observations
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: high
+    notes: "Data integrity 483 — precursor to Warning Letter or Import Alert"
+
+  - signal_id: sm_a_shortage_announced
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: high
+    notes: "Force majeure on SM-A, 40% allocation cut — sole source supply disruption"
+
+  - signal_id: hatu_price_spike
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: high
+    notes: "38% HATU price spike + 11-week lead time — high sensitivity parameter affected"
+
+  - signal_id: biosecure_act_senate_passed
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: high
+    notes: "Senate passage of BIOSECURE Act — pre-signing legislative milestone for WuXi"
+
+  # --- ELEVATED severity, relevant + novel ---
+  - signal_id: cn_tariff_35pct_proposed
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: elevated
+    notes: "35% tariff NPRM — not yet law but signals direction; comment period open"
+
+  - signal_id: hatu_lead_time_extended
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: elevated
+    notes: "HATU lead time 3→11 weeks and 500kg/quarter cap from Chemsy supplier notice"
+
+  - signal_id: wuxi_capacity_announcement
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: elevated
+    notes: "15% capacity reduction, US bookings frozen — precursor to further disruption"
+
+  - signal_id: india_dipea_shortage
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: elevated
+    notes: "DIPEA output cut 20% — low-sensitivity parameter but process-critical base"
+
+  - signal_id: fr_tariff_20pct_implemented
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: elevated
+    notes: "20% tariff implemented — increases cost but below threshold for emergency action"
+
+  # --- ROUTINE severity, relevant + novel ---
+  - signal_id: hatu_eu_supplier_identified
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: routine
+    notes: "Positive supply diversification news — Fluorochem and Sigma-Aldrich EU capacity"
+
+  - signal_id: wuxi_expansion_singapore
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: routine
+    notes: "WuXi Singapore backup facility — positive development but BIOSECURE caveat"
+
+  - signal_id: sm_a_spot_price_stable
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: routine
+    notes: "Q1 pricing survey stable — but editorial note flags post-survey force majeure"
+
+  - signal_id: fda_pharma_import_guidance
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: routine
+    notes: "FDA draft guidance on diversification — no enforcement, educational only"
+
+  - signal_id: cn_import_data_q1_2026
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: routine
+    notes: "Census trade data shows normal import patterns — no actionable supply signal"
+
+  # --- RELEVANT but NOT novel (already-known information repeated) ---
+  - signal_id: fr_tariff_55_repeat
+    expected_is_relevant: true
+    expected_is_novel: false
+    expected_severity: null
+    notes: "Same 55% tariff story as fr_tariff_55_confirmed, 3 days later, no new facts"
+
+  - signal_id: biosecure_act_update_dupe
+    expected_is_relevant: true
+    expected_is_novel: false
+    expected_severity: null
+    notes: "CRS summary of BIOSECURE Act — same law, no new information"
+
+  - signal_id: wuxi_483_followup
+    expected_is_relevant: true
+    expected_is_novel: false
+    expected_severity: null
+    notes: "RAPS analysis of same 483 observations already on public record"
+
+  - signal_id: hatu_price_update_minor
+    expected_is_relevant: true
+    expected_is_novel: false
+    expected_severity: null
+    notes: "Confirms 38% price spike already reported — no new supplier alternatives"
+
+  - signal_id: sm_a_shortage_confirmation
+    expected_is_relevant: true
+    expected_is_novel: false
+    expected_severity: null
+    notes: "Confirms WuXi force majeure already announced — no new allocation data"
+
+  # --- IRRELEVANT (not related to monitored parameters) ---
+  - signal_id: oncology_biotech_funding
+    expected_is_relevant: false
+    expected_is_novel: false
+    expected_severity: null
+    notes: "ADC biotech funding news — different product class, no supply chain overlap"
+
+  - signal_id: eu_generics_pricing_update
+    expected_is_relevant: false
+    expected_is_novel: false
+    expected_severity: null
+    notes: "EU generic medicine pricing — unrelated therapeutic category and supply chain"
+
+  - signal_id: mrna_vaccine_cold_chain
+    expected_is_relevant: false
+    expected_is_novel: false
+    expected_severity: null
+    notes: "mRNA cold chain logistics — completely different product class"
+
+  - signal_id: semiconductor_tariffs
+    expected_is_relevant: false
+    expected_is_novel: false
+    expected_severity: null
+    notes: "Semiconductor manufacturing tariffs — unrelated industry"
+
+  - signal_id: pharma_rd_productivity
+    expected_is_relevant: false
+    expected_is_novel: false
+    expected_severity: null
+    notes: "R&D productivity analysis — no supply chain or sourcing content"
+
+  # --- Internal signals (rule-engine assessed, v1.2/v1.3) ---
+  - signal_id: step_3_yield_normal
+    expected_is_relevant: true
+    expected_is_novel: false
+    expected_severity: null
+    notes: "73.1/74.0 = 98.8% of planned — within 5% of planned, not novel; ROUTINE if novel"
+
+  - signal_id: step_3_yield_elevated
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: elevated
+    notes: "61.0/74.0 = 82.4% of planned — below elevated threshold (85%), above high (75%)"
+
+  - signal_id: step_3_yield_high
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: high
+    notes: "52.2/74.0 = 70.5% of planned — below high threshold (75%), above critical (65%)"
+
+  - signal_id: step_4_yield_normal
+    expected_is_relevant: true
+    expected_is_novel: false
+    expected_severity: null
+    notes: "80.5/81.0 = 99.4% of planned — within 5% of planned, not novel"
+
+  - signal_id: batch_failure_elevated
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: elevated
+    notes: "3.5% failure rate — planned=0, actual>0 → novel; 3.5 > elevated_threshold(2.0)"
+
+  - signal_id: po_delay_sm_a
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: elevated
+    notes: "4 week delay — planned=0, actual>0 → novel; 4.0 > elevated_threshold(2.0), < high_threshold(6.0)"
+
+  - signal_id: sdd_fraction_low
+    expected_is_relevant: true
+    expected_is_novel: false
+    expected_severity: null
+    notes: "4.1% actual == 4.1% planned — 0% change, not novel; would be ROUTINE"
+
+  - signal_id: sdd_fraction_high
+    expected_is_relevant: true
+    expected_is_novel: true
+    expected_severity: high
+    notes: "38.0% actual — 827% change from planned 4.1% → novel; 38.0 > high_threshold(35.0)"

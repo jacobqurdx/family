@@ -1,0 +1,11 @@
+{
+  "estimated_cost_impact_per_kg": 820.0,
+  "estimated_cost_impact_reasoning": "WuXi STA removal: emergency CDMO transition adds +$820/kg API. Amide Coupling, Cyclisation, and Salt Formation GMP steps must be transferred. Source: MRP cdmo_removal_scenarios, wuxi_sta.",
+  "estimated_timeline_impact_weeks": 18.0,
+  "estimated_timeline_reasoning": "GMP site qualification critical path: 18 weeks (tech transfer + regulatory filing + first GMP batch). SM-A re-qualification runs in parallel.",
+  "confidence": "medium",
+  "caveats": [
+    "Emergency premium assumes alternative CDMO exists with available capacity — not confirmed.",
+    "18-week timeline assumes no regulatory hold on the tech transfer filing."
+  ]
+}

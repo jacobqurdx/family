@@ -1,0 +1,7 @@
+{
+  "is_relevant": true,
+  "relevant_parameters": [
+    "SDD Global Capacity Fraction"
+  ],
+  "relevance_reasoning": "Signal concerns spray-dried dispersion capacity, a critical constraint for our formulation step."
+}

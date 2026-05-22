@@ -1,0 +1,21 @@
+{
+  "signal_id": "oncology_biotech_funding",
+  "signal": {
+    "id": "oncology_biotech_funding",
+    "source_name": "BioPharma Dive",
+    "source_url": "https://www.biopharmadive.com/news/oncology-biotech-series-d-funding-adc",
+    "collected_at": "2026-03-12T14:00:00+00:00",
+    "raw_content": "Oncology Biotech Raises $450M Series D for ADC Therapy Pipeline\n\nSan Francisco-based OncoBridge Therapeutics announced today the closing of a $450 million Series D funding round to advance its pipeline of antibody-drug conjugate (ADC) therapies targeting solid tumors.\n\nThe round was led by OrbiMed Advisors and included participation from existing investors Novo Holdings, Versant Ventures, and GV (Google Ventures). New investors include RA Capital Management and Bain Capital Life Sciences.\n\nOncoBridge's lead candidate, OBT-101, is a HER2-directed ADC in Phase 2 clinical trials for HER2-low breast cancer and non-small cell lung cancer. The company's pipeline includes three additional ADC candidates in Phase 1/2.\n\n'This financing positions OncoBridge to advance OBT-101 into a pivotal Phase 3 trial and to accelerate two additional programs into the clinic,' said CEO Dr. Sarah Chen.\n\nADC therapies represent a rapidly growing segment of oncology drug development, with global ADC market expected to exceed $20 billion by 2030. The funding will also support manufacturing scale-up for OBT-101 using biologics CDMO partners.\n\nThe company has entered into a collaboration agreement with Lonza Biologics for commercial-scale ADC manufacturing at Lonza's facility in Portsmouth, NH. Financial terms were not disclosed.\n\nOncoBridge Therapeutics employs 340 people across its San Francisco headquarters and R&D sites in Cambridge, MA."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:17:19.405794+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed.",
+  "labels": {
+    "relevance": {
+      "is_relevant": false,
+      "relevant_parameters": [],
+      "relevance_reasoning": "Synthetic seed label."
+    }
+  }
+}

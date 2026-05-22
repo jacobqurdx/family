@@ -1,0 +1,44 @@
+{
+  "signal_id": "cn_tariff_35pct_proposed",
+  "signal": {
+    "id": "cn_tariff_35pct_proposed",
+    "source_name": "USTR Press Release",
+    "source_url": "https://ustr.gov/about-us/policy-offices/press-office/press-releases/2026/march/ustr-proposes-section-301-tariffs",
+    "collected_at": "2026-03-05T14:00:00+00:00",
+    "raw_content": "USTR PROPOSES 35% SECTION 301 TARIFFS ON PHARMACEUTICAL INTERMEDIATES FROM CHINA\n\nWASHINGTON \u2014 The Office of the United States Trade Representative today published a Notice of Proposed Rulemaking proposing a 35% ad valorem tariff on pharmaceutical starting materials and API intermediates originating from the People's Republic of China under Section 301 of the Trade Act of 1974.\n\nThe proposed tariff covers goods classified under HTSUS chapters 28, 29, and 30 including: aromatic amine compounds and their derivatives (HTS 2921.49), amide coupling reagents (HTS 2934.99), polar aprotic solvents including DMF and DMSO (HTS 2921.59), and pharmaceutical-grade protected amino acids and intermediates (HTS 2924.29).\n\nThe proposed 35% rate is based on USTR's 2025 four-year review of the Section 301 China tariff action, which found that Chinese pharmaceutical material exports have increased 45% in value since 2021, while US domestic manufacturing capacity has declined.\n\nThe comment period is open through April 4, 2026. USTR will hold a public hearing on March 25, 2026 for interested parties to present testimony.\n\nPharmaceutical industry associations have indicated they will submit comments opposing the tariff, citing concerns about drug shortages and the lack of near-term alternative supply sources. The 35% rate is being described as a 'floor' by industry observers, with some sources suggesting the final rule may increase the rate.\n\nEstimated industry impact: $1.4 billion in annual additional costs for the US pharmaceutical sector if finalized at 35%."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:16:49.795613+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed label for eval pipeline bootstrap.",
+  "labels": {
+    "relevance": {
+      "is_relevant": true,
+      "relevant_parameters": [
+        "CN Section 301 Tariff \u2014 API Starting Materials"
+      ],
+      "relevance_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "novelty": {
+      "is_novel": true,
+      "novelty_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "severity": {
+      "severity": "elevated",
+      "risk_vector_type": "tariff_escalation",
+      "affected_geography": "China",
+      "severity_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "metacognition": {
+      "severity_grade": "UNCERTAIN",
+      "severity_uncertainty_flags": [
+        "Proposed rulemaking \u2014 not yet enacted; comment period open"
+      ],
+      "impact_grade": null,
+      "impact_uncertainty_flags": [
+        "Final tariff rate unknown; using 35% sweep point"
+      ],
+      "reasoning": ""
+    }
+  }
+}

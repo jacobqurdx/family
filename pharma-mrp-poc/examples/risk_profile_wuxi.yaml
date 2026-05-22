@@ -1,70 +1,83 @@
 risk_profile:
-  name: "API-001 Wuxi Risk Profile"
-  description: "Supply chain risk profile for API-001 Route A — WuXi STA node exposure"
+  name: "API-001 Route A — Supply Chain Risk Profile"
+  currency: USD
 
 cdmo_nodes:
   - id: wuxi_sta
     name: "Wuxi AppTec — WuXi STA"
     country: CN
     biosecure_act_listed: true
-    pentagon_1260h_listed: true
-    regulatory_watch_flags: ["1260H_list", "biosecure_act_pending"]
+    city: Shanghai
 
-materials:
-  - name: "Starting Material A"
+material_risk:
+  - material_name: "Starting Material A"
     country_of_origin: CN
-    cdmo_node: wuxi_sta
-    single_source: true
-    alternative_supplier_lead_time_weeks: 18
-  - name: "HATU"
+    cdmo_node_id: wuxi_sta
+    is_single_source: true
+    is_indirect_china: false
+    lead_time_weeks: 18.0
+    risk_flags:
+      - biosecure_act_cdmo
+      - single_source
+      - sole_source_cdmo_gmp
+
+  - material_name: "HATU"
     country_of_origin: CN
-    cdmo_node: wuxi_sta
-    single_source: false
-    alternative_supplier_lead_time_weeks: 10
-  - name: "DIPEA"
+    cdmo_node_id: null
+    is_single_source: false
+    is_indirect_china: false
+    lead_time_weeks: 3.0
+    risk_flags:
+      - china_origin
+
+  - material_name: "DIPEA"
     country_of_origin: IN
-    single_source: false
-    alternative_supplier_lead_time_weeks: 6
-    indirect_china_exposure: true
-    indirect_china_exposure_notes: "Key precursors sourced from CN contract manufacturers"
-  - name: "DMF (anhydrous)"
+    cdmo_node_id: null
+    is_single_source: false
+    is_indirect_china: true
+    lead_time_weeks: 1.0
+    risk_flags:
+      - india_origin
+      - indirect_china
+
+  - material_name: "DMF (anhydrous)"
     country_of_origin: CN
-    alternative_supplier_lead_time_weeks: 4
-  - name: "2-Fluorotoluene"
+    cdmo_node_id: null
+    is_single_source: false
+    is_indirect_china: false
+    lead_time_weeks: 1.0
+    risk_flags:
+      - china_origin
+
+  - material_name: "DCM"
     country_of_origin: CN
-    alternative_supplier_lead_time_weeks: 8
-  - name: "Pd/C catalyst (5%)"
+    cdmo_node_id: null
+    is_single_source: false
+    is_indirect_china: false
+    lead_time_weeks: 1.0
+    risk_flags:
+      - china_origin
+
+  - material_name: "2-Fluorotoluene"
+    country_of_origin: CN
+    cdmo_node_id: null
+    is_single_source: false
+    is_indirect_china: false
+    lead_time_weeks: 2.0
+    risk_flags:
+      - china_origin
+
+  - material_name: "Pd/C catalyst (5%)"
     country_of_origin: GB
-    alternative_supplier_lead_time_weeks: 6
+    cdmo_node_id: null
+    is_single_source: false
+    is_indirect_china: false
+    lead_time_weeks: 6.0
+    risk_flags:
+      - critical_metals
 
-steps:
-  - name: "Amide Coupling"
-    cdmo_node: wuxi_sta
-    step_criticality: critical
-  - name: "Cyclisation"
-    cdmo_node: wuxi_sta
-    step_criticality: sole_source_step
-
-risk_vectors:
-  - id: tariff_55_cn
-    name: "55% China Tariff"
-    type: tariff_escalation
-    tariff_rate_pct: 55.0
-    geography: CN
-    include_indirect: true
-  - id: tariff_100_cn
-    name: "100% China Tariff"
-    type: tariff_escalation
-    tariff_rate_pct: 100.0
-    geography: CN
-    include_indirect: true
-  - id: wuxi_removal
-    name: "Wuxi AppTec Node Removal"
-    type: cdmo_removal
-    cdmo_node: wuxi_sta
-    emergency_premium_pct: 50
-
-tariff_sweep:
-  geography: CN
-  include_indirect: true
-  rates: [20.0, 35.0, 55.0, 100.0]
+tariff_sweep_rates:
+  - 20.0
+  - 35.0
+  - 55.0
+  - 100.0

@@ -488,117 +488,56 @@ def network_minimise(
 
 @app.command()
 def risk_sensitivity(
-    process:      Path  = typer.Argument(..., help="Process YAML file"),
-    prices:       Path  = typer.Argument(..., help="Price list YAML file"),
-    risk_profile: Path  = typer.Argument(..., help="Risk profile YAML file"),
-    batch_size_kg:   float = typer.Option(50.0, help="Batch size in kg"),
-    num_batches:     int   = typer.Option(5, help="Number of batches"),
-    delta_pct:       float = typer.Option(1.0, help="Perturbation delta %"),
-    top_n:           int   = typer.Option(5, help="Top-N sensitivity lines to display"),
-    output_dir:      Path  = typer.Option(Path("outputs"), help="Output directory"),
+    process:       Path  = typer.Argument(..., help="Process YAML file"),
+    prices:        Path  = typer.Argument(..., help="Price list YAML file"),
+    risk_profile:  Path  = typer.Argument(..., help="Risk profile YAML file"),
+    batch_size_kg: float = typer.Option(50.0, help="Batch size in kg API"),
+    num_batches:   int   = typer.Option(1,    help="Number of batches"),
+    output_dir:    Path  = typer.Option(Path("outputs"), help="Output directory"),
 ):
-    """Generate supply chain risk sensitivity report."""
-    from mrp.loader import load_risk_profile
-    from mrp.risk import generate_sensitivity_report
-    from mrp.reporter import write_sensitivity_report
+    """
+    Generate a supply chain risk sensitivity report.
 
-    graph  = load_process(process)
-    pl     = load_price_list(prices)
-    config = ProcessConfig(
+    Runs one-at-a-time sensitivity for all material prices and step yields,
+    computes exposure metrics, tariff sweep, and CDMO removal scenarios.
+    Writes sensitivity_report.json for use by the risk agent POC.
+
+    Example:
+      mrp risk-sensitivity examples/linear_5step.yaml examples/prices_q2_2026.yaml \\
+        examples/risk_profile_wuxi.yaml
+    """
+    from mrp.loader import load_risk_profile as _load_risk_profile
+    from mrp.risk import generate_sensitivity_report
+    import json, dataclasses
+
+    graph   = load_process(process)
+    pl      = load_price_list(prices)
+    profile = _load_risk_profile(risk_profile)
+    config  = ProcessConfig(
         batch_size=ureg.Quantity(batch_size_kg, "kg"),
         num_batches=num_batches,
     )
-    rp = load_risk_profile(risk_profile, graph, pl)
 
     _warn_unpriced_materials(graph, pl)
+    console.print(f"[bold]Risk Sensitivity Analysis:[/bold] {graph.name}")
+    console.print(f"  Batch: {batch_size_kg} kg × {num_batches}  |  CDMO nodes: {len(profile.cdmo_nodes)}")
+    console.print(f"  Tariff sweep rates: {profile.tariff_sweep_rates}")
 
-    console.print(f"[bold]Risk Sensitivity:[/bold] {graph.name}")
-    console.print(f"  Risk profile: {rp.name}")
-    console.print(f"  Batches: {num_batches} × {batch_size_kg} kg  |  delta_pct: {delta_pct}%")
+    bom    = calculate_bom(graph, config, pl)
+    report = generate_sensitivity_report(graph, config, pl, bom, profile)
 
-    bom = calculate_bom(graph, config, pl)
-    report = generate_sensitivity_report(
-        graph=graph, config=config, prices=pl,
-        base_bom=bom, risk_profile=rp, delta_pct=delta_pct,
-    )
+    console.print(f"\n  Base cost/kg API: ${report.base_cost_per_kg_api:,.2f}")
+    console.print(f"  CN origin: {report.exposure_summary.china_origin_cost_pct:.1f}%  |  "
+                  f"Single-source: {report.exposure_summary.single_source_cost_pct:.1f}%  |  "
+                  f"CDMO exposed: {report.exposure_summary.cdmo_exposed_cost_pct:.1f}%")
+    console.print(f"\n  Top 5 sensitivity weights:")
+    for w in report.signal_priority_weights[:5]:
+        console.print(f"    #{w.rank} {w.parameter}: {w.sensitivity_cost_per_unit:+.3f} $/kg per 1%")
 
-    # Exposure summary
-    exp_table = Table(title="Exposure Summary")
-    exp_table.add_column("Metric", style="cyan")
-    exp_table.add_column("Value", justify="right")
-    exp_table.add_row("Base cost/kg API", f"${report.base_cost_per_kg_api:,.2f}")
-    exp_table.add_row("China-origin cost %", f"{report.china_origin_cost_pct:.1f}%")
-    exp_table.add_row("Indirect China cost %", f"{report.indirect_china_cost_pct:.1f}%")
-    exp_table.add_row("Single-source cost %", f"{report.single_source_cost_pct:.1f}%")
-    exp_table.add_row("CDMO-exposed cost %", f"{report.cdmo_exposed_cost_pct:.1f}%")
-    console.print(exp_table)
-
-    # Top-N sensitivity table
-    top = report.sensitivity_lines[:top_n]
-    sens_table = Table(title=f"Top-{top_n} Sensitivity Lines")
-    sens_table.add_column("Rank")
-    sens_table.add_column("Parameter", style="cyan")
-    sens_table.add_column("Type")
-    sens_table.add_column("Sensitivity", justify="right")
-    sens_table.add_column("Origin")
-    sens_table.add_column("Single Source")
-    sens_table.add_column("Flags")
-    for line in top:
-        sens_table.add_row(
-            str(line.rank),
-            line.parameter_name,
-            line.parameter_type,
-            f"{line.sensitivity_cost_per_unit:+.4f}",
-            line.country_of_origin or "—",
-            "Yes" if line.is_single_source else "No",
-            ";".join(line.risk_flags[:2]) or "—",
-        )
-    console.print(sens_table)
-
-    # Tariff sweep
-    if report.tariff_sweep_results:
-        ts_table = Table(title="Tariff Sweep")
-        ts_table.add_column("Rate %")
-        ts_table.add_column("Geography")
-        ts_table.add_column("Tariff Total $", justify="right")
-        ts_table.add_column("Adj $/kg", justify="right")
-        ts_table.add_column("Delta $/kg", justify="right")
-        for r in report.tariff_sweep_results:
-            ts_table.add_row(
-                f"{r.tariff_rate_pct:.0f}%",
-                r.geography,
-                f"${r.tariff_cost_total:,.0f}",
-                f"${r.adjusted_cost_per_kg_api:,.2f}",
-                f"+${r.cost_per_kg_delta:,.2f}",
-            )
-        console.print(ts_table)
-
-    # CDMO removal
-    if report.cdmo_removal_results:
-        cdmo_table = Table(title="CDMO Removal Scenarios")
-        cdmo_table.add_column("Node")
-        cdmo_table.add_column("Biosecure")
-        cdmo_table.add_column("Affected Steps")
-        cdmo_table.add_column("Base $/kg", justify="right")
-        cdmo_table.add_column("Emergency $/kg", justify="right")
-        cdmo_table.add_column("Delta $/kg", justify="right")
-        cdmo_table.add_column("Critical Path wk")
-        for r in report.cdmo_removal_results:
-            cdmo_table.add_row(
-                r.cdmo_node_name,
-                "Yes" if r.biosecure_act_listed else "No",
-                ";".join(r.affected_step_names),
-                f"${r.base_cost_per_kg_api:,.2f}",
-                f"${r.emergency_cost_per_kg_api:,.2f}",
-                f"+${r.cost_per_kg_delta:,.2f}",
-                str(r.timeline_critical_path_weeks) if r.timeline_critical_path_weeks else "Unknown",
-            )
-        console.print(cdmo_table)
-
-    out = make_output_dir(output_dir, f"risk_sensitivity_{graph.name.replace(' ', '_')[:20]}")
-    write_sensitivity_report(report, out)
-    console.print(f"\n[green]Outputs written to:[/green] {out}")
-    console.print(f"  Generated in {report.generation_time_sec:.2f}s")
+    out = make_output_dir(output_dir, f"risk_sensitivity_{graph.name.replace(' ','_')[:20]}")
+    report_dict = report.to_dict()
+    (out / "sensitivity_report.json").write_text(json.dumps(report_dict, indent=2))
+    console.print(f"\n[green]Sensitivity report written to:[/green] {out / 'sensitivity_report.json'}")
 
 
 def _warn_unpriced_materials(graph, pl) -> None:

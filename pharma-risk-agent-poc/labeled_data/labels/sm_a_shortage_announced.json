@@ -1,0 +1,47 @@
+{
+  "signal_id": "sm_a_shortage_announced",
+  "signal": {
+    "id": "sm_a_shortage_announced",
+    "source_name": "Chemical & Engineering News",
+    "source_url": "https://cen.acs.org/business/outsourcing/wuxi-sta-force-majeure-sm-intermediates/2026",
+    "collected_at": "2026-04-05T12:00:00+00:00",
+    "raw_content": "WuXi AppTec STA Division Declares Force Majeure on Protected Amine Intermediates\n\nWuXi AppTec's STA Division has issued force majeure notices to pharmaceutical clients covering SM-A class protected amine intermediates, citing facility damage sustained in the March 2026 Building 7 fire and subsequent regulatory hold orders.\n\nClients were notified this week that allocations for Q2 2026 would be reduced by 40%, with Q3 2026 allocations subject to further review pending facility reconstruction assessment. No commitment was given for return to normal supply before Q1 2027 at the earliest.\n\nAffected compounds include several protected amine intermediates used as pharmaceutical starting materials in small-molecule GMP synthesis. The Jinshan facility has been the sole commercial GMP supplier for these compound classes since 2019, when the previous supplier, Albany Molecular Research (now Curia), ceased production.\n\n'We have no alternative supplier for SM-A. The qualification of a new site typically takes 18-24 months including analytical method transfer, three validation batches, and NDA supplement approval,' said one CMC director at a mid-size pharma company, speaking anonymously. 'We are looking at potential stock-outs beginning in Q3 2026.'\n\nPatients relying on drugs whose APIs are manufactured using WuXi STA intermediates may face supply disruptions if manufacturers cannot bridge the gap. The FDA has been notified by WuXi but has not yet issued public communication.\n\nIndustry observers note that current SM-A inventory holdings at most pharmaceutical manufacturers are 3-6 months at current production rates."
+  },
+  "labeler": "seed",
+  "labeled_at": "2026-05-22T01:16:49.795613+00:00",
+  "status": "complete",
+  "notes": "Synthetic seed label for eval pipeline bootstrap.",
+  "labels": {
+    "relevance": {
+      "is_relevant": true,
+      "relevant_parameters": [
+        "SM-A Purchase Order Delivery Delay"
+      ],
+      "relevance_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "novelty": {
+      "is_novel": true,
+      "novelty_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "severity": {
+      "severity": "critical",
+      "risk_vector_type": "lead_time_extension",
+      "affected_geography": "China",
+      "severity_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "impact": {
+      "qualitative_only": false,
+      "estimated_cost_impact_per_kg": 342.0,
+      "estimated_timeline_impact_weeks": 12,
+      "confidence": "medium",
+      "estimated_cost_impact_reasoning": "Synthetic label for eval seed dataset."
+    },
+    "metacognition": {
+      "severity_grade": "CERTAIN",
+      "severity_uncertainty_flags": [],
+      "impact_grade": "CERTAIN",
+      "impact_uncertainty_flags": [],
+      "reasoning": ""
+    }
+  }
+}

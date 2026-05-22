@@ -1,0 +1,13 @@
+{
+  "is_novel": true,
+  "novelty_reasoning": "The current state records no confirmed regulatory action at this facility. This signal reports a confirmed new development not previously captured.",
+  "updated_parameter_states": [
+    {
+      "parameter_name": "Starting Material A price",
+      "new_state_summary": "CDMO node Wuxi AppTec WuXi STA has received an FDA enforcement action. Supply continuity at risk. Alternative qualification timeline: 18 weeks.",
+      "new_baseline_value": null,
+      "new_baseline_value_unit": null,
+      "change_direction": "disrupted"
+    }
+  ]
+}

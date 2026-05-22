@@ -1,0 +1,11 @@
+{
+  "estimated_cost_impact_per_kg": 620.5,
+  "estimated_cost_impact_reasoning": "Emergency sourcing at +50% price premium for SM-A and HATU. Source: MRP sensitivity report cdmo_removal_scenarios, Wuxi AppTec WuXi STA.",
+  "estimated_timeline_impact_weeks": 18.0,
+  "estimated_timeline_reasoning": "Alternative supplier qualification lead time: 18 weeks (SM-A). Source: MRP sensitivity report signal_priority_weights, rank 1.",
+  "confidence": "medium",
+  "caveats": [
+    "Emergency premium of 50% is an estimate; actual premium could be higher.",
+    "Timeline assumes an alternative supplier exists and can be qualified."
+  ]
+}

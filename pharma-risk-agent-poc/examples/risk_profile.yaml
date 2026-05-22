@@ -1,0 +1,166 @@
+name: "API-001 Network Risk Profile"
+version: "1.0"
+
+scenarios:
+  - id: our_current
+    name: "API-001 Route A (Current)"
+    is_primary: true
+    mrp_scenario_id: "api-001_route_a"
+    notes: "Primary commercial manufacturing scenario for API-001"
+  - id: competitor_x
+    name: "Competitor X Benchmark Scenario"
+    is_primary: false
+    mrp_scenario_id: null
+    notes: "Benchmarking scenario — qualitative impact only (no MRP model)"
+
+default_thresholds:
+  yield_parameters:
+    elevated_threshold: 0.85
+    high_threshold: 0.75
+    critical_threshold: 0.65
+    threshold_type: ratio
+  rate_parameters:
+    elevated_threshold: 2.0
+    high_threshold: 5.0
+    critical_threshold: 10.0
+    threshold_type: absolute
+
+parameters:
+  # ── Operational (internal MES/QMS signals) ─────────────────────────────────
+  - id: step_3_yield
+    name: "Amide Coupling Step Yield"
+    category: operational
+    process_step: regulated_starting_material
+    risk_tier: HIGH
+    applies_to_scenarios: [our_current, competitor_x]
+    description: "GMP batch yield for Amide Coupling (Step 3) — sole-source step at WuXi STA"
+    internal_thresholds:
+      planned_value: 74.0
+      unit: "%"
+      elevated_threshold: 0.85
+      high_threshold: 0.75
+      critical_threshold: 0.65
+      threshold_type: ratio
+    sources_to_monitor:
+      - MES batch records
+      - QMS deviation reports
+    notes: "Sole-source step. Any yield degradation triggers alternative CDMO assessment."
+
+  - id: step_4_yield
+    name: "Cyclisation Step Yield"
+    category: operational
+    process_step: regulated_starting_material
+    risk_tier: MEDIUM
+    applies_to_scenarios: [our_current]
+    description: "GMP batch yield for Cyclisation (Step 4)"
+    internal_thresholds:
+      planned_value: 81.0
+      unit: "%"
+      elevated_threshold: 0.85
+      high_threshold: 0.75
+      critical_threshold: 0.65
+      threshold_type: ratio
+    sources_to_monitor:
+      - MES batch records
+
+  - id: batch_failure_rate
+    name: "Batch Failure Rate"
+    category: operational
+    process_step: regulated_starting_material
+    risk_tier: HIGH
+    applies_to_scenarios: [our_current]
+    description: "% of GMP batches failing quality release over trailing 90 days"
+    internal_thresholds:
+      planned_value: 0.0
+      unit: "%"
+      elevated_threshold: 2.0
+      high_threshold: 5.0
+      critical_threshold: 10.0
+      threshold_type: absolute
+    sources_to_monitor:
+      - QMS batch release records
+
+  # ── Material price / lead time (internal ERP signals) ─────────────────────
+  - id: po_delay_sm_a
+    name: "SM-A Purchase Order Delivery Delay"
+    category: material_price
+    process_step: raw_materials
+    risk_tier: HIGH
+    applies_to_scenarios: [our_current]
+    description: "SM-A delivery delay in weeks vs confirmed PO date"
+    internal_thresholds:
+      planned_value: 0.0
+      unit: weeks
+      elevated_threshold: 2.0
+      high_threshold: 6.0
+      critical_threshold: 12.0
+      threshold_type: absolute
+    sources_to_monitor:
+      - ERP purchase order status
+    notes: "SM-A is rank-1 sensitivity parameter. Any delay triggers alternative sourcing review."
+
+  # ── Capacity constraint (v1.3 — SDD signals) ──────────────────────────────
+  - id: sdd_global_fraction
+    name: "SDD Global Capacity Fraction"
+    category: capacity_constraint
+    process_step: spray_dry_dispersion
+    risk_tier: HIGH
+    applies_to_scenarios: [our_current]
+    description: >
+      Our demand as a % of total global spray-dried dispersion (SDD) manufacturing capacity.
+      Higher fraction means greater concentration risk — a shortage affects us proportionally more.
+    internal_thresholds:
+      planned_value: 4.1
+      unit: "% of global capacity"
+      elevated_threshold: 20.0
+      high_threshold: 35.0
+      critical_threshold: 50.0
+      threshold_type: absolute
+    notes: >
+      Baseline fraction is ~4% (Q1 2026). Phase 3 commercial scale-up could push
+      demand to 3500 kg/yr which at current global capacity (9200 kg/yr) = 38%.
+      Threshold_type=absolute: compare actual % directly to threshold values.
+
+  - id: sdd_facility_util
+    name: "SDD Facility Utilisation"
+    category: capacity_constraint
+    process_step: spray_dry_dispersion
+    risk_tier: MEDIUM
+    applies_to_scenarios: [our_current]
+    description: >
+      Our share of capacity at the named SDD contract facility as a %.
+      High utilisation reduces the facility's ability to absorb schedule changes.
+    internal_thresholds:
+      planned_value: 40.0
+      unit: "% of facility capacity"
+      elevated_threshold: 60.0
+      high_threshold: 80.0
+      critical_threshold: 90.0
+      threshold_type: absolute
+    notes: "threshold_type=absolute: compare actual % utilisation directly to threshold."
+
+  # ── External signals (LLM pipeline) ───────────────────────────────────────
+  - id: wuxi_cdmo_risk
+    name: "WuXi STA CDMO Risk"
+    category: cdmo_removal
+    process_step: regulated_starting_material
+    risk_tier: HIGH
+    applies_to_scenarios: [our_current]
+    description: "BioSecure Act / FDA enforcement risk at Wuxi AppTec WuXi STA"
+    sources_to_monitor:
+      - FDA enforcement database
+      - Congressional Record
+      - Reuters Pharma
+      - Federal Register
+
+  - id: cn_tariff_api
+    name: "CN Section 301 Tariff — API Starting Materials"
+    category: tariff_escalation
+    process_step: raw_materials
+    risk_tier: HIGH
+    applies_to_scenarios: [our_current, competitor_x]
+    description: "Section 301 consolidated tariff rate on CN-origin API intermediates"
+    sources_to_monitor:
+      - Federal Register
+      - USTR
+      - C&EN

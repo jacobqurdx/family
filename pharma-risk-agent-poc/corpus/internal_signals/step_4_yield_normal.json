@@ -1,0 +1,16 @@
+{
+  "id": "step_4_yield_normal",
+  "signal_type": "step_yield",
+  "source_system": "mes",
+  "parameter_id": "step_4_yield",
+  "scenario_id": "our_current",
+  "actual_value": 80.5,
+  "planned_value": 81.0,
+  "unit": "%",
+  "measurement_timestamp": "2026-05-14T08:00:00Z",
+  "context": {
+    "batch_id": "B-2026-0512",
+    "step_name": "Cyclisation",
+    "operator_notes": "Normal run"
+  }
+}

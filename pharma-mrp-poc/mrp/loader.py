@@ -11,6 +11,7 @@ from mrp.domain import (
     Plant, PlantAsset, DepreciationMethod, MaintenanceSchedule, MaintenanceType,
     StepAssetAssignment, CapacityUtilisationBand,
     PlantNetwork, NetworkPlantMembership, VolumeTarget,
+    RiskProfile, CDMONode, MaterialRiskInfo,
 )
 from mrp.units import parse_molar_mass, parse_volume_ratio, ureg
 
@@ -306,119 +307,47 @@ def load_plant(path: Path) -> Plant:
 
 def load_risk_profile(
     path: Path,
-    graph: "ProcessGraph",
-    prices: "PriceList",
-) -> "RiskProfile":
-    """Load risk profile YAML → RiskProfile."""
-    from mrp.domain import (
-        CDMONode, RiskVector, RiskVectorType, MaterialRiskMetadata,
-        StepRiskMetadata, StepCriticality, RiskProfile,
-    )
+    graph=None,
+    prices=None,
+) -> RiskProfile:
+    """
+    Load a risk_profile.yaml → RiskProfile.
 
+    The graph and prices arguments are accepted for API compatibility
+    but are not required — all data comes from the YAML.
+    """
     data = yaml.safe_load(path.read_text())
+    rp = data.get("risk_profile", {})
 
-    # 1. Build cdmo_nodes dict
-    cdmo_nodes: dict = {}
-    for node_data in data.get("cdmo_nodes", []):
-        node = CDMONode(
-            id=node_data["id"],
-            name=node_data["name"],
-            country=node_data["country"],
-            city=node_data.get("city"),
-            biosecure_act_listed=bool(node_data.get("biosecure_act_listed", False)),
-            pentagon_1260h_listed=bool(node_data.get("pentagon_1260h_listed", False)),
-            regulatory_watch_flags=list(node_data.get("regulatory_watch_flags", [])),
-            notes=node_data.get("notes"),
-        )
-        cdmo_nodes[node.id] = node
-
-    # 2. Build material_risk dict (lower-cased name → MaterialRiskMetadata)
-    material_risk: dict = {}
-    for m in data.get("materials", []):
-        cdmo_node_ref = m.get("cdmo_node")
-        if cdmo_node_ref and cdmo_node_ref not in cdmo_nodes:
-            print(f"WARNING: cdmo_node '{cdmo_node_ref}' referenced by material '{m['name']}' not found")
-        key = m["name"].lower()
-        material_risk[key] = MaterialRiskMetadata(
-            material_name=m["name"],
-            country_of_origin=m.get("country_of_origin"),
-            cdmo_node_id=cdmo_node_ref if cdmo_node_ref in cdmo_nodes else None,
-            single_source=bool(m.get("single_source", False)),
-            alternative_supplier_lead_time_weeks=m.get("alternative_supplier_lead_time_weeks"),
-            indirect_china_exposure=bool(m.get("indirect_china_exposure", False)),
-            indirect_china_exposure_notes=m.get("indirect_china_exposure_notes"),
-            tariff_hs_code=m.get("tariff_hs_code"),
-        )
-
-    # 3. Build step_risk dict (lower-cased name → StepRiskMetadata)
-    step_risk: dict = {}
-    for s in data.get("steps", []):
-        cdmo_node_ref = s.get("cdmo_node")
-        if cdmo_node_ref and cdmo_node_ref not in cdmo_nodes:
-            print(f"WARNING: cdmo_node '{cdmo_node_ref}' referenced by step '{s['name']}' not found")
-        criticality_raw = s.get("step_criticality", "standard")
-        try:
-            criticality = StepCriticality(criticality_raw)
-        except ValueError:
-            criticality = StepCriticality.STANDARD
-        key = s["name"].lower()
-        step_risk[key] = StepRiskMetadata(
-            step_name=s["name"],
-            cdmo_node_id=cdmo_node_ref if cdmo_node_ref in cdmo_nodes else None,
-            step_criticality=criticality,
-        )
-
-    # 4. Build risk_vectors list
-    risk_vectors: list = []
-    for rv in data.get("risk_vectors", []):
-        rv_type_raw = rv.get("type", "")
-        try:
-            rv_type = RiskVectorType(rv_type_raw)
-        except ValueError:
-            print(f"WARNING: unknown risk_vector type '{rv_type_raw}' for '{rv.get('id')}' — skipping")
-            continue
-        cdmo_node_ref = rv.get("cdmo_node")
-        if cdmo_node_ref and cdmo_node_ref not in cdmo_nodes:
-            print(f"WARNING: cdmo_node '{cdmo_node_ref}' referenced by risk_vector '{rv.get('id')}' not found")
-        risk_vectors.append(RiskVector(
-            id=rv["id"],
-            name=rv["name"],
-            risk_vector_type=rv_type,
-            tariff_rate_pct=float(rv["tariff_rate_pct"]) if "tariff_rate_pct" in rv else None,
-            geography=rv.get("geography"),
-            include_indirect=bool(rv.get("include_indirect", False)),
-            cdmo_node_id=cdmo_node_ref if cdmo_node_ref in cdmo_nodes else None,
-            emergency_premium_pct=float(rv.get("emergency_premium_pct", 50.0)),
+    cdmo_nodes = []
+    for c in data.get("cdmo_nodes", []):
+        cdmo_nodes.append(CDMONode(
+            id=c["id"],
+            name=c["name"],
+            country=c.get("country", ""),
+            biosecure_act_listed=bool(c.get("biosecure_act_listed", False)),
+            city=c.get("city"),
         ))
 
-    # 5. Tariff sweep config
-    sweep = data.get("tariff_sweep", {})
-    tariff_sweep_rates = [float(r) for r in sweep.get("rates", [])]
-    tariff_sweep_geography = sweep.get("geography")
-    tariff_sweep_include_indirect = bool(sweep.get("include_indirect", False))
+    material_risk = []
+    for m in data.get("material_risk", []):
+        material_risk.append(MaterialRiskInfo(
+            material_name=m["material_name"],
+            country_of_origin=m.get("country_of_origin"),
+            cdmo_node_id=m.get("cdmo_node_id"),
+            is_single_source=bool(m.get("is_single_source", False)),
+            is_indirect_china=bool(m.get("is_indirect_china", False)),
+            lead_time_weeks=float(m["lead_time_weeks"]) if m.get("lead_time_weeks") else None,
+            risk_flags=list(m.get("risk_flags", [])),
+        ))
 
-    # 6. Warn about materials in graph without country_of_origin
-    if graph is not None:
-        for step in graph.steps.values():
-            for sm in step.materials:
-                key = sm.material.name.lower()
-                mat_meta = material_risk.get(key)
-                if mat_meta is None or mat_meta.country_of_origin is None:
-                    print(
-                        f"WARNING: Material '{sm.material.name}' in step '{step.name}' "
-                        "has no country_of_origin tag in risk profile"
-                    )
+    tariff_rates = [float(r) for r in data.get("tariff_sweep_rates", [20.0, 35.0, 55.0, 100.0])]
 
-    profile_data = data.get("risk_profile", {})
     return RiskProfile(
-        name=profile_data.get("name", path.stem),
+        name=rp.get("name", path.stem),
         cdmo_nodes=cdmo_nodes,
         material_risk=material_risk,
-        step_risk=step_risk,
-        risk_vectors=risk_vectors,
-        tariff_sweep_rates=tariff_sweep_rates,
-        tariff_sweep_geography=tariff_sweep_geography,
-        tariff_sweep_include_indirect=tariff_sweep_include_indirect,
+        tariff_sweep_rates=tariff_rates,
     )
 
 

@@ -1,0 +1,19 @@
+{
+  "id": "po_delay_sm_a",
+  "signal_type": "po_delivery_exception",
+  "source_system": "erp",
+  "parameter_id": "po_delay_sm_a",
+  "scenario_id": "our_current",
+  "actual_value": 4.0,
+  "planned_value": 0.0,
+  "unit": "weeks",
+  "measurement_timestamp": "2026-05-13T14:00:00Z",
+  "context": {
+    "po_number": "PO-2026-SM-A-0087",
+    "material": "Starting Material A",
+    "supplier": "Primary SM-A Supplier",
+    "original_delivery_date": "2026-05-06",
+    "revised_delivery_date": "2026-06-03",
+    "supplier_reason": "Extended lead time due to raw material availability"
+  }
+}

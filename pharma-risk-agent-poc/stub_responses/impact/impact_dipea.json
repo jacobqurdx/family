@@ -1,0 +1,11 @@
+{
+  "estimated_cost_impact_per_kg": 21.0,
+  "estimated_cost_impact_reasoning": "DIPEA 20% output reduction from India supplier. Sensitivity $0.42/kg API per $1/kg DIPEA. Estimated spot premium + allocation adjustment: +$21/kg API. Low-sensitivity parameter (rank 9) but process-critical — no substitute base in Amide Coupling step.",
+  "estimated_timeline_impact_weeks": 3.0,
+  "estimated_timeline_reasoning": "Alternative DIPEA suppliers (US, EU) can be qualified within 2–3 weeks given non-GMP material status. Short-term airfreight may be required.",
+  "confidence": "medium",
+  "caveats": [
+    "DIPEA classified as indirect China exposure — India production uses CN precursors.",
+    "Process-critical despite low cost sensitivity — shortage could halt batches regardless of cost impact."
+  ]
+}

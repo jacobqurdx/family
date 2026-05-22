@@ -1,0 +1,7 @@
+{
+  "severity": "HIGH",
+  "severity_reasoning": "A confirmed tariff rate change has been reported affecting CN-origin materials. This represents a material cost escalation warranting immediate scenario modelling.",
+  "risk_vector_type": "tariff_escalation",
+  "affected_geography": "CN",
+  "affected_cdmo_node_name": null
+}

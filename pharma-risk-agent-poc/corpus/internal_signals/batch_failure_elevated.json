@@ -1,0 +1,17 @@
+{
+  "id": "batch_failure_elevated",
+  "signal_type": "batch_failure_rate",
+  "source_system": "qms",
+  "parameter_id": "batch_failure_rate",
+  "scenario_id": "our_current",
+  "actual_value": 3.5,
+  "planned_value": 0.0,
+  "unit": "%",
+  "measurement_timestamp": "2026-05-15T09:00:00Z",
+  "context": {
+    "period_days": 90,
+    "batches_released": 28,
+    "batches_failed": 1,
+    "failure_reason": "OOS result on assay — investigation ongoing"
+  }
+}
