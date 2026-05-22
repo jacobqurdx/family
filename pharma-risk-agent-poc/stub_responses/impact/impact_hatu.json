@@ -1,0 +1,11 @@
+{
+  "estimated_cost_impact_per_kg": 413.0,
+  "estimated_cost_impact_reasoning": "HATU 38% price spike: base HATU cost contribution ~$1,088/kg API × 38% = $413/kg API. Source: MRP signal_priority_weights rank 6, tariff_impact_at_55pct $598.40 → back-calculated base contribution. High sensitivity parameter (rank 6).",
+  "estimated_timeline_impact_weeks": 11.0,
+  "estimated_timeline_reasoning": "HATU lead time extended from 3 to 11 weeks per supplier notice. Chemsy 500 kg/quarter cap constrains batch scheduling. At current demand, cap creates a 6–8 week scheduling queue.",
+  "confidence": "high",
+  "caveats": [
+    "EU alternative suppliers (Fluorochem, Sigma-Aldrich) identified but not yet on approved vendor list.",
+    "500 kg/quarter cap from Chemsy may force batch size reduction or schedule delays."
+  ]
+}

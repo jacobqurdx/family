@@ -219,9 +219,60 @@ class StubLLMBackend(_Backend):
             # ROUTINE: stable, positive, or non-actionable
             return "severity_routine"
         elif step == "impact":
-            if any(kw in p for kw in ["wuxi", "cdmo", "removal"]):
-                return "impact_cdmo"
-            return "impact_tariff"
+            # raw_content is now in the impact prompt under "## Signal".
+            # Extract it for routing — it's signal-specific and distinct from MRP boilerplate.
+            signal_marker = "## signal\n\n"
+            what_changed_marker = "\n\n## what changed"
+            sig_start = p.find(signal_marker)
+            if sig_start != -1:
+                ic = p[sig_start + len(signal_marker):]
+                end = ic.find(what_changed_marker)
+                if end != -1:
+                    ic = ic[:end]
+            else:
+                ic = p
+
+            # Supply halt — factory fire, embargo, complete loss of supply
+            if any(kw in ic for kw in ["factory fire", "building 7", "total loss",
+                                        "no license exceptions", "detention without physical",
+                                        "embargo", "destroyed", "no commercial batches"]):
+                return "impact_supply_halt"
+            # HATU — check before generic force-majeure; HATU signals are about benzotriazole/Chemsy
+            if any(kw in ic for kw in ["chemsy", "fluorochem", "benzotriazole",
+                                        "hatu price", "hatu lead", "hatu supplier",
+                                        "hatu shortage", "pharmamaterials"]):
+                return "impact_hatu"
+            # DIPEA — check before generic force-majeure; DIPEA signals mention DIPP / diisopropylamine
+            if "dipea" in ic and any(kw in ic for kw in ["indian chemical", "diisopropylamine",
+                                                           "dipp", "n,n-diisopropylethylamine",
+                                                           "production cut", "output cut",
+                                                           "balaji amines", "alkyl amines"]):
+                return "impact_dipea"
+            # SM-A force majeure / allocation cut (partial, not total halt)
+            if any(kw in ic for kw in ["force majeure", "allocation cut", "40%",
+                                        "sole source supply"]):
+                return "impact_sm_a_shortage"
+            # 100% tariff
+            if "100%" in ic and any(kw in ic for kw in ["tariff", "executive order"]):
+                return "impact_tariff_100pct"
+            # Legislative / proposed — not yet enacted
+            if any(kw in ic for kw in ["proposed rulemaking", "comment period",
+                                        "proceeds to the president", "passes senate",
+                                        "senate passes", "if finalized", "pending compliance"]):
+                return "impact_legislative_qualitative"
+            # CDMO regulatory pressure (483, capacity reduction — not full removal)
+            if any(kw in ic for kw in ["form 483", "capacity reduction", "bookings frozen",
+                                        "q1 2026 earnings", "pending review", "working with legal"]):
+                return "impact_cdmo_regulatory"
+            # 55% or other confirmed tariff
+            if any(kw in ic for kw in ["55%", "section 301", "ustr proposes",
+                                        "tariff", "federal register"]):
+                return "impact_tariff_55pct"
+            # Confirmed CDMO enforcement (import alert, warning letter, biosecure signed)
+            if any(kw in ic for kw in ["import alert", "warning letter", "into law",
+                                        "restriction affecting", "wuxi sta", "wuxi apptec"]):
+                return "impact_cdmo_removal"
+            return "impact_cdmo_removal"
         elif step == "metacognition":
             # Extract only the signal content block to avoid matching template text.
             content_marker = "content:\n"

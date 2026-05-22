@@ -281,6 +281,9 @@ def _step_impact(
         base_cost_per_kg=context.base_cost_per_kg_api,
         tariff_sweep_json=json.dumps(context.tariff_sweep, indent=2),
         cdmo_removal_json=json.dumps(context.cdmo_removal_scenarios, indent=2),
+        source_name=signal.source_name,
+        collected_date=signal.collected_at[:10],
+        raw_content=signal.raw_content[:1500],
         novelty_reasoning=novelty.novelty_reasoning,
     )
     response = _call_claude(prompt, client, cache_dir, step="impact")

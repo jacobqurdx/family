@@ -1,0 +1,12 @@
+{
+  "estimated_cost_impact_per_kg": 1840.0,
+  "estimated_cost_impact_reasoning": "Complete supply halt: SM-A sole source destroyed + GMP steps at WuXi STA unavailable simultaneously. Emergency spot sourcing at 2–3× premium plus CDMO transition. Estimated +$1,840/kg worst-case; range $820–2,200/kg depending on alternative availability.",
+  "estimated_timeline_impact_weeks": 26.0,
+  "estimated_timeline_reasoning": "Longest path: new SM-A supplier qualification (20 weeks) + parallel CDMO tech transfer (18 weeks) on critical path = 26 weeks to first commercial batch from alternative network.",
+  "confidence": "low",
+  "caveats": [
+    "Estimate assumes at least one alternative SM-A supplier can be identified within 4 weeks.",
+    "If no alternative SM-A supplier exists, timeline is indeterminate — supply may halt indefinitely.",
+    "Does not include regulatory filing delays for API site change."
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "estimated_cost_impact_per_kg": 2592.0,
+  "estimated_cost_impact_reasoning": "100% consolidated Section 301 tariff on all CN-origin materials. Source: MRP tariff_sweep at 100%. Adjusted cost $7,800/kg vs baseline $5,208/kg — a 49.8% increase.",
+  "estimated_timeline_impact_weeks": null,
+  "estimated_timeline_reasoning": "At 100% tariff, economic incentive to source outside CN likely triggers supply chain rebalancing over 12–18 months, but no immediate lead-time impact.",
+  "confidence": "high",
+  "caveats": [
+    "Does not model secondary effects: CN suppliers may exit US market entirely, triggering shortages.",
+    "SM-A sole-source risk amplified — only one CN supplier currently qualified."
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "estimated_cost_impact_per_kg": null,
+  "estimated_cost_impact_reasoning": "Not yet enacted — no confirmed cost impact. If enacted at proposed scope: estimated $820/kg (CDMO removal) to $2,592/kg (100% tariff) depending on final legislation. Quantification requires confirmed enactment.",
+  "estimated_timeline_impact_weeks": null,
+  "estimated_timeline_reasoning": "No immediate timeline impact. Contingency planning should begin now given 18–26 week qualification timelines required post-enactment.",
+  "confidence": "low",
+  "caveats": [
+    "Proposed rule / pending legislation — impact is contingent on enactment.",
+    "Final scope and rate may differ materially from proposal.",
+    "Recommend monitoring and initiating contingency supplier qualification in parallel."
+  ]
+}

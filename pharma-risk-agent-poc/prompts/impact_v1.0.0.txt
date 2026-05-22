@@ -16,6 +16,13 @@ ${base_cost_per_kg} per kg API (baseline)
 
 {cdmo_removal_json}
 
+## Signal
+
+Source: {source_name}
+Date: {collected_date}
+
+{raw_content}
+
 ## What Changed (from novelty assessment)
 
 {novelty_reasoning}

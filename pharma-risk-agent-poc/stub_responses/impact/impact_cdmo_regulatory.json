@@ -1,0 +1,12 @@
+{
+  "estimated_cost_impact_per_kg": 245.0,
+  "estimated_cost_impact_reasoning": "Partial CDMO disruption: 15% capacity reduction at WuXi STA increases scheduling risk and may require buffer stock or secondary CDMO for overflow. Estimated cost: +$245/kg API (expedite fees + secondary CDMO premium on 15% of volume).",
+  "estimated_timeline_impact_weeks": 6.0,
+  "estimated_timeline_reasoning": "6-week buffer stock window before schedule impact materialises at current batch throughput. If 483 escalates to Warning Letter, full CDMO removal scenario (+$820/kg, 18 weeks) activates.",
+  "confidence": "low",
+  "caveats": [
+    "Impact escalates significantly if Form 483 becomes Warning Letter or Import Alert.",
+    "Capacity reduction currently affects API intermediate range (C3–C8 steps) — Amide Coupling step impact unconfirmed.",
+    "WuXi STA investor communications suggest US bookings suspended — escalation risk is HIGH."
+  ]
+}

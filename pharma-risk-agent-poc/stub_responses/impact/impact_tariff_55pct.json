@@ -1,0 +1,11 @@
+{
+  "estimated_cost_impact_per_kg": 1426.0,
+  "estimated_cost_impact_reasoning": "55% consolidated Section 301 tariff on SM-A, HATU, DCM, DMF, 2-Fluorotoluene. Source: MRP tariff_sweep at 55%. Adjusted cost $6,634/kg vs baseline $5,208/kg.",
+  "estimated_timeline_impact_weeks": null,
+  "estimated_timeline_reasoning": "Tariff escalation does not directly affect lead times; however, spot allocation constraints on HATU may extend lead time by 3–5 weeks.",
+  "confidence": "high",
+  "caveats": [
+    "Assumes full consolidated rate applies to all CN-origin materials.",
+    "Indirect China exposure (DIPEA via India) excluded — adds ~$21/kg if captured."
+  ]
+}
