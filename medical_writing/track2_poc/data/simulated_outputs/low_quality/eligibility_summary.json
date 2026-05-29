@@ -1,0 +1,12 @@
+{
+  "section_id": "eligibility_summary",
+  "section_title": "Eligibility Summary",
+  "quality_tier": "low_quality",
+  "simulated_confidence": 0.52,
+  "source_elements": {
+    "inclusion_criteria": ["adult patients with diabetes"],
+    "exclusion_criteria": ["patients with certain conditions"],
+    "enrollment_target": 240
+  },
+  "prose": "Adult patients with type 2 diabetes were eligible for the study if they met the inclusion criteria. Patients who met any exclusion criteria were not eligible to participate.\n\nKey inclusion criteria included appropriate age range and diagnosis. Patients with certain medical conditions or taking other medications were excluded from participation.\n\nApproximately [NUMBER] subjects were planned for enrollment. [PLACEHOLDER: Verify exact inclusion/exclusion criteria wording against protocol Section 5 before finalizing]"
+}

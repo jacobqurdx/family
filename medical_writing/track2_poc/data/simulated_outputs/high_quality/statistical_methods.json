@@ -1,0 +1,12 @@
+{
+  "section_id": "statistical_methods",
+  "section_title": "Statistical Methods",
+  "quality_tier": "high_quality",
+  "simulated_confidence": 0.88,
+  "source_elements": {
+    "primary_analysis_type": "Mixed Model for Repeated Measures (MMRM)",
+    "analysis_populations": ["Full Analysis Set (FAS)", "Per Protocol Set (PPS)", "Safety Population"],
+    "missing_data_approach": "Missing at random handled implicitly by MMRM; sensitivity via pattern mixture models"
+  },
+  "prose": "The primary efficacy analysis was conducted on the Full Analysis Set (FAS), defined as all randomised subjects who received at least one dose of study drug and had a post-baseline HbA1c measurement. The Per Protocol Set (PPS) served as a supportive population, excluding subjects with major protocol deviations likely to influence the primary endpoint. Safety analyses were performed on the Safety Population, comprising all randomised subjects who received at least one dose of study drug.\n\nThe primary analysis employed a Mixed Model for Repeated Measures (MMRM), with change from baseline in HbA1c as the dependent variable. The model included fixed effects for treatment arm, visit, treatment-by-visit interaction, baseline HbA1c, and stratification factors (baseline HbA1c category and geographic region). An unstructured covariance matrix was used to model within-subject correlations across visits. Restricted maximum likelihood (REML) estimation was applied, and Kenward-Roger degrees of freedom approximation was used for inference.\n\nMissing data were handled implicitly within the MMRM framework under the missing at random (MAR) assumption. Pre-specified sensitivity analyses using pattern mixture models with tipping-point analyses were conducted to assess the robustness of the primary result under missing not at random assumptions. A hierarchical testing procedure controlled the familywise type I error rate at 0.05 (two-sided) for the ordered secondary endpoints."
+}

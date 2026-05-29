@@ -1,0 +1,66 @@
+{
+  "id": "investigator_brochure",
+  "name": "Investigator's Brochure",
+  "version": "1.0",
+  "description": "Schema for the Investigator's Brochure (IB) — ICH E6 compliant",
+  "elements": [
+    {
+      "id": "drug_name",
+      "label": "Investigational Drug Name",
+      "description": "INN or internal code for the investigational product",
+      "data_type": "string",
+      "required": true,
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "indication",
+      "label": "Target Therapeutic Indication",
+      "description": "Primary indication under investigation",
+      "data_type": "string",
+      "required": true,
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "mechanism_of_action",
+      "label": "Mechanism of Action",
+      "description": "Description of the drug's primary pharmacological mechanism",
+      "data_type": "string",
+      "required": true,
+      "depends_on": ["drug_name"],
+      "dependency_type": "required",
+      "inference_rule": null
+    },
+    {
+      "id": "nonclinical_safety_summary",
+      "label": "Non-Clinical Safety Summary",
+      "description": "Summary of non-clinical safety findings",
+      "data_type": "string",
+      "required": true,
+      "depends_on": ["drug_name"],
+      "dependency_type": "required",
+      "inference_rule": null
+    },
+    {
+      "id": "clinical_safety_summary",
+      "label": "Clinical Safety Summary",
+      "description": "Summary of clinical safety findings to date",
+      "data_type": "string",
+      "required": false,
+      "depends_on": ["indication", "nonclinical_safety_summary"],
+      "dependency_type": "informational",
+      "inference_rule": null
+    }
+  ],
+  "sections": [
+    {
+      "id": "ib_summary_narrative",
+      "title": "Investigator's Brochure Summary",
+      "source_elements": ["drug_name", "indication", "mechanism_of_action"],
+      "prompt_template": "Generate the IB summary section covering drug name, indication, and mechanism of action."
+    }
+  ]
+}

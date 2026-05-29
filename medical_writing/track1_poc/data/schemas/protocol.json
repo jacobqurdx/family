@@ -1,0 +1,178 @@
+{
+  "id": "protocol",
+  "name": "Clinical Trial Protocol",
+  "version": "1.0",
+  "description": "USDM-inspired schema for Phase 1-3 clinical trial protocols",
+  "elements": [
+    {
+      "id": "drug_name",
+      "label": "Investigational Drug Name",
+      "description": "INN or internal code for the investigational product",
+      "data_type": "string",
+      "required": true,
+      "example": "selitrectinib",
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "indication",
+      "label": "Therapeutic Indication",
+      "description": "The disease or condition being studied",
+      "data_type": "string",
+      "required": true,
+      "example": "type 2 diabetes mellitus",
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "study_phase",
+      "label": "Clinical Phase",
+      "description": "Phase 1 / 2 / 3 / 4",
+      "data_type": "string",
+      "required": true,
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "design_type",
+      "label": "Study Design Type",
+      "description": "e.g. randomized double-blind placebo-controlled parallel-group",
+      "data_type": "string",
+      "required": true,
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "primary_endpoint",
+      "label": "Primary Efficacy Endpoint",
+      "description": "The primary measure of efficacy",
+      "data_type": "string",
+      "required": true,
+      "example": "change from baseline in HbA1c",
+      "depends_on": ["indication"],
+      "dependency_type": "required",
+      "inference_rule": null
+    },
+    {
+      "id": "primary_endpoint_timepoint",
+      "label": "Primary Endpoint Timepoint",
+      "description": "Week or visit at which primary endpoint is assessed",
+      "data_type": "string",
+      "required": true,
+      "example": "Week 24",
+      "depends_on": ["primary_endpoint"],
+      "dependency_type": "required",
+      "inference_rule": null
+    },
+    {
+      "id": "primary_analysis_type",
+      "label": "Primary Analysis Type",
+      "description": "The primary statistical model (e.g. MMRM, ANCOVA)",
+      "data_type": "string",
+      "required": true,
+      "depends_on": ["primary_endpoint"],
+      "dependency_type": "required",
+      "inference_rule": null
+    },
+    {
+      "id": "statistical_analysis_primary",
+      "label": "Primary Statistical Analysis Description",
+      "description": "Full description of the primary analysis method",
+      "data_type": "string",
+      "required": true,
+      "depends_on": ["primary_endpoint", "primary_analysis_type"],
+      "dependency_type": "required",
+      "inference_rule": "Combine primary_analysis_type and primary_endpoint into a full description"
+    },
+    {
+      "id": "population_age_min",
+      "label": "Minimum Age (years)",
+      "description": "Minimum eligible age for study entry",
+      "data_type": "number",
+      "required": true,
+      "depends_on": ["indication"],
+      "dependency_type": "required",
+      "inference_rule": null
+    },
+    {
+      "id": "population_age_max",
+      "label": "Maximum Age (years)",
+      "description": "Maximum eligible age for study entry",
+      "data_type": "number",
+      "required": false,
+      "depends_on": ["indication"],
+      "dependency_type": "informational",
+      "inference_rule": null
+    },
+    {
+      "id": "study_duration_weeks",
+      "label": "Treatment Duration (weeks)",
+      "description": "Length of the treatment period in weeks",
+      "data_type": "number",
+      "required": true,
+      "depends_on": ["primary_endpoint_timepoint"],
+      "dependency_type": "required",
+      "inference_rule": "Study duration must be at least as long as primary_endpoint_timepoint"
+    },
+    {
+      "id": "risk_benefit_framing",
+      "label": "Risk-Benefit Framing",
+      "description": "Context for the risk-benefit narrative",
+      "data_type": "string",
+      "required": false,
+      "depends_on": ["indication", "primary_endpoint"],
+      "dependency_type": "informational",
+      "inference_rule": "Combine indication and primary_endpoint into risk-benefit context"
+    },
+    {
+      "id": "inclusion_criteria",
+      "label": "Key Inclusion Criteria",
+      "description": "List of primary inclusion criteria",
+      "data_type": "list",
+      "required": true,
+      "depends_on": ["indication", "population_age_min"],
+      "dependency_type": "required",
+      "inference_rule": null
+    },
+    {
+      "id": "exclusion_criteria",
+      "label": "Key Exclusion Criteria",
+      "description": "List of primary exclusion criteria",
+      "data_type": "list",
+      "required": true,
+      "depends_on": ["indication"],
+      "dependency_type": "required",
+      "inference_rule": null
+    }
+  ],
+  "sections": [
+    {
+      "id": "study_design_narrative",
+      "title": "Study Design",
+      "source_elements": ["drug_name", "indication", "study_phase", "design_type", "study_duration_weeks"],
+      "prompt_template": "Generate the study design overview for this clinical trial protocol."
+    },
+    {
+      "id": "primary_endpoint_narrative",
+      "title": "Primary Efficacy Endpoint",
+      "source_elements": ["primary_endpoint", "primary_endpoint_timepoint", "indication"],
+      "prompt_template": "Generate the primary endpoint section."
+    },
+    {
+      "id": "inclusion_exclusion_narrative",
+      "title": "Eligibility Criteria",
+      "source_elements": ["inclusion_criteria", "exclusion_criteria", "population_age_min", "population_age_max", "indication"],
+      "prompt_template": "Generate the eligibility criteria section."
+    },
+    {
+      "id": "statistical_analysis_narrative",
+      "title": "Statistical Analysis Plan — Primary Analysis",
+      "source_elements": ["primary_endpoint", "primary_analysis_type", "statistical_analysis_primary"],
+      "prompt_template": "Generate the primary statistical analysis section."
+    }
+  ]
+}

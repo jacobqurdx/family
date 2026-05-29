@@ -1,0 +1,1362 @@
+{
+  "twin_id": "synth_phase2_trial",
+  "schema_id": "protocol",
+  "trial_name": "STRUCT-101 Phase 2 Study",
+  "created_at": "2026-05-29T16:11:16.604676",
+  "elements": {
+    "drug_name": {
+      "element_id": "drug_name",
+      "value": "STR-4021",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:59:53.551601",
+      "modified_by": "user"
+    },
+    "indication": {
+      "element_id": "indication",
+      "value": "type 2 diabetes mellitus with inadequate glycemic control on metformin monotherapy",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:59:53.551607",
+      "modified_by": "user"
+    },
+    "study_phase": {
+      "element_id": "study_phase",
+      "value": "Phase 2",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:59:53.551613",
+      "modified_by": "user"
+    },
+    "design_type": {
+      "element_id": "design_type",
+      "value": "randomized, double-blind, placebo-controlled, parallel-group",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:59:53.551618",
+      "modified_by": "user"
+    },
+    "primary_endpoint": {
+      "element_id": "primary_endpoint",
+      "value": "change from baseline in HbA1c",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:30:24.405864",
+      "modified_by": "user"
+    },
+    "primary_endpoint_timepoint": {
+      "element_id": "primary_endpoint_timepoint",
+      "value": "Week 24",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:30:24.405891",
+      "modified_by": "user"
+    },
+    "primary_analysis_type": {
+      "element_id": "primary_analysis_type",
+      "value": "Mixed Model for Repeated Measures (MMRM)",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:37.806264",
+      "modified_by": "user"
+    },
+    "study_duration_weeks": {
+      "element_id": "study_duration_weeks",
+      "value": 28,
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:08.540204",
+      "modified_by": "user"
+    },
+    "population_age_min": {
+      "element_id": "population_age_min",
+      "value": 18,
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:28.376489",
+      "modified_by": "user"
+    },
+    "population_age_max": {
+      "element_id": "population_age_max",
+      "value": 75,
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:28.376563",
+      "modified_by": "user"
+    },
+    "inclusion_criteria": {
+      "element_id": "inclusion_criteria",
+      "value": [
+        "Age 18-75 years inclusive",
+        "Diagnosis of type 2 diabetes mellitus for at least 6 months prior to screening",
+        "HbA1c ≥7.5% and ≤10.5% at screening",
+        "On stable metformin monotherapy (≥1000 mg/day) for at least 3 months prior to screening",
+        "BMI 22-42 kg/m² at screening"
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:30:27.057289",
+      "modified_by": "user"
+    },
+    "exclusion_criteria": {
+      "element_id": "exclusion_criteria",
+      "value": [
+        "Type 1 diabetes mellitus",
+        "Use of any antidiabetic agent other than metformin within 3 months of screening",
+        "eGFR <45 mL/min/1.73m² at screening",
+        "History of severe hypoglycemia within 6 months of screening",
+        "Active cardiovascular disease within 6 months of screening"
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:30:27.057298",
+      "modified_by": "user"
+    },
+    "sponsor_name": {
+      "element_id": "sponsor_name",
+      "value": "Structure Therapeutics",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:59:53.551532",
+      "modified_by": "user"
+    },
+    "protocol_number": {
+      "element_id": "protocol_number",
+      "value": "STR-4021-201",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:59:53.551571",
+      "modified_by": "user"
+    },
+    "protocol_version": {
+      "element_id": "protocol_version",
+      "value": "Version 1.0",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:59:53.551581",
+      "modified_by": "user"
+    },
+    "protocol_date": {
+      "element_id": "protocol_date",
+      "value": "15 January 2026",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:59:53.551589",
+      "modified_by": "user"
+    },
+    "study_title": {
+      "element_id": "study_title",
+      "value": "A Phase 2, Randomized, Double-Blind, Placebo-Controlled, Parallel-Group Study to Evaluate the Efficacy and Safety of STR-4021 in Adults with Type 2 Diabetes Mellitus with Inadequate Glycemic Control on Metformin Monotherapy",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:59:53.551595",
+      "modified_by": "user"
+    },
+    "blinding": {
+      "element_id": "blinding",
+      "value": "double-blind",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:59:53.551624",
+      "modified_by": "user"
+    },
+    "randomization_type": {
+      "element_id": "randomization_type",
+      "value": "stratified block randomization",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:59:53.551630",
+      "modified_by": "user"
+    },
+    "intervention_model": {
+      "element_id": "intervention_model",
+      "value": "parallel group",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:59:53.551635",
+      "modified_by": "user"
+    },
+    "primary_objective": {
+      "element_id": "primary_objective",
+      "value": "To evaluate the efficacy of STR-4021 compared to placebo on glycemic control as measured by change from baseline in HbA1c at Week 24 in adults with type 2 diabetes mellitus inadequately controlled on metformin monotherapy.",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:30:03.659014",
+      "modified_by": "user"
+    },
+    "secondary_objectives": {
+      "element_id": "secondary_objectives",
+      "value": [
+        "To evaluate the effect of STR-4021 on fasting plasma glucose",
+        "To assess the proportion of patients achieving HbA1c <7.0% at Week 24",
+        "To evaluate body weight change from baseline at Week 24",
+        "To assess the safety and tolerability of STR-4021"
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:30:03.659066",
+      "modified_by": "user"
+    },
+    "exploratory_objectives": {
+      "element_id": "exploratory_objectives",
+      "value": [
+        "To evaluate biomarkers of insulin secretion",
+        "To explore patient-reported outcomes using DTSQ"
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:30:03.659077",
+      "modified_by": "user"
+    },
+    "treatment_arms": {
+      "element_id": "treatment_arms",
+      "value": [
+        "STR-4021 10 mg once daily",
+        "STR-4021 25 mg once daily",
+        "Placebo once daily"
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:30:03.659084",
+      "modified_by": "user"
+    },
+    "study_epochs": {
+      "element_id": "study_epochs",
+      "value": [
+        {
+          "name": "Screening",
+          "type": "SCREENING",
+          "durationWeeks": 4
+        },
+        {
+          "name": "Treatment",
+          "type": "TREATMENT",
+          "durationWeeks": 24
+        },
+        {
+          "name": "Follow-up",
+          "type": "FOLLOW_UP",
+          "durationWeeks": 4
+        }
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:02.082937",
+      "modified_by": "user"
+    },
+    "enrollment_target": {
+      "element_id": "enrollment_target",
+      "value": 240,
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:02.082946",
+      "modified_by": "user"
+    },
+    "primary_endpoint_instrument": {
+      "element_id": "primary_endpoint_instrument",
+      "value": "central laboratory HbA1c assay (NGSP-certified)",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:30:24.405900",
+      "modified_by": "user"
+    },
+    "secondary_endpoints": {
+      "element_id": "secondary_endpoints",
+      "value": [
+        "Change from baseline in fasting plasma glucose at Week 24",
+        "Proportion of patients achieving HbA1c <7.0% at Week 24",
+        "Change from baseline in body weight (kg) at Week 24",
+        "Change from baseline in 2-hour postprandial glucose at Week 24"
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:30:24.405907",
+      "modified_by": "user"
+    },
+    "treatment_duration_weeks": {
+      "element_id": "treatment_duration_weeks",
+      "value": 24,
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:08.540215",
+      "modified_by": "user"
+    },
+    "followup_duration_weeks": {
+      "element_id": "followup_duration_weeks",
+      "value": 4,
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:08.540223",
+      "modified_by": "user"
+    },
+    "population_description": {
+      "element_id": "population_description",
+      "value": "Adult patients aged 18 to 75 years with type 2 diabetes mellitus inadequately controlled on stable metformin monotherapy.",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:28.376362",
+      "modified_by": "user"
+    },
+    "sex_criteria": {
+      "element_id": "sex_criteria",
+      "value": "male and female",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:28.376590",
+      "modified_by": "user"
+    },
+    "enrollment_target_per_arm": {
+      "element_id": "enrollment_target_per_arm",
+      "value": 80,
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:28.376651",
+      "modified_by": "user"
+    },
+    "randomization_ratio": {
+      "element_id": "randomization_ratio",
+      "value": "1:1:1",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:32.458982",
+      "modified_by": "user"
+    },
+    "stratification_factors": {
+      "element_id": "stratification_factors",
+      "value": [
+        "HbA1c at screening (<8.5% vs ≥8.5%)",
+        "Geographic region (North America vs Europe vs Asia-Pacific)"
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:32.459031",
+      "modified_by": "user"
+    },
+    "dose": {
+      "element_id": "dose",
+      "value": "10 mg and 25 mg",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:31:01.552016",
+      "modified_by": "user"
+    },
+    "dose_unit": {
+      "element_id": "dose_unit",
+      "value": "mg",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:31:01.552046",
+      "modified_by": "user"
+    },
+    "route_of_administration": {
+      "element_id": "route_of_administration",
+      "value": "oral",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:31:01.552056",
+      "modified_by": "user"
+    },
+    "dosing_frequency": {
+      "element_id": "dosing_frequency",
+      "value": "once daily",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:31:01.552063",
+      "modified_by": "user"
+    },
+    "dosing_instructions": {
+      "element_id": "dosing_instructions",
+      "value": "Administer orally once daily in the morning with or without food.",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:31:01.552069",
+      "modified_by": "user"
+    },
+    "comparator_description": {
+      "element_id": "comparator_description",
+      "value": "Matching placebo tablet administered orally once daily in the morning.",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:31:01.552076",
+      "modified_by": "user"
+    },
+    "dose_modifications": {
+      "element_id": "dose_modifications",
+      "value": [
+        "Dose interruption permitted for SAEs until resolution or medical review",
+        "Permanent discontinuation required for confirmed severe hypersensitivity reactions (e.g. anaphylaxis, angioedema)"
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:32.459043",
+      "modified_by": "user"
+    },
+    "study_elements": {
+      "element_id": "study_elements",
+      "value": [
+        "Screening Visit (Week -4)",
+        "Randomization/Baseline (Week 0)",
+        "Week 4 Visit",
+        "Week 8 Visit",
+        "Week 12 Visit",
+        "Week 16 Visit",
+        "Week 20 Visit",
+        "End of Treatment (Week 24)",
+        "Follow-up Visit (Week 28)"
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:31:01.552090",
+      "modified_by": "user"
+    },
+    "statistical_analysis_primary": {
+      "element_id": "statistical_analysis_primary",
+      "value": "The primary analysis will use a Mixed Model for Repeated Measures (MMRM) with change from baseline in HbA1c as the dependent variable, treatment arm, visit, treatment-by-visit interaction, baseline HbA1c, and stratification factors as covariates. Restricted maximum likelihood (REML) estimation will be used.",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:37.806306",
+      "modified_by": "user"
+    },
+    "analysis_populations": {
+      "element_id": "analysis_populations",
+      "value": [
+        "Full Analysis Set (FAS): all randomized subjects who received at least one dose",
+        "Per Protocol Set (PPS): FAS subjects without major protocol deviations",
+        "Safety Population: all randomized subjects who received at least one dose of study drug"
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:37.806316",
+      "modified_by": "user"
+    },
+    "missing_data_approach": {
+      "element_id": "missing_data_approach",
+      "value": "Missing data are handled implicitly by the MMRM model under the missing at random (MAR) assumption. Sensitivity analyses using pattern mixture models will be conducted.",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:37.806327",
+      "modified_by": "user"
+    },
+    "multiplicity_adjustments": {
+      "element_id": "multiplicity_adjustments",
+      "value": "A hierarchical testing procedure will be used for secondary endpoints in order of pre-specified priority.",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:37.806334",
+      "modified_by": "user"
+    },
+    "estimands": {
+      "element_id": "estimands",
+      "value": "The treatment policy estimand (per ICH E9(R1)) is the primary estimand, targeting the effect of treatment assignment regardless of treatment discontinuation.",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:37.806340",
+      "modified_by": "user"
+    },
+    "soa_visits": {
+      "element_id": "soa_visits",
+      "value": [
+        "Screening (Week -4)",
+        "Baseline/Randomization (Week 0)",
+        "Week 4",
+        "Week 8",
+        "Week 12",
+        "Week 16",
+        "Week 20",
+        "End of Treatment (Week 24)",
+        "Follow-up (Week 28)"
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:31:27.289225",
+      "modified_by": "user"
+    },
+    "soa_activities": {
+      "element_id": "soa_activities",
+      "value": [
+        "Informed Consent",
+        "Eligibility Assessment",
+        "Medical History",
+        "Physical Examination",
+        "Vital Signs",
+        "ECG",
+        "Central Lab (HbA1c, FPG, lipids, eGFR)",
+        "OGTT/MMTT",
+        "Study Drug Dispensing",
+        "Concomitant Medications Review",
+        "Adverse Event Assessment",
+        "Body Weight",
+        "Waist Circumference"
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T18:31:27.289278",
+      "modified_by": "user"
+    },
+    "sample_size_rationale": {
+      "element_id": "sample_size_rationale",
+      "value": "A sample size of 80 subjects per arm (240 total) provides 90% power to detect a difference of 0.6% in HbA1c between STR-4021 25 mg and placebo, assuming a standard deviation of 1.1% and using a two-sided t-test at alpha=0.05. The sample size allows for up to 15% dropout.",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:01:00.874266",
+      "modified_by": "user"
+    },
+    "stopping_rules": {
+      "element_id": "stopping_rules",
+      "value": [
+        "Individual subject stopping: two consecutive HbA1c values >11.5% while on treatment",
+        "Trial-level stopping: DSMB recommendation based on safety signal"
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:01:03.878635",
+      "modified_by": "user"
+    },
+    "dsmb_structure": {
+      "element_id": "dsmb_structure",
+      "value": "An independent Data Safety Monitoring Board (DSMB) of three members (two clinicians, one statistician) will review unblinded safety data at pre-specified intervals.",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:01:03.878682",
+      "modified_by": "user"
+    },
+    "adverse_event_reporting_period": {
+      "element_id": "adverse_event_reporting_period",
+      "value": "From first dose of study drug through 30 days after last dose (or 30 days after follow-up visit for serious adverse events).",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:01:03.878694",
+      "modified_by": "user"
+    },
+    "informed_consent_version": {
+      "element_id": "informed_consent_version",
+      "value": "ICF Version 1.0, dated 15 January 2026",
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:01:06.200425",
+      "modified_by": "user"
+    },
+    "regulatory_references": {
+      "element_id": "regulatory_references",
+      "value": [
+        "ICH E6(R2) Good Clinical Practice",
+        "ICH E9 Statistical Principles for Clinical Trials",
+        "ICH E9(R1) Addendum on Estimands",
+        "EMA Guideline on Clinical Investigation of Medicinal Products in the Treatment of Diabetes Mellitus",
+        "21 CFR Parts 50, 54, 56, 312"
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:01:06.200472",
+      "modified_by": "user"
+    },
+    "abbreviations_key_terms": {
+      "element_id": "abbreviations_key_terms",
+      "value": [
+        "AE: Adverse Event",
+        "BMI: Body Mass Index",
+        "DSMB: Data Safety Monitoring Board",
+        "eGFR: estimated Glomerular Filtration Rate",
+        "FAS: Full Analysis Set",
+        "FPG: Fasting Plasma Glucose",
+        "GLP-1: Glucagon-Like Peptide-1",
+        "HbA1c: Glycated Haemoglobin",
+        "ICF: Informed Consent Form",
+        "MMRM: Mixed Model for Repeated Measures",
+        "SAE: Serious Adverse Event",
+        "T2DM: Type 2 Diabetes Mellitus"
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:01:06.200490",
+      "modified_by": "user"
+    },
+    "objectives": {
+      "element_id": "objectives",
+      "value": [
+        {
+          "text": "To evaluate the efficacy of STR-4021 compared to placebo on glycaemic control as measured by change from baseline in HbA1c at Week 24 in adults with T2DM inadequately controlled on metformin monotherapy.",
+          "level": "PRIMARY"
+        },
+        {
+          "text": "To evaluate the effect of STR-4021 on fasting plasma glucose (FPG) at Week 24 compared to placebo.",
+          "level": "SECONDARY"
+        },
+        {
+          "text": "To assess the proportion of patients achieving HbA1c <7.0% at Week 24.",
+          "level": "SECONDARY"
+        },
+        {
+          "text": "To evaluate body weight change from baseline at Week 24.",
+          "level": "SECONDARY"
+        },
+        {
+          "text": "To assess the safety and tolerability of STR-4021 at doses of 10 mg and 25 mg once daily.",
+          "level": "SECONDARY"
+        },
+        {
+          "text": "To evaluate biomarkers of insulin secretion and beta-cell function.",
+          "level": "EXPLORATORY"
+        },
+        {
+          "text": "To explore patient-reported outcomes using the Diabetes Treatment Satisfaction Questionnaire (DTSQ).",
+          "level": "EXPLORATORY"
+        }
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:02.082891",
+      "modified_by": "user"
+    },
+    "study_arms": {
+      "element_id": "study_arms",
+      "value": [
+        {
+          "name": "STR-4021 10 mg",
+          "type": "EXPERIMENTAL",
+          "description": "STR-4021 10 mg oral tablet once daily for 24 weeks"
+        },
+        {
+          "name": "STR-4021 25 mg",
+          "type": "EXPERIMENTAL",
+          "description": "STR-4021 25 mg oral tablet once daily for 24 weeks"
+        },
+        {
+          "name": "Placebo",
+          "type": "PLACEBO_COMPARATOR",
+          "description": "Matching placebo oral tablet once daily for 24 weeks"
+        }
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:02.082926",
+      "modified_by": "user"
+    },
+    "endpoints": {
+      "element_id": "endpoints",
+      "value": [
+        {
+          "text": "Change from baseline in HbA1c (%)",
+          "level": "PRIMARY",
+          "purpose": "EFFICACY",
+          "timepoint": "Week 24",
+          "instrument": "Central laboratory HbA1c assay (NGSP-certified)"
+        },
+        {
+          "text": "Change from baseline in fasting plasma glucose (mmol/L)",
+          "level": "SECONDARY",
+          "purpose": "EFFICACY",
+          "timepoint": "Week 24",
+          "instrument": null
+        },
+        {
+          "text": "Proportion of patients achieving HbA1c <7.0%",
+          "level": "SECONDARY",
+          "purpose": "EFFICACY",
+          "timepoint": "Week 24",
+          "instrument": null
+        },
+        {
+          "text": "Change from baseline in body weight (kg)",
+          "level": "SECONDARY",
+          "purpose": "EFFICACY",
+          "timepoint": "Week 24",
+          "instrument": null
+        },
+        {
+          "text": "Change from baseline in 2-hour postprandial glucose",
+          "level": "SECONDARY",
+          "purpose": "EFFICACY",
+          "timepoint": "Week 24",
+          "instrument": "Standardised mixed-meal tolerance test (MMTT)"
+        }
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:08.540149",
+      "modified_by": "user"
+    },
+    "study_interventions": {
+      "element_id": "study_interventions",
+      "value": [
+        {
+          "name": "STR-4021",
+          "type": "INVESTIGATIONAL",
+          "doses": [
+            "10 mg",
+            "25 mg"
+          ],
+          "doseUnit": "mg",
+          "route": "ORAL",
+          "frequency": "ONCE_DAILY",
+          "instructions": "Administer orally once daily in the morning with or without food"
+        },
+        {
+          "name": "Placebo",
+          "type": "NON_INVESTIGATIONAL",
+          "doses": [
+            "0 mg"
+          ],
+          "doseUnit": "mg",
+          "route": "ORAL",
+          "frequency": "ONCE_DAILY",
+          "instructions": "Administer orally once daily in the morning with or without food"
+        }
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:08.540230",
+      "modified_by": "user"
+    },
+    "eligibility_criteria": {
+      "element_id": "eligibility_criteria",
+      "value": [
+        {
+          "text": "Age 18–75 years inclusive at the time of informed consent",
+          "category": "INCLUSION",
+          "identifier": "IC-1"
+        },
+        {
+          "text": "Documented diagnosis of T2DM for at least 6 months prior to screening",
+          "category": "INCLUSION",
+          "identifier": "IC-2"
+        },
+        {
+          "text": "HbA1c ≥7.5% and ≤10.5% at screening (central lab)",
+          "category": "INCLUSION",
+          "identifier": "IC-3"
+        },
+        {
+          "text": "On stable metformin monotherapy (≥1000 mg/day) for at least 3 months prior to screening",
+          "category": "INCLUSION",
+          "identifier": "IC-4"
+        },
+        {
+          "text": "BMI ≥22 and ≤42 kg/m² at screening",
+          "category": "INCLUSION",
+          "identifier": "IC-5"
+        },
+        {
+          "text": "Type 1 diabetes mellitus or LADA",
+          "category": "EXCLUSION",
+          "identifier": "EC-1"
+        },
+        {
+          "text": "Use of any antidiabetic agent other than metformin within 3 months of screening",
+          "category": "EXCLUSION",
+          "identifier": "EC-2"
+        },
+        {
+          "text": "eGFR <45 mL/min/1.73m² at screening (CKD-EPI)",
+          "category": "EXCLUSION",
+          "identifier": "EC-3"
+        },
+        {
+          "text": "History of severe hypoglycaemia within 6 months of screening",
+          "category": "EXCLUSION",
+          "identifier": "EC-4"
+        },
+        {
+          "text": "Active cardiovascular disease within 6 months of screening",
+          "category": "EXCLUSION",
+          "identifier": "EC-5"
+        }
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:00:28.376613",
+      "modified_by": "user"
+    },
+    "encounters": {
+      "element_id": "encounters",
+      "value": [
+        {
+          "name": "Screening",
+          "encounterType": "SCHEDULED",
+          "timingWeek": -4,
+          "windowBeforeDays": 0,
+          "windowAfterDays": 0
+        },
+        {
+          "name": "Baseline/Randomisation",
+          "encounterType": "SCHEDULED",
+          "timingWeek": 0,
+          "windowBeforeDays": 0,
+          "windowAfterDays": 0
+        },
+        {
+          "name": "Week 4",
+          "encounterType": "SCHEDULED",
+          "timingWeek": 4,
+          "windowBeforeDays": 3,
+          "windowAfterDays": 3
+        },
+        {
+          "name": "Week 8",
+          "encounterType": "SCHEDULED",
+          "timingWeek": 8,
+          "windowBeforeDays": 3,
+          "windowAfterDays": 3
+        },
+        {
+          "name": "Week 12",
+          "encounterType": "SCHEDULED",
+          "timingWeek": 12,
+          "windowBeforeDays": 3,
+          "windowAfterDays": 3
+        },
+        {
+          "name": "Week 16",
+          "encounterType": "SCHEDULED",
+          "timingWeek": 16,
+          "windowBeforeDays": 3,
+          "windowAfterDays": 3
+        },
+        {
+          "name": "Week 20",
+          "encounterType": "SCHEDULED",
+          "timingWeek": 20,
+          "windowBeforeDays": 3,
+          "windowAfterDays": 3
+        },
+        {
+          "name": "End of Treatment",
+          "encounterType": "SCHEDULED",
+          "timingWeek": 24,
+          "windowBeforeDays": 3,
+          "windowAfterDays": 3
+        },
+        {
+          "name": "Follow-up",
+          "encounterType": "SCHEDULED",
+          "timingWeek": 28,
+          "windowBeforeDays": 3,
+          "windowAfterDays": 3
+        }
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:01:00.874173",
+      "modified_by": "user"
+    },
+    "activities": {
+      "element_id": "activities",
+      "value": [
+        {
+          "name": "Informed Consent",
+          "activityType": "ADMINISTRATIVE"
+        },
+        {
+          "name": "Eligibility Assessment",
+          "activityType": "ADMINISTRATIVE"
+        },
+        {
+          "name": "Medical History",
+          "activityType": "ADMINISTRATIVE"
+        },
+        {
+          "name": "Physical Examination",
+          "activityType": "PROCEDURE"
+        },
+        {
+          "name": "Vital Signs",
+          "activityType": "PROCEDURE"
+        },
+        {
+          "name": "12-lead ECG",
+          "activityType": "PROCEDURE"
+        },
+        {
+          "name": "Central Lab (HbA1c, FPG, lipids, eGFR)",
+          "activityType": "BIOLOGICAL_SAMPLE_COLLECTION"
+        },
+        {
+          "name": "OGTT/MMTT",
+          "activityType": "PROCEDURE"
+        },
+        {
+          "name": "Study Drug Dispensing",
+          "activityType": "STUDY_DRUG_ADMINISTRATION"
+        },
+        {
+          "name": "Concomitant Medications Review",
+          "activityType": "ADMINISTRATIVE"
+        },
+        {
+          "name": "Adverse Event Assessment",
+          "activityType": "ADMINISTRATIVE"
+        },
+        {
+          "name": "Body Weight",
+          "activityType": "PROCEDURE"
+        },
+        {
+          "name": "Waist Circumference",
+          "activityType": "PROCEDURE"
+        }
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:01:00.874223",
+      "modified_by": "user"
+    },
+    "scheduled_activity_instances": {
+      "element_id": "scheduled_activity_instances",
+      "value": [
+        {
+          "encounterId": "Screening",
+          "activityId": "Informed Consent",
+          "epochId": "Screening",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Screening",
+          "activityId": "Eligibility Assessment",
+          "epochId": "Screening",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Screening",
+          "activityId": "Medical History",
+          "epochId": "Screening",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Screening",
+          "activityId": "Physical Examination",
+          "epochId": "Screening",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Screening",
+          "activityId": "Vital Signs",
+          "epochId": "Screening",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Screening",
+          "activityId": "12-lead ECG",
+          "epochId": "Screening",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Screening",
+          "activityId": "Central Lab (HbA1c, FPG, lipids, eGFR)",
+          "epochId": "Screening",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Screening",
+          "activityId": "Body Weight",
+          "epochId": "Screening",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Screening",
+          "activityId": "Waist Circumference",
+          "epochId": "Screening",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Baseline/Randomisation",
+          "activityId": "Physical Examination",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Baseline/Randomisation",
+          "activityId": "Vital Signs",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Baseline/Randomisation",
+          "activityId": "12-lead ECG",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Baseline/Randomisation",
+          "activityId": "Central Lab (HbA1c, FPG, lipids, eGFR)",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Baseline/Randomisation",
+          "activityId": "OGTT/MMTT",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Baseline/Randomisation",
+          "activityId": "Study Drug Dispensing",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Baseline/Randomisation",
+          "activityId": "Body Weight",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Baseline/Randomisation",
+          "activityId": "Waist Circumference",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 4",
+          "activityId": "Vital Signs",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 4",
+          "activityId": "Study Drug Dispensing",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 4",
+          "activityId": "Concomitant Medications Review",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 4",
+          "activityId": "Adverse Event Assessment",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 4",
+          "activityId": "Body Weight",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 8",
+          "activityId": "Vital Signs",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 8",
+          "activityId": "Study Drug Dispensing",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 8",
+          "activityId": "Concomitant Medications Review",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 8",
+          "activityId": "Adverse Event Assessment",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 8",
+          "activityId": "Body Weight",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 12",
+          "activityId": "Physical Examination",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 12",
+          "activityId": "Vital Signs",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 12",
+          "activityId": "12-lead ECG",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 12",
+          "activityId": "Central Lab (HbA1c, FPG, lipids, eGFR)",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 12",
+          "activityId": "OGTT/MMTT",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 12",
+          "activityId": "Study Drug Dispensing",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 12",
+          "activityId": "Concomitant Medications Review",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 12",
+          "activityId": "Adverse Event Assessment",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 12",
+          "activityId": "Body Weight",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 12",
+          "activityId": "Waist Circumference",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 16",
+          "activityId": "Vital Signs",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 16",
+          "activityId": "Study Drug Dispensing",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 16",
+          "activityId": "Concomitant Medications Review",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 16",
+          "activityId": "Adverse Event Assessment",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 16",
+          "activityId": "Body Weight",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 20",
+          "activityId": "Vital Signs",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 20",
+          "activityId": "Study Drug Dispensing",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 20",
+          "activityId": "Concomitant Medications Review",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 20",
+          "activityId": "Adverse Event Assessment",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Week 20",
+          "activityId": "Body Weight",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "End of Treatment",
+          "activityId": "Physical Examination",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "End of Treatment",
+          "activityId": "Vital Signs",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "End of Treatment",
+          "activityId": "12-lead ECG",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "End of Treatment",
+          "activityId": "Central Lab (HbA1c, FPG, lipids, eGFR)",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "End of Treatment",
+          "activityId": "OGTT/MMTT",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "End of Treatment",
+          "activityId": "Study Drug Dispensing",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "End of Treatment",
+          "activityId": "Concomitant Medications Review",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "End of Treatment",
+          "activityId": "Adverse Event Assessment",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "End of Treatment",
+          "activityId": "Body Weight",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "End of Treatment",
+          "activityId": "Waist Circumference",
+          "epochId": "Treatment",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Follow-up",
+          "activityId": "Physical Examination",
+          "epochId": "Follow-up",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Follow-up",
+          "activityId": "Vital Signs",
+          "epochId": "Follow-up",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Follow-up",
+          "activityId": "12-lead ECG",
+          "epochId": "Follow-up",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Follow-up",
+          "activityId": "Central Lab (HbA1c, FPG, lipids, eGFR)",
+          "epochId": "Follow-up",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Follow-up",
+          "activityId": "Concomitant Medications Review",
+          "epochId": "Follow-up",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Follow-up",
+          "activityId": "Adverse Event Assessment",
+          "epochId": "Follow-up",
+          "mandatory": true
+        },
+        {
+          "encounterId": "Follow-up",
+          "activityId": "Body Weight",
+          "epochId": "Follow-up",
+          "mandatory": true
+        }
+      ],
+      "status": "verified",
+      "source": "extraction",
+      "override_justification": null,
+      "last_modified": "2026-05-29T19:01:00.874235",
+      "modified_by": "user"
+    }
+  }
+}

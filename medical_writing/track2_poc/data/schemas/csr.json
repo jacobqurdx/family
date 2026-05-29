@@ -1,0 +1,156 @@
+{
+  "id": "csr",
+  "name": "Clinical Study Report",
+  "version": "1.0",
+  "description": "ICH E3-aligned schema for Clinical Study Reports covering efficacy, safety, statistical methods, and study design",
+  "elements": [
+    {
+      "id": "primary_endpoint",
+      "label": "Primary Efficacy Endpoint",
+      "description": "The primary measure of efficacy, consistent with protocol definition",
+      "data_type": "string",
+      "required": true,
+      "example": "change from baseline in HbA1c at Week 24",
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "primary_endpoint_timepoint",
+      "label": "Primary Endpoint Timepoint",
+      "description": "Time point at which the primary endpoint was assessed",
+      "data_type": "string",
+      "required": true,
+      "example": "Week 24",
+      "depends_on": ["primary_endpoint"],
+      "dependency_type": "required",
+      "inference_rule": null
+    },
+    {
+      "id": "statistical_analysis_primary",
+      "label": "Primary Statistical Analysis",
+      "description": "Description of the primary analysis method as executed",
+      "data_type": "string",
+      "required": true,
+      "depends_on": ["primary_endpoint"],
+      "dependency_type": "required",
+      "inference_rule": null
+    },
+    {
+      "id": "primary_analysis_type",
+      "label": "Primary Analysis Type",
+      "description": "Statistical model used (e.g. MMRM, ANCOVA)",
+      "data_type": "string",
+      "required": true,
+      "depends_on": ["primary_endpoint"],
+      "dependency_type": "required",
+      "inference_rule": null
+    },
+    {
+      "id": "analysis_populations",
+      "label": "Analysis Populations",
+      "description": "Defined analysis populations (FAS, PPS, Safety)",
+      "data_type": "list",
+      "required": true,
+      "depends_on": ["statistical_analysis_primary"],
+      "dependency_type": "required",
+      "inference_rule": null
+    },
+    {
+      "id": "missing_data_approach",
+      "label": "Missing Data Approach",
+      "description": "Method for handling missing data in the analysis",
+      "data_type": "string",
+      "required": true,
+      "depends_on": ["primary_analysis_type"],
+      "dependency_type": "required",
+      "inference_rule": null
+    },
+    {
+      "id": "inclusion_criteria",
+      "label": "Inclusion Criteria",
+      "description": "Eligibility inclusion criteria as applied",
+      "data_type": "list",
+      "required": true,
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "exclusion_criteria",
+      "label": "Exclusion Criteria",
+      "description": "Eligibility exclusion criteria as applied",
+      "data_type": "list",
+      "required": true,
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "enrollment_target",
+      "label": "Enrollment Target",
+      "description": "Planned number of randomized subjects",
+      "data_type": "number",
+      "required": true,
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "design_type",
+      "label": "Study Design Type",
+      "description": "Full study design descriptor",
+      "data_type": "string",
+      "required": true,
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "treatment_arms",
+      "label": "Treatment Arms",
+      "description": "List of treatment arms as randomized",
+      "data_type": "list",
+      "required": true,
+      "depends_on": ["design_type"],
+      "dependency_type": "required",
+      "inference_rule": null
+    },
+    {
+      "id": "study_duration_weeks",
+      "label": "Total Study Duration (weeks)",
+      "description": "Total duration of study from first to last visit",
+      "data_type": "number",
+      "required": true,
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    }
+  ],
+  "sections": [
+    {
+      "id": "primary_efficacy_results",
+      "title": "Primary Efficacy Results",
+      "source_elements": ["primary_endpoint", "primary_endpoint_timepoint", "statistical_analysis_primary"],
+      "prompt_template": "Generate the primary efficacy results section for this CSR, including the primary endpoint results and statistical analysis findings."
+    },
+    {
+      "id": "statistical_methods",
+      "title": "Statistical Methods",
+      "source_elements": ["primary_analysis_type", "analysis_populations", "missing_data_approach"],
+      "prompt_template": "Generate the statistical methods section for this CSR, describing the analysis populations, primary analysis model, and missing data handling."
+    },
+    {
+      "id": "eligibility_summary",
+      "title": "Eligibility Summary",
+      "source_elements": ["inclusion_criteria", "exclusion_criteria", "enrollment_target"],
+      "prompt_template": "Generate the eligibility criteria summary for this CSR, describing the key inclusion and exclusion criteria and enrollment."
+    },
+    {
+      "id": "study_design_overview",
+      "title": "Study Design Overview",
+      "source_elements": ["design_type", "treatment_arms", "study_duration_weeks"],
+      "prompt_template": "Generate the study design overview section for this CSR, describing the overall study design, treatment arms, and duration."
+    }
+  ]
+}

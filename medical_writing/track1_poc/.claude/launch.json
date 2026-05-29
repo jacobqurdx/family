@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "streamlit",
+      "runtimeExecutable": "/Users/jacobaptekar/Code/family/medical_writing/track1_poc/venv/bin/streamlit",
+      "runtimeArgs": ["run", "app/streamlit_app.py", "--server.port", "8502"],
+      "port": 8502
+    }
+  ]
+}

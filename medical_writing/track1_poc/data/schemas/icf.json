@@ -1,0 +1,92 @@
+{
+  "id": "icf",
+  "name": "Informed Consent Form",
+  "version": "1.0",
+  "description": "Schema for the Informed Consent Form — ICH E6 / 21 CFR 50 compliant",
+  "elements": [
+    {
+      "id": "drug_name",
+      "label": "Investigational Drug Name",
+      "description": "INN or internal code for the investigational product",
+      "data_type": "string",
+      "required": true,
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "indication",
+      "label": "Therapeutic Indication",
+      "description": "The disease or condition being studied",
+      "data_type": "string",
+      "required": true,
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "study_phase",
+      "label": "Clinical Phase",
+      "description": "Phase 1 / 2 / 3 / 4",
+      "data_type": "string",
+      "required": true,
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "study_duration_weeks",
+      "label": "Study Duration (weeks)",
+      "description": "Total study duration participant would be enrolled",
+      "data_type": "number",
+      "required": true,
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "primary_endpoint",
+      "label": "Primary Efficacy Endpoint",
+      "description": "The primary measure of efficacy — must match protocol",
+      "data_type": "string",
+      "required": true,
+      "depends_on": ["indication"],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    },
+    {
+      "id": "key_risks",
+      "label": "Key Risks",
+      "description": "Key foreseeable risks and discomforts",
+      "data_type": "list",
+      "required": true,
+      "depends_on": ["drug_name"],
+      "dependency_type": "required",
+      "inference_rule": null
+    },
+    {
+      "id": "voluntary_participation",
+      "label": "Voluntary Participation Statement",
+      "description": "Statement affirming voluntary participation and right to withdraw",
+      "data_type": "string",
+      "required": true,
+      "depends_on": [],
+      "dependency_type": "enforced",
+      "inference_rule": null
+    }
+  ],
+  "sections": [
+    {
+      "id": "icf_purpose_narrative",
+      "title": "Purpose of the Study",
+      "source_elements": ["drug_name", "indication", "study_phase", "primary_endpoint"],
+      "prompt_template": "Generate the purpose section of the informed consent form."
+    },
+    {
+      "id": "icf_risks_narrative",
+      "title": "Risks and Discomforts",
+      "source_elements": ["key_risks", "drug_name"],
+      "prompt_template": "Generate the risks and discomforts section of the informed consent form."
+    }
+  ]
+}

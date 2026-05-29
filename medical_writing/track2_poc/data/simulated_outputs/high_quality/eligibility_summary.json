@@ -1,0 +1,24 @@
+{
+  "section_id": "eligibility_summary",
+  "section_title": "Eligibility Summary",
+  "quality_tier": "high_quality",
+  "simulated_confidence": 0.88,
+  "source_elements": {
+    "inclusion_criteria": [
+      "Age 18-75 years inclusive",
+      "Diagnosis of type 2 diabetes mellitus for at least 6 months prior to screening",
+      "HbA1c ≥7.5% and ≤10.5% at screening",
+      "On stable metformin monotherapy (≥1000 mg/day) for at least 3 months prior to screening",
+      "BMI 22-42 kg/m² at screening"
+    ],
+    "exclusion_criteria": [
+      "Type 1 diabetes mellitus",
+      "Use of any antidiabetic agent other than metformin within 3 months of screening",
+      "eGFR <45 mL/min/1.73m² at screening",
+      "History of severe hypoglycemia within 6 months of screening",
+      "Active cardiovascular disease within 6 months of screening"
+    ],
+    "enrollment_target": 240
+  },
+  "prose": "Adult subjects aged 18 to 75 years (inclusive) with a confirmed diagnosis of type 2 diabetes mellitus (T2DM) of at least 6 months duration were eligible for enrolment. To ensure adequate baseline glycaemic burden while maintaining safety, subjects were required to have a screening HbA1c value of ≥7.5% and ≤10.5% as measured by a central laboratory using an NGSP-certified assay. Subjects must have been receiving stable metformin monotherapy at a dose of ≥1000 mg/day for at least 3 months prior to the screening visit, reflecting the primary indication of inadequate glycaemic control on metformin. A body mass index (BMI) of 22 to 42 kg/m² was required at screening.\n\nKey exclusion criteria were designed to protect subject safety and maintain a homogeneous study population. Subjects with type 1 diabetes mellitus or who had received any antidiabetic agent other than metformin within 3 months of screening were excluded. Subjects with estimated glomerular filtration rate (eGFR) <45 mL/min/1.73m², history of severe hypoglycaemia within 6 months of screening, or active cardiovascular disease within 6 months of screening were also excluded.\n\nA total of 240 subjects were planned to be randomised (80 per arm), providing 90% power to detect a clinically meaningful treatment difference."
+}
