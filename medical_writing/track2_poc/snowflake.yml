@@ -1,0 +1,20 @@
+definition_version: 2
+
+entities:
+  track2_poc:
+    type: streamlit
+    identifier:
+      name: TRACK2_POC
+      database: MEDICAL_WRITING
+      schema: PUBLIC
+    title: "Track 2 — Protocol Ingestion POC"
+    main_file: app/streamlit_app.py
+    query_warehouse: MEDICAL_WRITING_WH
+    stage: STREAMLIT_STAGE
+    artifacts:
+      - app/
+      - usdm/
+      - ingestion/
+      - core/
+      - config.py
+      - environment.yml

@@ -1,0 +1,12 @@
+{
+  "section_id": "statistical_methods",
+  "section_title": "Statistical Methods",
+  "quality_tier": "low_quality",
+  "simulated_confidence": 0.52,
+  "source_elements": {
+    "primary_analysis_type": "statistical model",
+    "analysis_populations": ["analysis population"],
+    "missing_data_approach": "standard approach"
+  },
+  "prose": "Statistical analyses were performed using appropriate software. The primary endpoint was analyzed using a repeated measures model.\n\nAnalysis populations were defined as per the statistical analysis plan. The full analysis set included subjects who received treatment. Missing data were handled according to standard methods.\n\nSecondary endpoints were analyzed using similar statistical approaches. All statistical tests were two-sided with an alpha level of 0.05. [PLACEHOLDER: Confirm exact model specification with biostatistics team before finalizing]"
+}

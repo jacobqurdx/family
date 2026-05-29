@@ -1,0 +1,16 @@
+{
+  "section_id": "study_design_overview",
+  "section_title": "Study Design Overview",
+  "quality_tier": "high_quality",
+  "simulated_confidence": 0.88,
+  "source_elements": {
+    "design_type": "randomized, double-blind, placebo-controlled, parallel-group",
+    "treatment_arms": [
+      "STR-4021 10 mg once daily",
+      "STR-4021 25 mg once daily",
+      "Placebo once daily"
+    ],
+    "study_duration_weeks": 28
+  },
+  "prose": "Study STR-4021-201 was a Phase 2, randomised, double-blind, placebo-controlled, parallel-group study designed to evaluate the efficacy and safety of two doses of STR-4021 in adults with type 2 diabetes mellitus with inadequate glycaemic control on metformin monotherapy. The study was conducted at approximately 45 investigational sites across North America, Europe, and the Asia-Pacific region.\n\nEligible subjects were randomised in a 1:1:1 ratio to one of three parallel treatment arms: STR-4021 10 mg once daily, STR-4021 25 mg once daily, or matching placebo once daily. Randomisation was stratified by baseline HbA1c category (<8.5% vs ≥8.5%) and geographic region using a central interactive response technology (IRT) system with permuted block randomisation.\n\nThe study comprised three sequential epochs: a 4-week Screening/Run-in Epoch, a 24-week double-blind Treatment Epoch, and a 4-week Safety Follow-up Epoch, for a total study duration of 28 weeks. All subjects continued background metformin therapy at their stable pre-study dose throughout the treatment period. Study drug was administered orally once daily in the morning, with or without food, and subjects, investigators, and sponsor personnel remained blinded to treatment assignment throughout the treatment and follow-up epochs."
+}

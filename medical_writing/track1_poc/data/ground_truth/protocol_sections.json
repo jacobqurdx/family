@@ -1,0 +1,54 @@
+[
+  {
+    "pair_id": "gt_001",
+    "section_id": "primary_endpoint_narrative",
+    "source_elements": {
+      "primary_endpoint": "change from baseline in HbA1c",
+      "primary_endpoint_timepoint": "Week 24",
+      "indication": "type 2 diabetes mellitus with inadequate glycemic control on metformin monotherapy"
+    },
+    "gold_prose": "The primary efficacy endpoint is the change from baseline in glycated hemoglobin (HbA1c) at Week 24. HbA1c is a well-validated measure of glycemic control and is the primary endpoint recommended by FDA and EMA guidance for clinical trials in type 2 diabetes mellitus. Assessment will be performed by central laboratory analysis of venous blood samples collected at the scheduled study visits.",
+    "complexity": "low",
+    "notes": "Standard T2DM endpoint — low clinical judgment required"
+  },
+  {
+    "pair_id": "gt_002",
+    "section_id": "study_design_narrative",
+    "source_elements": {
+      "drug_name": "STR-4021",
+      "indication": "type 2 diabetes mellitus with inadequate glycemic control on metformin monotherapy",
+      "study_phase": "Phase 2",
+      "design_type": "randomized, double-blind, placebo-controlled, parallel-group",
+      "study_duration_weeks": 28
+    },
+    "gold_prose": "This is a Phase 2, randomized, double-blind, placebo-controlled, parallel-group study evaluating the efficacy and safety of STR-4021 in adult patients with type 2 diabetes mellitus with inadequate glycemic control on metformin monotherapy. The study comprises a 4-week screening period, a 24-week double-blind treatment period, and a 4-week safety follow-up period, for a total study duration of approximately 32 weeks.",
+    "complexity": "low",
+    "notes": "Structured design section — nearly deterministic from source data"
+  },
+  {
+    "pair_id": "gt_003",
+    "section_id": "statistical_analysis_narrative",
+    "source_elements": {
+      "primary_endpoint": "change from baseline in HbA1c",
+      "primary_analysis_type": "Mixed Model for Repeated Measures (MMRM)",
+      "statistical_analysis_primary": "MMRM analysis of change from baseline in HbA1c"
+    },
+    "gold_prose": "The primary efficacy analysis will be performed on the Full Analysis Set (FAS) using a Mixed Model for Repeated Measures (MMRM) approach. The model will include change from baseline in HbA1c as the dependent variable, with treatment group, visit, treatment-by-visit interaction, baseline HbA1c, and baseline HbA1c-by-visit interaction as fixed effects. An unstructured covariance matrix will be used to model the within-patient correlation. The Kenward-Roger approximation will be used for denominator degrees of freedom.",
+    "complexity": "medium",
+    "notes": "Requires correct statistical terminology and MMRM specification conventions"
+  },
+  {
+    "pair_id": "gt_004",
+    "section_id": "inclusion_exclusion_narrative",
+    "source_elements": {
+      "inclusion_criteria": ["Age 18-75 years", "HbA1c 7.5-10.5% at screening", "Stable metformin monotherapy"],
+      "exclusion_criteria": ["Type 1 diabetes", "eGFR <45 at screening"],
+      "population_age_min": 18,
+      "population_age_max": 75,
+      "indication": "type 2 diabetes mellitus"
+    },
+    "gold_prose": "Eligible participants are adults aged 18 to 75 years with a confirmed diagnosis of type 2 diabetes mellitus. Key inclusion criteria include: HbA1c between 7.5% and 10.5% at screening, and stable metformin monotherapy at a dose of at least 1000 mg/day for a minimum of 3 months prior to screening. Patients are excluded if they have type 1 diabetes mellitus or an eGFR below 45 mL/min/1.73m² at screening.",
+    "complexity": "low",
+    "notes": "Eligibility criteria — factual, no characterization required"
+  }
+]

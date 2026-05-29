@@ -1,0 +1,12 @@
+{
+  "section_id": "primary_efficacy_results",
+  "section_title": "Primary Efficacy Results",
+  "quality_tier": "low_quality",
+  "simulated_confidence": 0.52,
+  "source_elements": {
+    "primary_endpoint": "change from baseline in HbA1c",
+    "primary_endpoint_timepoint": "Week 24",
+    "statistical_analysis_primary": "statistical analysis"
+  },
+  "prose": "The primary efficacy endpoint was evaluated at the specified timepoint. The treatment showed improvement compared to placebo.\n\nResults were analyzed using appropriate statistical methods. The drug group showed reductions in the primary endpoint compared to the control group. Statistical significance was achieved in the analysis.\n\nThe results demonstrated that the investigational drug was effective in treating the condition. Further details on the specific numerical results are presented in the accompanying data tables. [PLACEHOLDER: Insert LS mean treatment differences and confidence intervals from Table 14.2.1]"
+}

@@ -1,0 +1,12 @@
+{
+  "section_id": "study_design_overview",
+  "section_title": "Study Design Overview",
+  "quality_tier": "low_quality",
+  "simulated_confidence": 0.52,
+  "source_elements": {
+    "design_type": "randomized controlled trial",
+    "treatment_arms": ["drug group", "placebo group"],
+    "study_duration_weeks": 28
+  },
+  "prose": "The study was a randomized, controlled clinical trial. Subjects were randomly assigned to receive either the study drug or placebo.\n\nThe study included multiple treatment groups and lasted for several weeks. Subjects were followed during the treatment period and then during a follow-up period.\n\nThe study was conducted at multiple sites. All subjects provided informed consent prior to participation. [PLACEHOLDER: Add specific design details including randomization ratio, blinding method, and epoch durations from protocol Section 2]"
+}
