@@ -1,0 +1,116 @@
+{
+  "framework_id": "framework_fda_obesity",
+  "regulatory_body": "FDA",
+  "version": "1.0",
+  "locked": false,
+  "guidance_documents": [
+    {
+      "guidance_document_id": "fda_obesity_guidance_2023",
+      "title": "Developing Products for Weight Management (Revision 1)",
+      "year": 2023,
+      "indication_class": "obesity"
+    },
+    {
+      "guidance_document_id": "fda_eop2_meeting_guidance_2019",
+      "title": "Formal Meetings Between the FDA and Sponsors or Applicants of PDUFA Products",
+      "year": 2019,
+      "indication_class": "all"
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "req_001",
+      "guidance_document_id": "fda_obesity_guidance_2023",
+      "guidance_section": "Section 3.1 — Clinical Trial Design",
+      "source_quote": "Sponsors should include a randomized, double-blind, placebo-controlled trial design for Phase 2 obesity studies.",
+      "requirement_text": "Phase 2 obesity trials must use randomized double-blind placebo-controlled design.",
+      "applies_to_document_types": ["eop2_briefing", "ind"],
+      "applies_to_indications": ["obesity"],
+      "requirement_type": "content",
+      "mandatory": true,
+      "confidence": 0.95
+    },
+    {
+      "requirement_id": "req_002",
+      "guidance_document_id": "fda_obesity_guidance_2023",
+      "guidance_section": "Section 4.2 — Endpoints",
+      "source_quote": "The primary endpoint for obesity trials should be percent change from baseline in body weight.",
+      "requirement_text": "Primary endpoint must be percent change from baseline in body weight.",
+      "applies_to_document_types": ["eop2_briefing", "protocol", "csr"],
+      "applies_to_indications": ["obesity"],
+      "requirement_type": "content",
+      "mandatory": true,
+      "confidence": 0.98
+    },
+    {
+      "requirement_id": "req_003",
+      "guidance_document_id": "fda_obesity_guidance_2023",
+      "guidance_section": "Section 4.2 — Endpoints",
+      "source_quote": "A weight loss threshold responder analysis (proportion achieving >=5% weight loss) should be included as a key secondary endpoint.",
+      "requirement_text": "Key secondary endpoint: proportion of patients achieving >=5% body weight loss.",
+      "applies_to_document_types": ["eop2_briefing", "protocol"],
+      "applies_to_indications": ["obesity"],
+      "requirement_type": "content",
+      "mandatory": false,
+      "confidence": 0.92
+    },
+    {
+      "requirement_id": "req_004",
+      "guidance_document_id": "fda_obesity_guidance_2023",
+      "guidance_section": "Section 5.1 — Safety",
+      "source_quote": "Cardiovascular safety must be addressed, including monitoring for heart rate, blood pressure, and MACE events.",
+      "requirement_text": "EOP2 package must address cardiovascular safety monitoring plan.",
+      "applies_to_document_types": ["eop2_briefing"],
+      "applies_to_indications": ["obesity", "glp1_agonist"],
+      "requirement_type": "content",
+      "mandatory": true,
+      "confidence": 0.97
+    },
+    {
+      "requirement_id": "req_005",
+      "guidance_document_id": "fda_obesity_guidance_2023",
+      "guidance_section": "Section 6.0 — Phase 3 Design",
+      "source_quote": "The EOP2 briefing document should include a detailed description of the proposed Phase 3 design including sample size justification.",
+      "requirement_text": "EOP2 briefing document must include proposed Phase 3 design with sample size justification.",
+      "applies_to_document_types": ["eop2_briefing"],
+      "applies_to_indications": ["obesity"],
+      "requirement_type": "structure",
+      "mandatory": true,
+      "confidence": 0.99
+    }
+  ],
+  "agency_concerns": [
+    {
+      "concern_id": "agency_concern_glp1_cv_2022",
+      "source_type": "meeting_minutes",
+      "source_document": "FDA Type C Meeting Minutes, GLP-1 obesity program, 2022",
+      "indication_class": "glp1_agonist",
+      "document_section": "cardiovascular_safety",
+      "concern_text": "FDA has previously raised concerns about cardiovascular safety monitoring adequacy for GLP-1 agonists in obesity, specifically the absence of an independent MACE adjudication committee.",
+      "resolution_guidance": "Establish an independent MACE adjudication committee and pre-specify CV stopping rules; reference the 2022 agency correspondence explicitly.",
+      "program_id": null
+    },
+    {
+      "concern_id": "agency_concern_obesity_durability_2021",
+      "source_type": "adcom",
+      "source_document": "Endocrinologic and Metabolic Drugs Advisory Committee, 2021",
+      "indication_class": "obesity",
+      "document_section": "proposed_phase3_design",
+      "concern_text": "Advisory committee questioned the durability of weight loss beyond the treatment period and the adequacy of follow-up duration.",
+      "resolution_guidance": "Include an off-treatment follow-up period in Phase 3 to characterise weight regain.",
+      "program_id": null
+    }
+  ],
+  "prior_positions": [
+    {
+      "position_id": "pos_aleniglipron_ind_2024",
+      "program_id": "aleniglipron",
+      "document_type": "ind",
+      "submission_date": "2024-03-15",
+      "section": "phase2_results_summary",
+      "position_text": "The primary endpoint for the Phase 2 ACCESS II study is percent change from baseline in body weight at Week 36.",
+      "outcome": "accepted",
+      "notes": "FDA accepted the primary endpoint definition without comment."
+    }
+  ]
+}

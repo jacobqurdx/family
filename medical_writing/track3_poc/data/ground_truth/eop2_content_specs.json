@@ -1,0 +1,59 @@
+{
+  "ground_truth_id": "eop2_gold_v1",
+  "document_type": "eop2_briefing",
+  "content_twin_id": "molecule_aleniglipron",
+  "structure_twin_id": "structure_eop2_fda",
+  "notes": "Gold content specs for the EOP2 briefing document. Used by the LLM workstream to evaluate the ContentSpecGenerator. Each gold section lists the claims a high-quality spec is expected to contain.",
+  "sections": [
+    {
+      "section_id": "background_rationale",
+      "section_title": "Background and Rationale",
+      "expected_claims": [
+        "Aleniglipron is a GLP-1 receptor agonist under investigation for obesity.",
+        "Obesity represents a substantial unmet medical need with significant disease burden.",
+        "The nonclinical program supports continued clinical development."
+      ],
+      "expected_authorities": ["FDA EOP2 Meeting Guidance 2019, Section 2"]
+    },
+    {
+      "section_id": "phase2_results_summary",
+      "section_title": "Summary of Phase 2 Results",
+      "expected_claims": [
+        "The primary endpoint, percent change from baseline in body weight at Week 36, was met with statistical significance.",
+        "Key secondary endpoints including >=5% weight loss responder analysis were supportive.",
+        "The safety and tolerability profile was consistent with the GLP-1 class."
+      ],
+      "expected_authorities": ["FDA Obesity Guidance Section 4.2"]
+    },
+    {
+      "section_id": "proposed_phase3_design",
+      "section_title": "Proposed Phase 3 Design",
+      "expected_claims": [
+        "Phase 3 (ACCESS III) will use a randomized double-blind placebo-controlled parallel-group design.",
+        "Sample size justification will be provided with power calculation parameters.",
+        "An off-treatment follow-up period will characterise weight regain."
+      ],
+      "expected_authorities": ["FDA Obesity Guidance Section 6.0"]
+    },
+    {
+      "section_id": "cardiovascular_safety",
+      "section_title": "Cardiovascular Safety Plan",
+      "expected_claims": [
+        "An independent MACE adjudication committee will be established.",
+        "Heart rate and blood pressure will be monitored with pre-specified stopping rules.",
+        "The plan references the 2022 agency correspondence on GLP-1 CV safety."
+      ],
+      "expected_authorities": ["FDA Obesity Guidance Section 5.1"]
+    },
+    {
+      "section_id": "regulatory_questions",
+      "section_title": "Specific Regulatory Questions",
+      "expected_claims": [
+        "Does the FDA agree with the proposed Phase 3 primary endpoint and timepoint?",
+        "Does the FDA agree the proposed CV safety monitoring plan is adequate?",
+        "Does the FDA agree with the proposed Phase 3 sample size and follow-up duration?"
+      ],
+      "expected_authorities": ["FDA EOP2 Meeting Guidance 2019, Section 1"]
+    }
+  ]
+}

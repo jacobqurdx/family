@@ -1,0 +1,71 @@
+{
+  "structure_id": "structure_ind_fda",
+  "document_type": "Investigational New Drug Application",
+  "regulatory_body": "FDA",
+  "version": "1.0",
+  "source_guidances": ["fda_ind_content_format_21cfr312"],
+  "locked": false,
+  "sections": [
+    {
+      "section_id": "introductory_statement",
+      "section_title": "Introductory Statement and General Investigational Plan",
+      "required": true,
+      "regulatory_authority": "21 CFR 312.23(a)(3)",
+      "content_expectations": [
+        "Drug name, structure and pharmacological class",
+        "Broad objectives and planned duration of the investigation",
+        "Indication being studied"
+      ],
+      "source_elements": ["drug_name", "indication", "mechanism_of_action"],
+      "judgment_complexity": "low",
+      "role_primary": ["regulatory_affairs"],
+      "ordering": 1
+    },
+    {
+      "section_id": "investigators_brochure_ref",
+      "section_title": "Investigator's Brochure",
+      "required": true,
+      "regulatory_authority": "21 CFR 312.23(a)(5)",
+      "content_expectations": [
+        "Summary of pharmacological and toxicological effects",
+        "Summary of pharmacokinetics and biological disposition",
+        "Safety and effectiveness information from prior human experience"
+      ],
+      "source_elements": ["drug_name", "safety_summary"],
+      "judgment_complexity": "medium",
+      "role_primary": ["regulatory_affairs", "clinical_science"],
+      "ordering": 2
+    },
+    {
+      "section_id": "clinical_protocol",
+      "section_title": "Protocol(s)",
+      "required": true,
+      "regulatory_authority": "21 CFR 312.23(a)(6)",
+      "content_expectations": [
+        "Statement of objectives and purpose of the study",
+        "Eligibility criteria and estimated number of subjects",
+        "Description of study design including control groups",
+        "Primary and secondary endpoints"
+      ],
+      "source_elements": ["design_type", "inclusion_criteria", "primary_endpoint"],
+      "judgment_complexity": "high",
+      "role_primary": ["clinical_science", "regulatory_affairs"],
+      "ordering": 3
+    },
+    {
+      "section_id": "cmc_information",
+      "section_title": "Chemistry, Manufacturing, and Control Information",
+      "required": true,
+      "regulatory_authority": "21 CFR 312.23(a)(7)",
+      "content_expectations": [
+        "Drug substance composition and manufacture",
+        "Drug product composition and manufacture",
+        "Stability data supporting the proposed clinical study"
+      ],
+      "source_elements": ["drug_name", "cmc_summary"],
+      "judgment_complexity": "medium",
+      "role_primary": ["regulatory_affairs"],
+      "ordering": 4
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "structure_id": "structure_eop2_fda",
+  "document_type": "End of Phase 2 Briefing Document",
+  "regulatory_body": "FDA",
+  "version": "1.0",
+  "source_guidances": ["fda_obesity_guidance_2023", "fda_eop2_meeting_guidance_2019"],
+  "locked": false,
+  "sections": [
+    {
+      "section_id": "background_rationale",
+      "section_title": "Background and Rationale",
+      "required": true,
+      "regulatory_authority": "FDA EOP2 Meeting Guidance 2019, Section 2",
+      "content_expectations": [
+        "Disease burden and unmet need for the indication",
+        "Mechanism of action and pharmacological rationale",
+        "Summary of nonclinical program supporting clinical development"
+      ],
+      "source_elements": ["drug_name", "indication", "mechanism_of_action"],
+      "judgment_complexity": "medium",
+      "role_primary": ["regulatory_affairs", "clinical_science"],
+      "ordering": 1
+    },
+    {
+      "section_id": "phase2_results_summary",
+      "section_title": "Summary of Phase 2 Results",
+      "required": true,
+      "regulatory_authority": "FDA EOP2 Meeting Guidance 2019, Section 3",
+      "content_expectations": [
+        "Primary efficacy endpoint results with confidence intervals",
+        "Key secondary endpoint results",
+        "Safety and tolerability summary",
+        "Dose-response relationship if applicable"
+      ],
+      "source_elements": ["primary_endpoint", "primary_endpoint_result", "safety_summary"],
+      "judgment_complexity": "high",
+      "role_primary": ["clinical_science", "regulatory_affairs"],
+      "ordering": 2
+    },
+    {
+      "section_id": "proposed_phase3_design",
+      "section_title": "Proposed Phase 3 Design",
+      "required": true,
+      "regulatory_authority": "FDA Obesity Guidance 2023, Section 6.0",
+      "content_expectations": [
+        "Study design including randomisation and blinding",
+        "Target population and eligibility criteria",
+        "Primary and key secondary endpoints",
+        "Sample size justification",
+        "Duration of treatment and follow-up"
+      ],
+      "source_elements": ["design_type", "inclusion_criteria", "primary_endpoint", "phase3_sample_size"],
+      "judgment_complexity": "high",
+      "role_primary": ["regulatory_affairs", "clinical_science"],
+      "ordering": 3
+    },
+    {
+      "section_id": "cardiovascular_safety",
+      "section_title": "Cardiovascular Safety Plan",
+      "required": true,
+      "regulatory_authority": "FDA Obesity Guidance 2023, Section 5.1",
+      "content_expectations": [
+        "Heart rate and blood pressure monitoring plan",
+        "MACE adjudication committee charter summary",
+        "Stopping rules for cardiovascular events",
+        "Reference to any prior CV safety signals"
+      ],
+      "source_elements": ["cv_safety_data", "stopping_rules", "dsmb_structure"],
+      "judgment_complexity": "high",
+      "role_primary": ["regulatory_affairs", "clinical_science"],
+      "ordering": 4
+    },
+    {
+      "section_id": "regulatory_questions",
+      "section_title": "Specific Regulatory Questions",
+      "required": true,
+      "regulatory_authority": "FDA EOP2 Meeting Guidance 2019, Section 1",
+      "content_expectations": [
+        "Numbered list of specific questions for FDA response",
+        "Each question clearly scoped and answerable",
+        "Questions prioritised by criticality to Phase 3 design"
+      ],
+      "source_elements": ["regulatory_questions_list"],
+      "judgment_complexity": "high",
+      "role_primary": ["regulatory_affairs"],
+      "ordering": 5
+    }
+  ]
+}

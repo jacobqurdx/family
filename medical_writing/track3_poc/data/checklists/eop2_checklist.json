@@ -1,0 +1,48 @@
+{
+  "checklist_id": "eop2_standing_rules_v1",
+  "document_type": "eop2_briefing",
+  "version": "1.0",
+  "maintained_by": "regulatory_affairs",
+  "rules": [
+    {
+      "rule_id": "rule_001",
+      "description": "EOP2 briefing document must include a 'Specific Regulatory Questions' section with at least one numbered question.",
+      "required_section": "regulatory_questions",
+      "severity": "blocking",
+      "role_relevance": ["regulatory_affairs"],
+      "resolution": "Add a Specific Regulatory Questions section with clearly scoped, numbered questions for FDA."
+    },
+    {
+      "rule_id": "rule_002",
+      "description": "Primary endpoint in the Phase 2 results section must exactly match the primary endpoint registered in the protocol.",
+      "required_section": "phase2_results_summary",
+      "severity": "blocking",
+      "role_relevance": ["regulatory_affairs", "clinical_science"],
+      "resolution": "Verify primary endpoint wording against the ACCESS II protocol and align exactly."
+    },
+    {
+      "rule_id": "rule_003",
+      "description": "Cardiovascular safety plan must be present for all GLP-1 agonist obesity programs.",
+      "required_section": "cardiovascular_safety",
+      "severity": "blocking",
+      "role_relevance": ["regulatory_affairs"],
+      "resolution": "Add cardiovascular safety plan section addressing MACE monitoring and CV stopping rules."
+    },
+    {
+      "rule_id": "rule_004",
+      "description": "Proposed Phase 3 design must include sample size justification.",
+      "required_section": "proposed_phase3_design",
+      "severity": "major",
+      "role_relevance": ["regulatory_affairs", "biostatistician"],
+      "resolution": "Add sample size justification with power calculation parameters to Phase 3 design section."
+    },
+    {
+      "rule_id": "rule_005",
+      "description": "Background and rationale must reference unmet need in the target indication.",
+      "required_section": "background_rationale",
+      "severity": "minor",
+      "role_relevance": ["regulatory_affairs", "clinical_science"],
+      "resolution": "Add explicit statement of unmet need in obesity to background section."
+    }
+  ]
+}
