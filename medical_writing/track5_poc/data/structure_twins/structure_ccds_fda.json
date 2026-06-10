@@ -1,0 +1,78 @@
+{
+  "structure_id": "structure_ccds_fda",
+  "document_type": "Company Core Data Sheet",
+  "regulatory_body": "FDA",
+  "version": "1.0",
+  "source_guidances": ["fda_labeling_guidance_2010", "fda_obesity_guidance_2023"],
+  "locked": false,
+  "sections": [
+    {
+      "section_id": "indications_usage",
+      "section_title": "Indications and Usage",
+      "required": true,
+      "regulatory_authority": "21 CFR 201.57(c)(1); FDA Labeling Guidance 2010",
+      "content_expectations": [
+        "Clear statement of the approved indication",
+        "BMI threshold for obesity indication using class-standard language",
+        "Comorbidity allowance for overweight indication",
+        "Adjunct therapy statement (diet and exercise)"
+      ],
+      "source_elements": ["indication", "mechanism_of_action"],
+      "judgment_complexity": "low",
+      "role_primary": ["regulatory_affairs"],
+      "ordering": 1
+    },
+    {
+      "section_id": "clinical_studies",
+      "section_title": "Clinical Studies",
+      "required": true,
+      "regulatory_authority": "21 CFR 201.57(c)(15); FDA Obesity Guidance 2023 Section 4",
+      "content_expectations": [
+        "Primary efficacy endpoint result with effect size, CI, and p-value",
+        "Responder analysis at >=5% and >=10% body weight loss",
+        "Key secondary endpoint results",
+        "Study design summary (phase, duration, population)",
+        "Placebo-subtracted effect size prominently displayed"
+      ],
+      "source_elements": [
+        "primary_endpoint", "primary_endpoint_result", "primary_endpoint_timepoint",
+        "responder_analysis_5pct", "responder_analysis_10pct", "study_phase", "design_type"
+      ],
+      "judgment_complexity": "medium",
+      "role_primary": ["regulatory_affairs", "clinical_science"],
+      "ordering": 2
+    },
+    {
+      "section_id": "warnings_precautions",
+      "section_title": "Warnings and Precautions",
+      "required": true,
+      "regulatory_authority": "21 CFR 201.57(c)(6); Class-effect requirements for GLP-1 agonists",
+      "content_expectations": [
+        "Thyroid C-cell tumor boxed warning (mandatory class effect)",
+        "Pancreatitis warning",
+        "Acute gallbladder disease",
+        "Heart rate increase",
+        "Suicidal behavior and ideation (class consideration)"
+      ],
+      "source_elements": ["mechanism_of_action", "safety_summary", "nonclinical_safety"],
+      "judgment_complexity": "high",
+      "role_primary": ["regulatory_affairs"],
+      "ordering": 3
+    },
+    {
+      "section_id": "adverse_reactions",
+      "section_title": "Adverse Reactions",
+      "required": true,
+      "regulatory_authority": "21 CFR 201.57(c)(7)",
+      "content_expectations": [
+        "Most common adverse reactions (>=5% and greater than placebo)",
+        "GI adverse reaction profile (nausea, diarrhea, vomiting, constipation, abdominal pain)",
+        "Adverse reactions leading to discontinuation"
+      ],
+      "source_elements": ["adverse_reactions_summary", "discontinuation_rate"],
+      "judgment_complexity": "low",
+      "role_primary": ["regulatory_affairs", "clinical_science"],
+      "ordering": 4
+    }
+  ]
+}

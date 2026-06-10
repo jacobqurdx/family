@@ -1,0 +1,132 @@
+{
+  "ci_twin_id": "ci_glp1_obesity_fda",
+  "indication_class": "obesity",
+  "drug_class": "GLP-1 receptor agonist and related mechanisms",
+  "regulatory_body": "FDA",
+  "version": "1.0",
+  "approved_claims": [
+    {
+      "claim_id": "ap_001",
+      "drug_name": "semaglutide (Wegovy)",
+      "indication": "obesity",
+      "label_section": "Indications and Usage",
+      "claim_text": "WEGOVY is indicated as an adjunct to a reduced-calorie diet and increased physical activity for chronic weight management in adults with an initial BMI of 30 kg/m2 or greater (obesity), or 27 kg/m2 or greater (overweight) in the presence of at least one weight-related comorbidity.",
+      "evidence_standard": "Phase 3 STEP trial program (STEP 1-4), 68-week treatment duration",
+      "quantitative_threshold": "Mean 15% body weight reduction vs 2.4% placebo at Week 68",
+      "approval_date": "2021-06-04",
+      "source_label": "Wegovy US Prescribing Information, June 2021",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=wegovy",
+      "regulatory_notes": "FDA approved this indication language as class-standard. All subsequent obesity approvals have used identical BMI threshold language."
+    },
+    {
+      "claim_id": "ap_002",
+      "drug_name": "tirzepatide (Zepbound)",
+      "indication": "obesity",
+      "label_section": "Indications and Usage",
+      "claim_text": "ZEPBOUND is indicated as an adjunct to a reduced calorie diet and increased physical activity for chronic weight management in adults with an initial BMI of 30 kg/m2 or greater (obesity), or 27 kg/m2 or greater (overweight) in the presence of at least one weight-related comorbidity.",
+      "evidence_standard": "Phase 3 SURMOUNT trial program, 72-week treatment duration",
+      "quantitative_threshold": "Mean 22.5% body weight reduction (15 mg dose) vs 2.5% placebo at Week 72",
+      "approval_date": "2023-11-08",
+      "source_label": "Zepbound US Prescribing Information, November 2023",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=zepbound",
+      "regulatory_notes": "Identical indication language to semaglutide. FDA has standardized this language for the obesity indication class."
+    },
+    {
+      "claim_id": "ap_003",
+      "drug_name": "liraglutide (Saxenda)",
+      "indication": "obesity",
+      "label_section": "Indications and Usage",
+      "claim_text": "SAXENDA is indicated as an adjunct to a reduced-calorie diet and increased physical activity for chronic weight management in adult patients with an initial body mass index (BMI) of 30 kg/m2 or greater (obese), or 27 kg/m2 or greater (overweight) in the presence of at least one weight-related comorbidity.",
+      "evidence_standard": "Phase 3 SCALE trial program, 56-week treatment duration",
+      "quantitative_threshold": "Mean 8% body weight reduction vs 2.6% placebo at Week 56",
+      "approval_date": "2014-12-23",
+      "source_label": "Saxenda US Prescribing Information, December 2014",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=saxenda",
+      "regulatory_notes": "Original approval establishing the class indication standard."
+    },
+    {
+      "claim_id": "ap_006",
+      "drug_name": "semaglutide (Wegovy)",
+      "indication": "obesity",
+      "label_section": "Clinical Studies",
+      "claim_text": "83.5% of patients treated with semaglutide 2.4 mg achieved at least 5% reduction in body weight at Week 68 compared with 31.5% of placebo-treated patients.",
+      "evidence_standard": "STEP 1 trial (n=1961)",
+      "quantitative_threshold": ">=5% body weight loss responder analysis",
+      "approval_date": "2021-06-04",
+      "source_label": "Wegovy US Prescribing Information, June 2021",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=wegovy",
+      "regulatory_notes": "FDA requires responder analysis at >=5% and >=10% thresholds per obesity guidance. This is a mandatory element."
+    },
+    {
+      "claim_id": "ap_007",
+      "drug_name": "tirzepatide (Zepbound)",
+      "indication": "obesity",
+      "label_section": "Clinical Studies",
+      "claim_text": "In SURMOUNT-1, 96% of patients treated with tirzepatide 15 mg achieved at least 5% body weight reduction at Week 72 compared with 28% of placebo-treated patients.",
+      "evidence_standard": "SURMOUNT-1 trial (n=2539)",
+      "quantitative_threshold": ">=5% body weight loss responder analysis",
+      "approval_date": "2023-11-08",
+      "source_label": "Zepbound US Prescribing Information, November 2023",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=zepbound",
+      "regulatory_notes": "Responder analysis presented at >=5%, >=10%, >=15%, >=20% thresholds."
+    },
+    {
+      "claim_id": "ap_008",
+      "drug_name": "semaglutide (Wegovy)",
+      "indication": "obesity",
+      "label_section": "Warnings and Precautions",
+      "claim_text": "WEGOVY causes dose-dependent and treatment-duration-dependent thyroid C-cell tumors at clinically relevant exposures in both genders of rats and mice. It is unknown whether WEGOVY causes thyroid C-cell tumors, including medullary thyroid carcinoma (MTC), in humans.",
+      "evidence_standard": "Class-effect nonclinical finding. Required for all GLP-1 receptor agonists.",
+      "quantitative_threshold": null,
+      "approval_date": "2021-06-04",
+      "source_label": "Wegovy US Prescribing Information, June 2021",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=wegovy",
+      "regulatory_notes": "BOXED WARNING language. Mandatory for all GLP-1 receptor agonists. FDA will not approve without this warning."
+    },
+    {
+      "claim_id": "ap_009",
+      "drug_name": "tirzepatide (Zepbound)",
+      "indication": "obesity",
+      "label_section": "Warnings and Precautions",
+      "claim_text": "ZEPBOUND causes dose-dependent and treatment-duration-dependent thyroid C-cell tumors at clinically relevant exposures in both genders of rats and mice. It is unknown whether ZEPBOUND causes thyroid C-cell tumors, including medullary thyroid carcinoma (MTC), in humans.",
+      "evidence_standard": "Class-effect nonclinical finding.",
+      "quantitative_threshold": null,
+      "approval_date": "2023-11-08",
+      "source_label": "Zepbound US Prescribing Information, November 2023",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=zepbound",
+      "regulatory_notes": "Identical boxed warning language to semaglutide. Mandatory class-effect warning."
+    },
+    {
+      "claim_id": "ap_011",
+      "drug_name": "semaglutide (Wegovy)",
+      "indication": "obesity",
+      "label_section": "Adverse Reactions",
+      "claim_text": "The most common adverse reactions (incidence >=5%) in WEGOVY-treated patients were nausea, diarrhea, vomiting, constipation, abdominal pain, headache, fatigue, dyspepsia, dizziness, and gastroenteritis.",
+      "evidence_standard": "Pooled STEP 1-4 safety population",
+      "quantitative_threshold": "incidence >=5% and greater than placebo",
+      "approval_date": "2021-06-04",
+      "source_label": "Wegovy US Prescribing Information, June 2021",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=wegovy",
+      "regulatory_notes": "GI adverse reaction profile is class-defining for GLP-1 agonists."
+    },
+    {
+      "claim_id": "ap_012",
+      "drug_name": "tirzepatide (Zepbound)",
+      "indication": "obesity",
+      "label_section": "Adverse Reactions",
+      "claim_text": "The most common adverse reactions (incidence >=5%) in ZEPBOUND-treated patients were nausea, diarrhea, vomiting, constipation, abdominal pain, dyspepsia, injection site reactions, fatigue, and hypersensitivity reactions.",
+      "evidence_standard": "Pooled SURMOUNT safety population",
+      "quantitative_threshold": "incidence >=5% and greater than placebo",
+      "approval_date": "2023-11-08",
+      "source_label": "Zepbound US Prescribing Information, November 2023",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=zepbound",
+      "regulatory_notes": "GI adverse reaction profile broadly consistent with semaglutide."
+    }
+  ],
+  "claims_by_section": {
+    "Indications and Usage": ["ap_001", "ap_002", "ap_003"],
+    "Clinical Studies": ["ap_006", "ap_007"],
+    "Warnings and Precautions": ["ap_008", "ap_009"],
+    "Adverse Reactions": ["ap_011", "ap_012"]
+  }
+}

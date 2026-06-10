@@ -1,0 +1,53 @@
+{
+  "checklist_id": "labeling_standing_rules_v1",
+  "document_type": "ccds",
+  "version": "1.0",
+  "maintained_by": "regulatory_affairs",
+  "rules": [
+    {
+      "rule_id": "lab_001",
+      "description": "All GLP-1 receptor agonist labels must include the thyroid C-cell tumor boxed warning. Absence is a mandatory labeling deficiency.",
+      "required_claim_type": "thyroid_cCell_warning",
+      "required_section": "Warnings and Precautions",
+      "severity": "blocking",
+      "role_relevance": ["regulatory_affairs"],
+      "resolution": "Add thyroid C-cell tumor boxed warning using class-standard language from ap_008 or ap_009."
+    },
+    {
+      "rule_id": "lab_002",
+      "description": "Indications and Usage must specify the BMI threshold using the class-standard language (30 kg/m2 for obesity, 27 kg/m2 for overweight with comorbidity).",
+      "required_claim_type": "indication_bmi_threshold",
+      "required_section": "Indications and Usage",
+      "severity": "blocking",
+      "role_relevance": ["regulatory_affairs"],
+      "resolution": "Align Indications and Usage language with class-standard BMI threshold wording from ap_001 or ap_002."
+    },
+    {
+      "rule_id": "lab_003",
+      "description": "Clinical Studies section must include responder analysis at >=5% body weight loss threshold. This is a mandatory FDA requirement per obesity guidance.",
+      "required_claim_type": "responder_analysis_5pct",
+      "required_section": "Clinical Studies",
+      "severity": "major",
+      "role_relevance": ["regulatory_affairs", "clinical_science"],
+      "resolution": "Add responder analysis claim for >=5% body weight loss. Values to be confirmed from Phase 3 data."
+    },
+    {
+      "rule_id": "lab_004",
+      "description": "All numerical claims in Clinical Studies must be traceable to a specific trial and time point referenced in the content twin.",
+      "required_claim_type": "numeric_traceability",
+      "required_section": "Clinical Studies",
+      "severity": "major",
+      "role_relevance": ["regulatory_affairs", "medical_writing"],
+      "resolution": "Verify all numerical values in Clinical Studies claims are populated in the content twin with source trial reference."
+    },
+    {
+      "rule_id": "lab_005",
+      "description": "No promotional language permitted in any label section. Claims must be evidence-characterised, not aspirational.",
+      "required_claim_type": "no_promotional_language",
+      "required_section": "all",
+      "severity": "major",
+      "role_relevance": ["regulatory_affairs", "medical_writing"],
+      "resolution": "Remove or replace any promotional language with evidence-characterised regulatory standard language."
+    }
+  ]
+}
