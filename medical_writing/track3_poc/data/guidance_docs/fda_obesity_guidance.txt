@@ -1,0 +1,28 @@
+FDA Guidance for Industry
+Developing Products for Weight Management (Revision 1)
+Synthetic document for Track 3 POC — not an actual FDA guidance.
+
+Section 1 — Scope
+This guidance describes the Agency's current thinking on the development of
+drug products for chronic weight management in adults with obesity.
+
+Section 3.1 — Clinical Trial Design
+Sponsors should include a randomized, double-blind, placebo-controlled trial
+design for Phase 2 obesity studies. Trials should be of adequate duration to
+characterise weight loss and its maintenance.
+
+Section 4.2 — Endpoints
+The primary endpoint for obesity trials should be percent change from baseline
+in body weight. A weight loss threshold responder analysis (proportion of
+patients achieving at least 5% weight loss) should be included as a key
+secondary endpoint.
+
+Section 5.1 — Safety
+Cardiovascular safety must be addressed, including monitoring for heart rate,
+blood pressure, and major adverse cardiovascular events (MACE). An independent
+adjudication committee is recommended.
+
+Section 6.0 — Phase 3 Design
+The End-of-Phase-2 briefing document should include a detailed description of
+the proposed Phase 3 design, including sample size justification and an
+off-treatment follow-up period to characterise weight regain.

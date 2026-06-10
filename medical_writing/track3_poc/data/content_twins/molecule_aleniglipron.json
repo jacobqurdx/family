@@ -1,0 +1,29 @@
+{
+  "twin_id": "molecule_aleniglipron",
+  "schema_id": "protocol",
+  "tier": "molecule",
+  "program_name": "Aleniglipron",
+  "trial_name": null,
+  "parent_twin_id": null,
+  "created_at": "2026-01-10T09:00:00",
+  "elements": {
+    "drug_name": {
+      "element_id": "drug_name",
+      "value": "aleniglipron",
+      "status": "verified",
+      "source": "user",
+      "override_justification": null,
+      "last_modified": "2026-01-10T09:00:00",
+      "modified_by": "regulatory_lead"
+    },
+    "indication": {
+      "element_id": "indication",
+      "value": "obesity",
+      "status": "verified",
+      "source": "user",
+      "override_justification": null,
+      "last_modified": "2026-01-10T09:00:00",
+      "modified_by": "regulatory_lead"
+    }
+  }
+}

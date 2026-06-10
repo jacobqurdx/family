@@ -1,0 +1,130 @@
+{
+  "twin_id": "trial_access_ii",
+  "schema_id": "protocol",
+  "tier": "trial",
+  "program_name": "Aleniglipron",
+  "trial_name": "ACCESS II",
+  "parent_twin_id": "molecule_aleniglipron",
+  "created_at": "2026-01-15T10:00:00",
+  "elements": {
+    "drug_name": {
+      "element_id": "drug_name",
+      "value": "aleniglipron",
+      "status": "verified",
+      "source": "inherited:molecule_aleniglipron",
+      "override_justification": null,
+      "last_modified": "2026-01-15T10:00:00",
+      "modified_by": "system"
+    },
+    "indication": {
+      "element_id": "indication",
+      "value": "obesity",
+      "status": "verified",
+      "source": "inherited:molecule_aleniglipron",
+      "override_justification": null,
+      "last_modified": "2026-01-15T10:00:00",
+      "modified_by": "system"
+    },
+    "study_phase": {
+      "element_id": "study_phase",
+      "value": "Phase 2",
+      "status": "verified",
+      "source": "user",
+      "override_justification": null,
+      "last_modified": "2026-01-15T10:05:00",
+      "modified_by": "medical_writer_1"
+    },
+    "design_type": {
+      "element_id": "design_type",
+      "value": "randomized, double-blind, placebo-controlled, parallel-group",
+      "status": "verified",
+      "source": "user",
+      "override_justification": null,
+      "last_modified": "2026-01-15T10:10:00",
+      "modified_by": "medical_writer_1"
+    },
+    "primary_endpoint": {
+      "element_id": "primary_endpoint",
+      "value": "change from baseline in body weight (%)",
+      "status": "verified",
+      "source": "user",
+      "override_justification": null,
+      "last_modified": "2026-01-15T10:15:00",
+      "modified_by": "medical_writer_1"
+    },
+    "primary_endpoint_timepoint": {
+      "element_id": "primary_endpoint_timepoint",
+      "value": "Week 36",
+      "status": "verified",
+      "source": "user",
+      "override_justification": null,
+      "last_modified": "2026-01-15T10:15:00",
+      "modified_by": "medical_writer_1"
+    },
+    "primary_analysis_type": {
+      "element_id": "primary_analysis_type",
+      "value": "Mixed Model for Repeated Measures (MMRM)",
+      "status": "verified",
+      "source": "user",
+      "override_justification": null,
+      "last_modified": "2026-01-15T10:20:00",
+      "modified_by": "biostatistician_1"
+    },
+    "study_duration_weeks": {
+      "element_id": "study_duration_weeks",
+      "value": 40,
+      "status": "verified",
+      "source": "user",
+      "override_justification": null,
+      "last_modified": "2026-01-15T10:20:00",
+      "modified_by": "medical_writer_1"
+    },
+    "population_age_min": {
+      "element_id": "population_age_min",
+      "value": 18,
+      "status": "verified",
+      "source": "user",
+      "override_justification": null,
+      "last_modified": "2026-01-15T10:25:00",
+      "modified_by": "medical_writer_1"
+    },
+    "population_age_max": {
+      "element_id": "population_age_max",
+      "value": 75,
+      "status": "verified",
+      "source": "user",
+      "override_justification": null,
+      "last_modified": "2026-01-15T10:25:00",
+      "modified_by": "medical_writer_1"
+    },
+    "inclusion_criteria": {
+      "element_id": "inclusion_criteria",
+      "value": [
+        "Age 18-75 years inclusive",
+        "BMI >=30 kg/m2 at screening, or BMI >=27 kg/m2 with at least one weight-related comorbidity",
+        "Stable body weight (<=5% change) in the 3 months prior to screening",
+        "Willing and able to comply with diet and exercise counselling programme"
+      ],
+      "status": "verified",
+      "source": "user",
+      "override_justification": null,
+      "last_modified": "2026-01-15T10:30:00",
+      "modified_by": "medical_writer_1"
+    },
+    "exclusion_criteria": {
+      "element_id": "exclusion_criteria",
+      "value": [
+        "Prior or current use of any approved or investigational weight loss medication within 6 months of screening",
+        "History of bariatric surgery or other surgical procedure for weight loss at any time",
+        "Type 1 diabetes mellitus",
+        "eGFR <45 mL/min/1.73m2 at screening",
+        "History of major adverse cardiovascular event within 12 months of screening"
+      ],
+      "status": "verified",
+      "source": "user",
+      "override_justification": null,
+      "last_modified": "2026-01-15T10:30:00",
+      "modified_by": "medical_writer_1"
+    }
+  }
+}
