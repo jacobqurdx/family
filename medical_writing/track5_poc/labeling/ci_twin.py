@@ -31,6 +31,30 @@ class CITwinManager:
             raise FileNotFoundError(f"CI twin not found: {ci_twin_id}")
         return CompetitiveIntelligenceTwin(**json.loads(path.read_text()))
 
+    @staticmethod
+    def rebuild_index(ci_twin: CompetitiveIntelligenceTwin) -> CompetitiveIntelligenceTwin:
+        """Recompute claims_by_section from the current approved_claims list."""
+        index = {}
+        for c in ci_twin.approved_claims:
+            index.setdefault(c.label_section, []).append(c.claim_id)
+        ci_twin.claims_by_section = index
+        return ci_twin
+
+    def save(self, ci_twin: CompetitiveIntelligenceTwin, bump_version: bool = True) -> None:
+        """Persist the CI twin back to disk. The CI twin is shared across all
+        programs in the indication class — saving is a deliberate library edit."""
+        import datetime
+        self.rebuild_index(ci_twin)
+        if bump_version:
+            try:
+                major = int(float(ci_twin.version))
+                ci_twin.version = f"{major + 1}.0"
+            except (ValueError, TypeError):
+                ci_twin.version = f"{ci_twin.version}+1"
+        ci_twin.last_updated = datetime.datetime.utcnow()
+        path = self._dir / f"{ci_twin.ci_twin_id}.json"
+        path.write_text(ci_twin.model_dump_json(indent=2))
+
     def get_claims_for_section(self, ci_twin: CompetitiveIntelligenceTwin,
                                label_section: str) -> list:
         """All approved claims for a given label section across all competitors."""

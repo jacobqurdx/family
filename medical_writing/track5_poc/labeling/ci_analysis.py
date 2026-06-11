@@ -67,16 +67,21 @@ def _claims_in_section(ci_twin, section):
     return [c for c in ci_twin.approved_claims if c.label_section == section]
 
 
-def achievability_table(ci_twin: CompetitiveIntelligenceTwin, content_twin=None) -> list:
-    """One row per CCDS section: precedent count, our-data readiness, overall signal."""
+def achievability_table(ci_twin: CompetitiveIntelligenceTwin, content_twin=None,
+                        signal_overrides: dict = None) -> list:
+    """One row per CCDS section: precedent count, our-data readiness, overall signal.
+    signal_overrides (section -> signal) lets the reviewer override the machine read."""
+    signal_overrides = signal_overrides or {}
     rows = []
     for section in CCDS_SECTIONS_5:
         plan = SECTION_PLAN.get(section, {"our_data": "—", "signal": "GAP"})
+        signal = signal_overrides.get(section, plan["signal"])
         rows.append({
             "section": section,
             "precedents": len(_claims_in_section(ci_twin, section)),
             "our_data": plan["our_data"],
-            "signal": plan["signal"],
+            "signal": signal,
+            "overridden": section in signal_overrides,
         })
     return rows
 
@@ -111,8 +116,11 @@ def strategic_insight(ci_twin: CompetitiveIntelligenceTwin,
     )
 
 
-def comparator_detail(ci_twin: CompetitiveIntelligenceTwin, drug_name: str) -> list:
-    """Per-section claim detail for one comparator drug, with adopt/adapt/skip signal."""
+def comparator_detail(ci_twin: CompetitiveIntelligenceTwin, drug_name: str,
+                      action_overrides: dict = None) -> list:
+    """Per-section claim detail for one comparator drug, with adopt/adapt/skip signal.
+    action_overrides (section -> action) lets the reviewer change the recommendation."""
+    action_overrides = action_overrides or {}
     out = []
     for section in CCDS_SECTIONS_5:
         claims = [c for c in _claims_in_section(ci_twin, section)
@@ -120,14 +128,16 @@ def comparator_detail(ci_twin: CompetitiveIntelligenceTwin, drug_name: str) -> l
         if not claims:
             continue
         plan = SECTION_PLAN.get(section, {"action": "adapt", "delta": ""})
+        action = action_overrides.get(section, plan["action"])
         for c in claims:
             out.append({
                 "section": section,
                 "claim_text": c.claim_text,
-                "action": plan["action"],
-                "color": ACTION_COLOR.get(plan["action"], "gray"),
+                "action": action,
+                "color": ACTION_COLOR.get(action, "gray"),
                 "delta": plan["delta"],
                 "regulatory_notes": c.regulatory_notes,
+                "overridden": section in action_overrides,
             })
     return out
 
@@ -144,7 +154,8 @@ def list_comparators(ci_twin: CompetitiveIntelligenceTwin) -> list:
 
 
 def reference_sections(ci_twin: CompetitiveIntelligenceTwin,
-                       reference_drug: str, message_map=None) -> list:
+                       reference_drug: str, message_map=None,
+                       action_overrides: dict = None) -> list:
     """
     Synchronized reference→proposed rows for the Message Map / Draft Bridge views.
     One entry per CCDS section: the reference comparator's text, the recommended
@@ -156,17 +167,19 @@ def reference_sections(ci_twin: CompetitiveIntelligenceTwin,
         for claim in message_map.claims:
             mm_by_section.setdefault(claim.label_section, claim)
 
+    action_overrides = action_overrides or {}
     rows = []
     for section in CCDS_SECTIONS_5:
         plan = SECTION_PLAN.get(section, {"action": "adapt", "delta": "", "signal": "MED"})
+        action = action_overrides.get(section, plan["action"])
         ref_claims = _claims_in_section(ci_twin, section)
         ref = next((c for c in ref_claims if c.drug_name == reference_drug),
                    ref_claims[0] if ref_claims else None)
         mm_claim = mm_by_section.get(section)
         rows.append({
             "section": section,
-            "action": plan["action"],
-            "color": ACTION_COLOR.get(plan["action"], "gray"),
+            "action": action,
+            "color": ACTION_COLOR.get(action, "gray"),
             "signal": plan.get("signal", "MED"),
             "delta": plan["delta"],
             "reference_text": ref.claim_text if ref else "(no approved precedent for this section)",

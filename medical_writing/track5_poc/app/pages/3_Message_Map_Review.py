@@ -46,7 +46,8 @@ if "message_map" not in st.session_state:
 
 message_map = st.session_state["message_map"]
 claims_by_id = {c.claim_id: c for c in message_map.claims}
-rows = reference_sections(ci_twin, session.reference_label, message_map)
+rows = reference_sections(ci_twin, session.reference_label, message_map,
+                          action_overrides=session.ci_action_overrides)
 
 # Colour system for reference highlights
 TINT = {"purple": ("#f3effc", "#6f42c1"), "amber": ("#fdf6e3", "#bf8700"),

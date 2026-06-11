@@ -129,6 +129,11 @@ class LabelingSession(BaseModel):
     survey_response: Optional[dict] = None
     status: str = "in_progress"
 
+    # CI Review reviewer overrides (program-specific; do not mutate the shared CI twin)
+    ci_signal_overrides: dict = Field(default_factory=dict)   # section -> "HIGH"|"MED"|"GAP"
+    ci_action_overrides: dict = Field(default_factory=dict)   # section -> "adopt"|"adapt"|"new"|"skip"
+    strategic_insight_override: Optional[str] = None
+
     # Draft generation and review outcomes (label-draft extension)
     draft_id: Optional[str] = None
     draft_content_revision_requests: int = 0   # content_change type only
