@@ -10,8 +10,10 @@ from labeling.message_map import MessageMapManager
 from governance.permissions import PermissionEngine, Permission
 from workflow.session import SessionManager
 from workflow.timer import StepTimer
+from workflow.ui import render_stepper
 
 st.set_page_config(page_title="Message Map Lock", layout="wide")
+render_stepper(active_step=5)
 st.title("Lock Message Map")
 st.caption("Regulatory affairs lead locks the message map — this is the alignment milestone")
 
@@ -68,4 +70,4 @@ if st.button("Lock Message Map",
         f"**{high}** high achievability claims | **{med}** medium | **{low}** low.\n\n"
         f"This locked message map is now the input to CCDS authoring."
     )
-    st.info("Navigate to **Label Draft** to generate the CCDS draft from the locked map.")
+    st.page_link("pages/6_Draft_Bridge.py", label="Next: Draft Bridge →", icon="➡️")

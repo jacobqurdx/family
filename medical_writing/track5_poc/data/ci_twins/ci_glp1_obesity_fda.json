@@ -121,12 +121,78 @@
       "source_label": "Zepbound US Prescribing Information, November 2023",
       "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=zepbound",
       "regulatory_notes": "GI adverse reaction profile broadly consistent with semaglutide."
+    },
+    {
+      "claim_id": "ap_013",
+      "drug_name": "orforglipron (Foundayo)",
+      "indication": "obesity",
+      "label_section": "Indications and Usage",
+      "claim_text": "FOUNDAYO is indicated as an adjunct to a reduced-calorie diet and increased physical activity for chronic weight management in adults with an initial BMI of 30 kg/m2 or greater (obesity), or 27 kg/m2 or greater (overweight) in the presence of at least one weight-related comorbidity.",
+      "evidence_standard": "Phase 3 ATTAIN trial program",
+      "quantitative_threshold": "Mean body weight reduction vs placebo",
+      "approval_date": "2026-02-10",
+      "source_label": "Foundayo US Prescribing Information, February 2026",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=foundayo",
+      "regulatory_notes": "Most recent obesity approval and closest mechanism precedent for aleniglipron. Indication language identical to the established class standard — adopt verbatim."
+    },
+    {
+      "claim_id": "ap_014",
+      "drug_name": "orforglipron (Foundayo)",
+      "indication": "obesity",
+      "label_section": "Dosage and Administration",
+      "claim_text": "The recommended dosage of FOUNDAYO is administered orally once daily, with dose escalation over several weeks to the maintenance dose to reduce gastrointestinal adverse reactions.",
+      "evidence_standard": "Phase 3 ATTAIN dose-escalation schedule",
+      "quantitative_threshold": null,
+      "approval_date": "2026-02-10",
+      "source_label": "Foundayo US Prescribing Information, February 2026",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=foundayo",
+      "regulatory_notes": "DIVERGENCE: Foundayo is an oral small-molecule (nonpeptide) GLP-1 agonist. Aleniglipron route of administration is not yet finalised; this dosing language cannot be adopted until the aleniglipron route and titration schedule are confirmed."
+    },
+    {
+      "claim_id": "ap_015",
+      "drug_name": "orforglipron (Foundayo)",
+      "indication": "obesity",
+      "label_section": "Warnings and Precautions",
+      "claim_text": "FOUNDAYO has not been shown to cause thyroid C-cell tumors in rodents. The nonpeptide mechanism of FOUNDAYO produced no treatment-related thyroid C-cell findings in the carcinogenicity program; accordingly, FOUNDAYO does not carry the GLP-1 class boxed warning for medullary thyroid carcinoma.",
+      "evidence_standard": "Foundayo-specific 2-year rodent carcinogenicity program",
+      "quantitative_threshold": null,
+      "approval_date": "2026-02-10",
+      "source_label": "Foundayo US Prescribing Information, February 2026",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=foundayo",
+      "regulatory_notes": "ADAPTATION: Foundayo's nonpeptide mechanism produced no rodent thyroid C-cell tumors, so it omits the class boxed warning. Aleniglipron's nonclinical thyroid findings must determine which warning variant applies — do not adopt Foundayo's omission until aleniglipron carcinogenicity data confirm the same finding."
+    },
+    {
+      "claim_id": "ap_016",
+      "drug_name": "orforglipron (Foundayo)",
+      "indication": "obesity",
+      "label_section": "Adverse Reactions",
+      "claim_text": "The most common adverse reactions (incidence >=5%) in FOUNDAYO-treated patients were nausea, diarrhea, vomiting, constipation, abdominal pain, and dyspepsia. Hair loss (alopecia) was reported at a higher incidence than placebo.",
+      "evidence_standard": "Pooled ATTAIN safety population",
+      "quantitative_threshold": "incidence >=5% and greater than placebo",
+      "approval_date": "2026-02-10",
+      "source_label": "Foundayo US Prescribing Information, February 2026",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=foundayo",
+      "regulatory_notes": "GI profile is class standard — adopt. Confirmation note: verify whether aleniglipron shares the alopecia signal observed for Foundayo before including or omitting it."
+    },
+    {
+      "claim_id": "ap_017",
+      "drug_name": "orforglipron (Foundayo)",
+      "indication": "obesity",
+      "label_section": "Clinical Studies",
+      "claim_text": "In ATTAIN-1, the proportion of patients achieving at least 5% reduction in body weight at the primary timepoint was significantly greater with FOUNDAYO than with placebo.",
+      "evidence_standard": "ATTAIN-1 trial",
+      "quantitative_threshold": ">=5% body weight loss responder analysis",
+      "approval_date": "2026-02-10",
+      "source_label": "Foundayo US Prescribing Information, February 2026",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=foundayo",
+      "regulatory_notes": "Responder analysis structure is class standard. Aleniglipron values are Phase 2 only — final label language requires Phase 3 data."
     }
   ],
   "claims_by_section": {
-    "Indications and Usage": ["ap_001", "ap_002", "ap_003"],
-    "Clinical Studies": ["ap_006", "ap_007"],
-    "Warnings and Precautions": ["ap_008", "ap_009"],
-    "Adverse Reactions": ["ap_011", "ap_012"]
+    "Indications and Usage": ["ap_001", "ap_002", "ap_003", "ap_013"],
+    "Dosage and Administration": ["ap_014"],
+    "Clinical Studies": ["ap_006", "ap_007", "ap_017"],
+    "Warnings and Precautions": ["ap_008", "ap_009", "ap_015"],
+    "Adverse Reactions": ["ap_011", "ap_012", "ap_016"]
   }
 }

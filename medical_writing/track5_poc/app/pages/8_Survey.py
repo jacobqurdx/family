@@ -6,8 +6,10 @@ import streamlit as st
 from labeling.labeling_models import LabelingSurveyResponse
 from workflow.survey import submit_survey, SURVEY_QUESTIONS
 from workflow.session import SessionManager
+from workflow.ui import render_stepper
 
 st.set_page_config(page_title="Survey", layout="wide")
+render_stepper(active_step=8)
 st.title("Post-Session Survey")
 st.caption("Rate your experience with the message-map-first labeling workflow")
 
@@ -57,6 +59,8 @@ if st.button("Submit Survey"):
         would_use_in_production=production_use, changes_needed=changes,
     )
     submit_survey(session, response)
+    session.phase = "complete"
+    session.status = "complete"
     SessionManager().save(session)
     st.success("Survey submitted. Thank you for your feedback.")
-    st.info("Operator: see the **Results Dashboard** for cross-session metrics.")
+    st.page_link("pages/9_Results_Dashboard.py", label="View Results Dashboard →", icon="📊")

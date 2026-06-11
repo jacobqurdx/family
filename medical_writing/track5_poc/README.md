@@ -32,9 +32,11 @@ labeling/
 ├── message_map_generator.py  # MessageMapGenerator (LLM-14 stub, high/low quality)
 ├── labeling_qc.py            # LabelingQCValidator — labeling checklist (claim-type + precedent)
 ├── draft_models.py           # LabelDraft, LabelSection, DraftReviewResult, DraftRevisionRequest
-└── label_draft_generator.py  # LabelDraftGenerator (LLM-15 stub) — CCDS prose from locked map
+├── label_draft_generator.py  # LabelDraftGenerator (LLM-15 stub) — CCDS prose from locked map
+└── ci_analysis.py            # achievability table · strategic insight · comparator detail · diff rows
 workflow/
 ├── session.py                # LabelingSession re-export + SessionManager persistence
+├── ui.py                     # wizard stepper + Hub step-status logic (v2 navigation)
 ├── timer.py · survey.py · evaluator.py
 ```
 
@@ -50,17 +52,31 @@ venv/bin/python -m cli.main map generate
 venv/bin/streamlit run app/streamlit_app.py --server.port 8505
 ```
 
-## Session flow
+## Navigation (v2 — wizard-first, hub-after)
 
-Operator Setup → CI Review → Message Map Review (claim by claim) → QC Pipeline
-(labeling checklist) → Message Map Lock → **Label Draft** (CCDS prose from the
-locked map) → **Draft Review** (rate quality, log content revisions) → Survey →
-Results Dashboard.
+First run walks an 8-step wizard in order; a progress stepper sits at the top of
+every wizard page. Return visits land on the **Hub** (page 0), which shows status
+across all steps and lets you jump to any of them.
 
-The label-draft extension closes the loop from CI synthesis to a reviewable
-CCDS draft. The end-to-end hypothesis: a draft generated from a CI-grounded
-message map needs **fewer content revision requests** than one from a
-low-quality map.
+```
+0 Hub  ·  1 Operator Setup  ·  2 CI Review  ·  3 Message Map  ·  4 QC  ·
+5 Lock  ·  6 Draft Bridge  ·  7 Claim Inspector  ·  8 Survey  ·  9 Results Dashboard
+```
+
+Key v2 screens:
+- **CI Review** — full-width strategic insight bar + achievability ceiling table
+  (5 CCDS sections, HIGH/MED/GAP signals) + per-comparator detail with
+  adopt/adapt/skip chips. Foundayo (orforglipron) is the default reference.
+- **Message Map** — each CCDS section is one full-width row (reference · decision ·
+  proposed) so the three columns stay aligned and the page scrolls as a unit;
+  colour-coded reference highlights (🟣 adopt / 🟡 adapt / 🔴 diverge).
+- **Draft Bridge** — locked claims (left) → generated prose (right), level rows,
+  confidence bars, blue CI-traceable underlines, amber gap badges, approve/flag.
+- **Claim Inspector** — Precision Chain: claim list · evidence chain
+  (CI precedent → locked claim → generated) · wider draft column with assessment.
+
+The end-to-end hypothesis: a draft generated from a CI-grounded message map needs
+**fewer content revision requests** than one from a low-quality map.
 
 ## LLM workstream items (stubbed here)
 - **LLM-13 Competitive Label Extractor** — auto-populates the CI twin from DailyMed/FDA labels.

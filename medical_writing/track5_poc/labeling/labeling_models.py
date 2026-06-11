@@ -109,6 +109,7 @@ class LabelingSession(BaseModel):
     indication: str
     ci_twin_id: str
     content_twin_id: str
+    reference_label: str = "orforglipron (Foundayo)"   # selected comparator (v2 UX)
     map_id: Optional[str] = None
 
     created_at: datetime.datetime = Field(default_factory=datetime.datetime.utcnow)

@@ -6,8 +6,10 @@ import streamlit as st
 import config
 from labeling.labeling_qc import LabelingQCValidator
 from workflow.session import SessionManager
+from workflow.ui import render_stepper
 
 st.set_page_config(page_title="QC Pipeline", layout="wide")
+render_stepper(active_step=4)
 st.title("QC Pipeline — Labeling Checklist")
 st.caption("Automated QC checks against standing labeling rules before locking")
 
@@ -54,7 +56,7 @@ if findings is not None:
             st.caption(f"Resolution: {finding.suggested_resolution}")
 
     if not blocking:
-        if st.button("QC Complete — Lock Message Map →"):
+        if st.button("QC Complete — Lock Message Map →", type="primary"):
             session.phase = "locked"
             SessionManager().save(session)
-            st.info("Navigate to **Message Map Lock** to finalise.")
+        st.page_link("pages/5_Message_Map_Lock.py", label="Next: Message Map Lock →", icon="➡️")

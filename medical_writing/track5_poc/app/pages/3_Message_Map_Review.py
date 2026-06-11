@@ -3,34 +3,37 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 import streamlit as st
+import datetime
 import config
 from labeling.message_map_generator import MessageMapGenerator
 from labeling.ci_twin import CITwinManager
+from labeling.ci_analysis import reference_sections
 from labeling.labeling_models import Achievability
 from core.twin import DigitalTwin
 from workflow.session import SessionManager
 from workflow.timer import StepTimer
+from workflow.ui import render_stepper
 
-st.set_page_config(page_title="Message Map Review", layout="wide")
-st.title("Message Map Review")
-st.caption("Review the generated message map claim by claim — this is the alignment before authoring")
+st.set_page_config(page_title="Message Map", layout="wide")
+render_stepper(active_step=3)
+
+st.title("Message Map Definition")
+st.caption("Reference label vs proposed claim — review and decide, section by section")
 
 if "labeling_session" not in st.session_state:
     st.warning("No active session.")
     st.stop()
 
 session = st.session_state["labeling_session"]
-config.SESSION_ROLE = "regulatory_affairs"
 config.SIMULATION_MODE = session.simulation_mode
+ci_twin = CITwinManager().load(session.ci_twin_id)
 
-# Generate message map once per session
+# Generate the message map once
 if "message_map" not in st.session_state:
-    ci_twin = CITwinManager().load(session.ci_twin_id)
-    content_twin = DigitalTwin.load(session.content_twin_id)
-    timer = StepTimer(session)
     with st.spinner("Generating message map from CI twin and content twin..."):
+        timer = StepTimer(session)
         timer.mark("map_generation_start")
-        message_map = MessageMapGenerator(use_real_llm=False).generate(ci_twin, content_twin)
+        message_map = MessageMapGenerator().generate(ci_twin, DigitalTwin.load(session.content_twin_id))
         timer.mark("map_generation_complete")
     session.map_id = message_map.map_id
     session.claims_total = len(message_map.claims)
@@ -42,85 +45,101 @@ if "message_map" not in st.session_state:
     SessionManager().save(session)
 
 message_map = st.session_state["message_map"]
+claims_by_id = {c.claim_id: c for c in message_map.claims}
+rows = reference_sections(ci_twin, session.reference_label, message_map)
 
-col1, col2, col3, col4 = st.columns(4)
-col1.metric("Total Claims", session.claims_total)
-col2.metric("High Achievability", message_map.high_achievability_count,
-            help="Strong precedent; likely FDA approval")
-col3.metric("Medium Achievability", message_map.medium_achievability_count,
-            help="Precedent exists; some risk")
-col4.metric("Low / Gaps", message_map.low_achievability_count + len(message_map.gaps_detected),
-            help="Novel claims or missing data — need attention")
+# Colour system for reference highlights
+TINT = {"purple": ("#f3effc", "#6f42c1"), "amber": ("#fdf6e3", "#bf8700"),
+        "red": ("#fcebec", "#cf222e"), "blue": ("#eef4fc", "#0969da")}
+ACTION_OPTIONS = ["Adopt", "Adapt", "New", "Skip"]
+DEFAULT_ACTION = {"adopt": "Adopt", "adapt": "Adapt", "new": "New", "skip": "Skip"}
 
 st.info(
-    "**How to use this:** Each claim shows the proposed label language, the competitive "
-    "precedent that supports it, the achievability rating, and a risk note. Review each "
-    "claim — edit the language, change the achievability rating, or fill a gap. Lock the "
-    "message map when all claims are decided."
+    "Each row shows the **reference label** (left, colour-coded: 🟣 adopt · 🟡 adapt · 🔴 diverge), "
+    "your **decision** (centre), and the **proposed aleniglipron claim** (right). The page scrolls "
+    "as one unit so the three columns stay aligned."
 )
 
-sections = {}
-for claim in message_map.claims:
-    sections.setdefault(claim.label_section, []).append(claim)
+# Sticky column-header bar
+st.markdown(
+    "<div style='position:sticky;top:0;z-index:5;background:#fff;border-bottom:2px solid #d0d7de;"
+    "padding:6px 0;display:flex;font-weight:600;font-size:0.85rem;'>"
+    "<div style='flex:0 0 42%;'>Reference Label</div>"
+    "<div style='flex:0 0 14%;text-align:center;'>Decision</div>"
+    "<div style='flex:0 0 44%;'>Aleniglipron</div></div>",
+    unsafe_allow_html=True,
+)
 
-for section_name, claims in sections.items():
-    st.subheader(section_name)
-    for claim in claims:
-        color = {Achievability.HIGH: "green", Achievability.MEDIUM: "orange",
-                 Achievability.LOW: "red"}.get(claim.achievability, "gray")
-        icon = {"high": "🟢", "medium": "🟡", "low": "🔴"}[claim.achievability.value]
-        with st.expander(
-            f":{color}[{icon} {claim.achievability.value.upper()}] — {claim.label_section} "
-            f"| Confidence: {claim.confidence:.0%}",
-            expanded=(claim.achievability != Achievability.HIGH or claim.is_gap),
-        ):
-            st.markdown("**Proposed label language:**")
-            new_text = st.text_area("Edit claim text:", value=claim.proposed_claim_text,
-                                    key=f"text_{claim.claim_id}", height=100)
+# Drug anchor row
+anchor_l, _, anchor_r = st.columns([42, 14, 44])
+anchor_l.markdown(f"**{session.reference_label}** · approved precedent")
+anchor_r.markdown(f"**{session.program_name}** · proposed label")
 
-            col1, col2 = st.columns(2)
-            with col1:
-                st.markdown("**Competitive precedent:**")
-                st.caption(claim.precedent_summary)
-                if claim.regulatory_precedent_ids:
-                    st.caption(f"Based on: {', '.join(claim.regulatory_precedent_ids)}")
-                else:
-                    st.warning("No precedent citations — manual review required.")
-            with col2:
-                st.markdown("**Risk assessment:**")
-                st.caption(claim.risk_note or "No specific risk noted.")
-                new_achiev = st.selectbox(
-                    "Achievability:", options=[a.value for a in Achievability],
-                    index=[a.value for a in Achievability].index(claim.achievability.value),
-                    key=f"achiev_{claim.claim_id}")
+for row in rows:
+    sid = row["section"].lower().replace(" ", "_")
+    bg, border = TINT.get(row["color"], ("#f6f8fa", "#d0d7de"))
+    cL, cM, cR = st.columns([42, 14, 44])
 
+    with cL:
+        st.markdown(
+            f"<div style='background:{bg};border-left:4px solid {border};padding:8px 12px;"
+            f"border-radius:4px;min-height:90px;'>"
+            f"<div style='font-size:0.78rem;color:#57606a;'>{row['section']}</div>"
+            f"<div style='font-family:Georgia,serif;margin-top:4px;'>{row['reference_text']}</div>"
+            f"</div>",
+            unsafe_allow_html=True,
+        )
+
+    with cM:
+        st.radio("decision", ACTION_OPTIONS,
+                 index=ACTION_OPTIONS.index(DEFAULT_ACTION.get(row["action"], "Adapt")),
+                 key=f"decision_{sid}", label_visibility="collapsed")
+
+    with cR:
+        claim = claims_by_id.get(row["claim_id"]) if row["claim_id"] else None
+        if claim is not None:
+            st.text_area("proposed claim", value=claim.proposed_claim_text,
+                         key=f"text_{claim.claim_id}", height=90, label_visibility="collapsed")
             if claim.is_gap:
-                st.warning(f"GAP: `{claim.supporting_element_id}` not yet in content twin.")
-                gap_value = st.text_input(f"Provide value for `{claim.supporting_element_id}`:",
-                                          key=f"gap_{claim.claim_id}")
-                back_prop = st.checkbox("Save to aleniglipron content twin",
-                                        key=f"bp_{claim.claim_id}",
-                                        help="Back-propagate this value for future documents.")
-                if gap_value:
-                    claim.supporting_value = gap_value
+                gv = st.text_input(f"Fill gap `{claim.supporting_element_id}`",
+                                   key=f"gap_{claim.claim_id}")
+                bp = st.checkbox("Save to content twin", key=f"bp_{claim.claim_id}")
+                if gv:
+                    claim.supporting_value = gv
                     claim.is_gap = False
-                    claim.back_propagate = back_prop
+                    claim.back_propagate = bp
+            if row["delta"]:
+                st.markdown(
+                    f"<div style='font-size:0.78rem;color:#bf8700;border-left:3px solid #bf8700;"
+                    f"padding-left:8px;margin-top:4px;'>Δ {row['delta']}</div>",
+                    unsafe_allow_html=True,
+                )
+        else:
+            st.markdown(
+                f"<div style='color:#cf222e;font-size:0.85rem;padding:8px 0;'>"
+                f"No proposed claim — section marked <strong>Skip</strong>.</div>",
+                unsafe_allow_html=True,
+            )
+            if row["delta"]:
+                st.markdown(
+                    f"<div style='font-size:0.78rem;color:#cf222e;border-left:3px solid #cf222e;"
+                    f"padding-left:8px;'>Δ {row['delta']}</div>",
+                    unsafe_allow_html=True,
+                )
+    st.divider()
 
-            claim.proposed_claim_text = new_text
-            claim.achievability = Achievability(new_achiev)
-
-if st.button("All Claims Reviewed — Run QC →"):
-    # Derive outcome counters from current claim state (idempotent across reruns).
-    # gaps_detected was set at generation; remaining gaps are those still flagged.
+if st.button("All Claims Reviewed — Run QC →", type="primary"):
+    # persist edited text + recompute counters idempotently
+    for claim in message_map.claims:
+        edited = st.session_state.get(f"text_{claim.claim_id}")
+        if edited is not None:
+            claim.proposed_claim_text = edited
     remaining_gaps = sum(1 for c in message_map.claims if c.is_gap)
     message_map.recount()
     session.reviewer_decisions = len(message_map.claims)
     session.gaps_filled_jit = max(session.gaps_detected - remaining_gaps, 0)
     session.back_propagations = sum(1 for c in message_map.claims if c.back_propagate)
-    session.claims_high = message_map.high_achievability_count
-    session.claims_medium = message_map.medium_achievability_count
-    session.claims_low = message_map.low_achievability_count
     session.phase = "qc"
     st.session_state["message_map"] = message_map
     SessionManager().save(session)
-    st.info("Navigate to **QC Pipeline** to run the labeling checklist.")
+    st.page_link("pages/4_QC_Pipeline.py", label="Next: QC Pipeline →", icon="➡️")
