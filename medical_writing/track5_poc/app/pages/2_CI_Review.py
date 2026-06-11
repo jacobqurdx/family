@@ -43,6 +43,25 @@ tab_review, tab_library = st.tabs(["📋 Strategic Review", "✏️ Edit CI Libr
 # TAB 1 — STRATEGIC REVIEW (program-specific overrides; do not touch the twin)
 # ════════════════════════════════════════════════════════════════════════════
 with tab_review:
+    # Sync override dicts from widget state FIRST, so the achievability table and
+    # the comparator chips render in lock-step with their dropdowns (Streamlit
+    # widget state is the source of truth; reading it up front avoids a one-run lag).
+    for _section in CCDS_SECTIONS_5:
+        _sk = f"sig_{_section}"
+        if _sk in st.session_state:
+            _v = st.session_state[_sk]
+            if _v == "(auto)":
+                session.ci_signal_overrides.pop(_section, None)
+            else:
+                session.ci_signal_overrides[_section] = _v
+        _ak = f"act_{_section}"
+        if _ak in st.session_state:
+            _v = st.session_state[_ak]
+            if _v == "(auto)":
+                session.ci_action_overrides.pop(_section, None)
+            else:
+                session.ci_action_overrides[_section] = _v
+
     # ── Strategic insight bar (editable) ─────────────────────────────────────
     generated_insight = strategic_insight(ci_twin, session.program_name.lower(), session.reference_label)
     effective_insight = session.strategic_insight_override or generated_insight
@@ -98,15 +117,15 @@ with tab_review:
         st.markdown(header + body + "</table>", unsafe_allow_html=True)
 
         with st.expander("Override signals"):
+            st.caption("Change a signal to override the machine read for this session. "
+                       "The table above updates immediately.")
             for r in table:
                 opts = ["(auto)"] + SIGNALS
                 cur = session.ci_signal_overrides.get(r["section"], "(auto)")
-                pick = st.selectbox(r["section"], opts, index=opts.index(cur) if cur in opts else 0,
-                                    key=f"sig_{r['section']}")
-                if pick == "(auto)":
-                    session.ci_signal_overrides.pop(r["section"], None)
-                else:
-                    session.ci_signal_overrides[r["section"]] = pick
+                # Widget state (synced at top of run) drives the value; index only
+                # seeds the first render.
+                st.selectbox(r["section"], opts, index=opts.index(cur) if cur in opts else 0,
+                             key=f"sig_{r['section']}")
             if st.button("Save signal overrides"):
                 _save()
                 st.success("Signal overrides saved to session.")
@@ -138,13 +157,10 @@ with tab_review:
             sect = d["section"]
             opts = ["(auto)"] + ACTIONS
             cur = session.ci_action_overrides.get(sect, "(auto)")
-            pick = st.selectbox(f"Action for {sect}", opts,
-                                index=opts.index(cur) if cur in opts else 0,
-                                key=f"act_{sect}", label_visibility="collapsed")
-            if pick == "(auto)":
-                session.ci_action_overrides.pop(sect, None)
-            else:
-                session.ci_action_overrides[sect] = pick
+            # Widget state (synced at top of run) drives the value; index seeds first render.
+            st.selectbox(f"Action for {sect}", opts,
+                         index=opts.index(cur) if cur in opts else 0,
+                         key=f"act_{sect}", label_visibility="collapsed")
         if st.button("Save action overrides"):
             _save()
             st.success("Action overrides saved — they flow into the Message Map decisions.")
