@@ -28,14 +28,25 @@ st.caption(
     "competitive precedent."
 )
 
+st.caption(
+    "**Blocking** findings must be resolved (regenerate / edit the claim) before locking. "
+    "**Major** findings do not block the lock but must be **acknowledged** — e.g. \"values "
+    "pending Phase 3, accepted for now.\" **Minor** findings are informational."
+)
+
 if st.button("Run QC Checklist"):
     findings = LabelingQCValidator().validate(message_map)
     st.session_state["qc_findings"] = findings
+    st.session_state["qc_acknowledged"] = set()   # reset on a fresh run
+    st.session_state["qc_flagged"] = set()
     message_map.qc_passed = not any(f.severity == "blocking" for f in findings)
     st.session_state["message_map"] = message_map
     SessionManager().save(session)
 
 findings = st.session_state.get("qc_findings")
+ack = st.session_state.setdefault("qc_acknowledged", set())
+flagged = st.session_state.setdefault("qc_flagged", set())
+
 if findings is not None:
     blocking = [f for f in findings if f.severity == "blocking"]
     major = [f for f in findings if f.severity == "major"]
@@ -45,17 +56,41 @@ if findings is not None:
         if blocking:
             st.error(f"{len(blocking)} blocking finding(s) — must be resolved before locking.")
         if major:
-            st.warning(f"{len(major)} major finding(s) — review recommended.")
+            unack = [f for f in major if f.finding_id not in ack]
+            st.warning(f"{len(major)} major finding(s) — {len(unack)} still to acknowledge.")
 
     for finding in findings:
         sev_color = {"blocking": "red", "major": "orange", "minor": "blue"}.get(finding.severity, "gray")
+        is_ack = finding.finding_id in ack
+        is_flag = finding.finding_id in flagged
+        badge = "  ✅ acknowledged" if is_ack else ("  🚩 flagged for team" if is_flag else "")
         st.markdown(f":{sev_color}[**{finding.severity.upper()}**] `{finding.category}` "
-                    f"— §{finding.section_id} ({finding.finding_id})")
+                    f"— §{finding.section_id} ({finding.finding_id}){badge}")
         st.write(finding.description)
         if finding.suggested_resolution:
             st.caption(f"Resolution: {finding.suggested_resolution}")
 
-    if not blocking:
+        # Inline actions
+        if finding.severity == "major":
+            b1, b2, _ = st.columns([1, 1, 4])
+            if b1.button("Acknowledge & proceed", key=f"ack_{finding.finding_id}"):
+                ack.add(finding.finding_id); flagged.discard(finding.finding_id); st.rerun()
+            if b2.button("Flag for team", key=f"flag_{finding.finding_id}"):
+                flagged.add(finding.finding_id); ack.discard(finding.finding_id); st.rerun()
+        elif finding.severity == "blocking":
+            b1, _ = st.columns([1, 5])
+            if b1.button("Flag for team", key=f"flag_{finding.finding_id}"):
+                flagged.add(finding.finding_id); st.rerun()
+            st.caption("Blocking findings cannot be acknowledged away — resolve by regenerating "
+                       "the map (high-quality mode) or editing the claim, then re-run QC.")
+        st.divider()
+
+    unack_major = [f for f in major if f.finding_id not in ack]
+    if blocking:
+        st.error("Resolve the blocking finding(s) and re-run QC before locking.")
+    elif unack_major:
+        st.info(f"Acknowledge the {len(unack_major)} remaining major finding(s) above to proceed.")
+    else:
         if st.button("QC Complete — Lock Message Map →", type="primary"):
             session.phase = "locked"
             SessionManager().save(session)

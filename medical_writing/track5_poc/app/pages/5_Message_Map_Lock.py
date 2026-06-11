@@ -30,28 +30,40 @@ high = sum(1 for c in message_map.claims if c.achievability == Achievability.HIG
 med = sum(1 for c in message_map.claims if c.achievability == Achievability.MEDIUM)
 low = sum(1 for c in message_map.claims if c.achievability == Achievability.LOW)
 gaps_remaining = sum(1 for c in message_map.claims if c.is_gap)
-blocking = [f for f in st.session_state.get("qc_findings", []) if f.severity == "blocking"]
+findings = st.session_state.get("qc_findings", [])
+ack = st.session_state.get("qc_acknowledged", set())
+blocking = [f for f in findings if f.severity == "blocking"]
+unack_major = [f for f in findings if f.severity == "major" and f.finding_id not in ack]
 
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("High Achievability", high)
 col2.metric("Medium Achievability", med)
 col3.metric("Low Achievability", low)
 col4.metric("Gaps Remaining", gaps_remaining,
-            delta="must resolve" if gaps_remaining else "all filled",
-            delta_color="inverse")
+            help="Gaps surface as QC findings; acknowledge them on the QC page rather than "
+                 "forcing a placeholder value. They do not hard-block the lock.")
 
-if gaps_remaining:
-    st.warning(f"{gaps_remaining} gap(s) still unresolved. Return to Message Map Review to fill.")
+# Lock gate (v2): blocking findings must be resolved; major findings must be acknowledged.
 if blocking:
-    st.error(f"{len(blocking)} blocking QC finding(s) outstanding — locking is disabled.")
+    st.error(f"{len(blocking)} blocking QC finding(s) outstanding — resolve on the QC page. "
+             f"Locking is disabled.")
+if unack_major:
+    st.warning(f"{len(unack_major)} major QC finding(s) not yet acknowledged — acknowledge "
+               f"them on the QC page before locking.")
+if gaps_remaining:
+    st.caption(f"ℹ️ {gaps_remaining} claim(s) still flagged as gaps (data pending). These are "
+               f"captured as QC findings; acknowledging them is sufficient to lock.")
+if not findings:
+    st.info("Run the QC checklist before locking.")
 
 st.divider()
 ra_notes = st.text_area("Lock notes (optional)",
                         placeholder="Any open items, caveats, or next steps to note at lock time...")
 
+lock_blocked = bool(blocking) or bool(unack_major) or not findings
 can_lock = engine.can("regulatory_affairs", "document_ra_sections", Permission.LOCK)
-if st.button("Lock Message Map",
-             disabled=(gaps_remaining > 0 or bool(blocking) or not can_lock)):
+if st.button("Lock Message Map", type="primary",
+             disabled=(lock_blocked or not can_lock)):
     message_map.locked = True
     message_map.locked_at = datetime.datetime.utcnow()
     message_map.locked_by = "regulatory_affairs"
